@@ -7,7 +7,8 @@ import {
           View,
           TouchableOpacity,
           SafeAreaView,
-          ScrollView
+          ScrollView,
+          TextInput
         } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import {   
@@ -32,7 +33,7 @@ import * as firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import axios from 'axios';
 // this const below is for firebase
 // for future maintainers, please get a new apiKey
 // this github has been public for a while  --Eric
@@ -143,7 +144,51 @@ function Flashcard({ flashcard }) {
   );
 }
 
+
 export function AirAssaultScreen({ navigation, route }) {
+  //strapi implementation
+const [data, setData] = React.useState([])
+const [courseScope, setCourseScope] = React.useState("")
+const [purpose, setPurpose] = React.useState("")
+const [insertTimes, setInsertTimes] = React.useState("")
+const [videoArray, setVideoArray] = React.useState("")
+React.useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log(process.env.REACT_APP_API_URL + "course-informations")
+      const res = await axios.get(
+        "https://airdbnew.onrender.com/api/air-assault-programs" ,
+      {
+        headers: {
+          Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9",
+        }
+      }
+    )
+    console.log(res.data)
+    console.log(res.data.data)
+    setData(res.data.data)
+  } catch (err) {
+    console.log(err);
+   }
+  }
+  console.log(data)
+  
+fetchData();
+}, []);
+React.useEffect(() => {
+  if (data.length > 0) {
+    if (data[0].attributes) {
+      console.log(data[0].attributes.courseScope)
+      setCourseScope(data[0].attributes.courseScope)
+      setPurpose(data[0].attributes.purpose)
+      setInsertTimes(data[0].attributes.insertTimes)
+    } else {
+      console.log("No attributes");
+    }
+  } else {
+    console.log("Data is empty");
+  }
+}, [data]);
   const theme = useTheme();
   const screen = route.name
   return(
@@ -223,9 +268,10 @@ export function AirAssaultScreen({ navigation, route }) {
               </View>
 
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
-                To train Soldiers in Air Assault operations, sling-load operations, and rappelling. Upon graduation of 
+                {/*To train Soldiers in Air Assault operations, sling-load operations, and rappelling. Upon graduation of 
                 the course each Soldier will be able to perform skills required to make maximum 
-                use of helicopter assets in training and in combat to support their unit operations.
+              use of helicopter assets in training and in combat to support their unit operations.*/}
+              {purpose}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -233,11 +279,12 @@ export function AirAssaultScreen({ navigation, route }) {
                 <View style={styles.rectangle}></View>
               </View>
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
-                Soldiers are trained on the missions performed by rotary wing aircraft, aircraft safety, 
+                {/*Soldiers are trained on the missions performed by rotary wing aircraft, aircraft safety, 
                 aero-medical evacuation procedures, pathfinder operations, principles and techniques of 
                 combat assaults, rappelling techniques, and sling-load operations. The core POI 
                 requires minimum support assets and is adaptable to organic aviation elements. Both the 
-                core instruction and the additional instruction are conducted in a classroom/field environment.
+              core instruction and the additional instruction are conducted in a classroom/field environment.*/}
+              {courseScope}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -245,14 +292,32 @@ export function AirAssaultScreen({ navigation, route }) {
                 <View style={styles.rectangle}></View>
               </View>
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
-                Day Zero - 0600{"\n"}{"\n"}
+                {/*Day Zero - 0600{"\n"}{"\n"}
                 Phase One - Day One - 0800{"\n"}{"\n"}
                 Phase Two - Day Three - 0900{"\n"}{"\n"}
                 Phase Three - Day Six - 1400{"\n"}{"\n"}
-                12 mile Foot March - Day Nine - 1300
+                12 mile Foot March - Day Nine - 1300*/}
+                {insertTimes}
               </Text>
             </Card.Content>
             <Divider bold={true}></Divider>
+            <TouchableRipple
+              onPress={() => {
+                navigation.navigate('Video Hub',{ 
+                  source: 'airassault' // or 'airassault' for airassaulthome.js
+                  });
+              }}
+              borderless={true}
+              style={{ borderRadius: 0 }}
+            >
+              <Card.Title
+                title="Video Hub"
+                titleVariant="titleLarge"
+                left={(props) => <Icon name='video' color={theme.colors.primary} size={24} style={{ marginLeft: 8 }} />}
+                right={(props) => <Icon name='chevron-right' color={theme.colors.primary} size={24} style={{ marginRight: 32 }} />}
+              />
+          </TouchableRipple>
+          <Divider bold={true}></Divider>
           <TouchableRipple
               onPress={() => {
                 navigation.navigate('Slingload Integration',{ 
@@ -276,6 +341,14 @@ export function AirAssaultScreen({ navigation, route }) {
               />
           </TouchableRipple>
           </Card>
+          {/* {videoData && videoData.length > 0 && (
+        <Video
+          source={{ uri: videoData[0].link }}
+          style={{ width: '100%', height: 300 }}
+          useNativeControls
+          resizeMode={Video.RESIZE_MODE_CONTAIN}
+        />
+      )} */}
         </View>
       </View>
     </ScrollView>
@@ -283,8 +356,45 @@ export function AirAssaultScreen({ navigation, route }) {
 }
 
 export function Phase1Screen({ navigation, route }) {
+
+const [testdata, settestData] = React.useState([])
+const [testCards, setTestCards] = React.useState([])
+const [isLoading, setIsLoading] = React.useState(true); // add new state variable
+React.useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log(process.env.REACT_APP_API_URL + "flashcards")
+      const res = await axios.get(
+        "https://airdbnew.onrender.com/api/flashcards" ,
+      {
+        headers: {
+          Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9"
+          /*{"77f8b9051e98185e8415940294a97ccfaa98676aaef1b5a728ff3cad09197502ddac6a2494767c24f4447d8ee68d56226ee8319849ab6074c8460c2d33d65972383838a7dc2a2ca2db871d658424547ec55a5df560b82568759f3d78161e12599c42363c91e23bef25aeffce1d81d671da1cc712e615236fe0bc61a4e17699bf"}**/,
+        }
+      }
+    )
+    console.log(res.data)
+    console.log(res.data.data)
+    settestData(res.data.data)
+    const testCards = Object.keys(res.data.data).map((key) => {
+      return { ...res.data.data[key], id: key };
+    });
+    setTestCards(testCards)
+    console.log(testCards)
+    setIsLoading(false); // set loading status to false once flashcards are loaded
+
+  } catch (err) {
+    console.log(err);
+   }
+  }
+  fetchData();
+  console.log(testdata)
+  
+}, []);
+          
   const theme = useTheme();
   const screen = route.name
+          /*
   const [flashcards, setFlashcards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true); // add new state variable
   const flashcardsRef = ref(getDatabase(), "airAssaultPhaseOne");
@@ -314,7 +424,7 @@ export function Phase1Screen({ navigation, route }) {
       // you can clear your events listeners or any async calls here
     }
   }, [])
-
+*/
   return (
     <ScrollView style={{marginTop: -10, marginBottom: 0}} showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01"}}>
@@ -324,8 +434,8 @@ export function Phase1Screen({ navigation, route }) {
         {isLoading ? ( // show loading indicator when isLoading is true
           <ActivityIndicator size="large" style={{marginTop:50}} color={theme.colors.primary} />
         ) : (
-          flashcards.map((flashcard) => (
-            <Flashcard key={flashcard.id} flashcard={flashcard} />
+          testCards.map((flashcard) => (
+            <Flashcard key={flashcard.id} flashcard={flashcard.attributes} />
           ))
         )}
       </View>
@@ -337,6 +447,40 @@ export function Phase1Screen({ navigation, route }) {
 export function Phase2Screen({ navigation, route }) {
   const theme = useTheme();
   const screen = route.name
+  const [testdata, settestData] = React.useState([])
+  const [testCards, setTestCards] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState(true); // add new state variable
+  React.useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log(process.env.REACT_APP_API_URL + "flashcards")
+      const res = await axios.get(
+        "https://airdbnew.onrender.com/api/airassaultflashcardphase2s" ,
+      {
+        headers: {
+          Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9"
+          /*{"77f8b9051e98185e8415940294a97ccfaa98676aaef1b5a728ff3cad09197502ddac6a2494767c24f4447d8ee68d56226ee8319849ab6074c8460c2d33d65972383838a7dc2a2ca2db871d658424547ec55a5df560b82568759f3d78161e12599c42363c91e23bef25aeffce1d81d671da1cc712e615236fe0bc61a4e17699bf"}**/,
+        }
+      }
+    )
+    console.log(res.data)
+    console.log(res.data.data)
+    settestData(res.data.data)
+    const testCards = Object.keys(res.data.data).map((key) => {
+      return { ...res.data.data[key], id: key };
+    });
+    setTestCards(testCards)
+    console.log(testCards)
+    setIsLoading(false); // set loading status to false once flashcards are loaded
+
+  } catch (err) {
+    console.log(err);
+   }
+  }
+  fetchData();
+  console.log(testdata)
+}, []);
+/*
   const [flashcards, setFlashcards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true); // add new state variable
   const flashcardsRef = ref(getDatabase(), "airAssaultPhaseTwo");
@@ -362,7 +506,7 @@ export function Phase2Screen({ navigation, route }) {
       // you can clear your events listeners or any async calls here
     }
   }, [])
-
+*/
   return (
     <ScrollView style={{marginTop: -10, marginBottom: 0}} showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01"}}>
@@ -372,8 +516,8 @@ export function Phase2Screen({ navigation, route }) {
         {isLoading ? ( // show loading indicator when isLoading is true
           <ActivityIndicator size="large" style={{marginTop:50}} color={theme.colors.primary} />
         ) : (
-          flashcards.map((flashcard) => (
-            <Flashcard key={flashcard.id} flashcard={flashcard} />
+          testCards.map((flashcard) => (
+            <Flashcard key={flashcard.id} flashcard={flashcard.attributes} />
           ))
         )}
       </View>
@@ -381,4 +525,5 @@ export function Phase2Screen({ navigation, route }) {
     </ScrollView>
   );
 }
+
 
