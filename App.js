@@ -39,6 +39,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Picker} from '@react-native-picker/picker';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as NavigationBar from 'expo-navigation-bar';
+import {VideoScreen} from './AirAssaultHome.js';
+import { PlaylistScreen } from './AirAssaultHome.js';
+import { VideoPlayerScreen } from './VideoButton.js';
+import { AddedVideosContext } from './videoContext.js';
 import {SlingloadScreen, PlacardScreen, PlacardSequence, PlacardVideo, ApexScreen, 
   ApexVideo, ApexSequence, GrabhookScreen, GrabhookVideo, GrabhookSequence, ChainClevisScreen, 
   ChainClevisVideo, ChainClevisSequence, MediumClevisScreen,MediumClevisSequence,
@@ -213,7 +217,7 @@ function CustomNavigationBar({ navigation, back, route, isDarkMode, toggleDarkMo
         onPress={toggleDarkMode}
         color={'#FFFFFF'}
       />
-      {(screen == ("Home") || screen == ("News") || screen == ("About") || screen == ("Feedback")) && <TouchableRipple
+      {(screen == ("Home") || screen == ("News") || screen == ("About") || screen == ("Video Hub") || screen  == ("Your Playlist") || screen == ("Video Player")|| screen == ("Feedback") ) && <TouchableRipple
         onPress={() => navigation.navigate('Home')}
         style={{
           height: 75,
@@ -916,8 +920,9 @@ const AppContext = React.createContext({
 function HomeStackScreen({navigation, route}) {
   const theme = useTheme();
   const { isDarkMode, toggleDarkMode } = React.useContext(AppContext);
-
+  const [addedVideos, setAddedVideos] = React.useState({});
   return (
+    <AddedVideosContext.Provider value={{ addedVideos, setAddedVideos }}>
     <Stack.Navigator
       screenOptions={{
         header: (props) => <CustomNavigationBar {...props} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />,
@@ -929,6 +934,9 @@ function HomeStackScreen({navigation, route}) {
       <Stack.Screen name='Air Assault Program: Phase II' component={Phase2Screen} />
       <Stack.Screen name='Pathfinder Program' component={PathfinderScreen}/>
       <Stack.Screen name='Ranger Program' component={RangerScreen}/>
+      <Stack.Screen name='Video Hub' component={VideoScreen} />
+      <Stack.Screen name='Your Playlist' component={PlaylistScreen} />
+      <Stack.Screen name='Video Player' component={VideoPlayerScreen}/>
       <Stack.Screen name='Slingload Integration' component={SlingloadScreen} />
       <Stack.Screen name='Placard' component={PlacardScreen} />
       <Stack.Screen name='Placard Video' component={PlacardVideo} />
@@ -980,6 +988,7 @@ function HomeStackScreen({navigation, route}) {
       <Stack.Screen name="End Quiz" component={EndQuizScreen} />
       <Stack.Screen name="Quiz Scores" component={QuizScoresScreen} />
     </Stack.Navigator>
+    </AddedVideosContext.Provider>
   );
 }
 
