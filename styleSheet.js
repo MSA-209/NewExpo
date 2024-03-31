@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions, View, Picker } from 'react-native';
 const screenDimension = Dimensions.get("screen");
-const isPhone = screenDimension.width < 1000; // Adjust the threshold as needed
+const isPhone = screenDimension.width < 900; // Adjust the threshold as needed
 const videoWidth = isPhone ? screenDimension.width - 40 : 350; // Adjust the width for phone mode
 const videoHeight = isPhone ? (screenDimension.width - 40) * (9 / 16) : 270; // Adjust the height for phone mode
 
@@ -222,7 +222,43 @@ export const styles = StyleSheet.create({
         backgroundColor: '#ffcc01',
         position: 'relative', 
     },
-//slingload.js
+//slingload.js *********************************************************************************
+    inspectorB1: {
+        flexDirection: isPhone? 'none' : 'row',
+        marginLeft: isPhone? 'auto' : 80,
+        marginRight: isPhone? 'auto': 80,
+    },
+    basicButton: {
+        height: 'auto',
+        width: isPhone? 150 : 380,
+        borderWidth: 1,
+        borderRadius: isPhone? 10 : 20,
+        padding: isPhone? 10 : 20,
+        display: 'flex',
+        marginBottom: isPhone? 20 : 30,
+
+        shadowColor: 'white',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    slButtonText: {
+        fontSize: isPhone? 18 : 40,
+        alignSelf: 'center',
+        verticalAlign: 'center',
+        display: 'flex',
+
+    },
+    inspectorTitle: {
+        fontSize: isPhone? 20 : 50,
+        alignSelf: 'center',
+        fontWeight: 600,
+        marginTop: isPhone? 20 : 'auto',
+        marginBottom: isPhone? 20 : 'auto',
+    },
+    inspectorH1: {
+        marginTop: isPhone? 15 : 30,
+    },
     walkThrough: {
         flexDirection: 'row',
         alignContent: 'center',
@@ -279,7 +315,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center', 
         zIndex: 1,
     },
-//slingloadSequence.js
+//slingloadSequence.js *********************************************************************
     chevronButton: {
         width: isPhone? 30 : 60, 
         height: isPhone? 30 : 60, 
@@ -357,6 +393,7 @@ export const styles = StyleSheet.create({
         height: isPhone? 'auto': 800,
         width: isPhone? 350 : 'auto',
         alignContent: 'center',
+        zIndex: 1,
     },
     imageSize: {
         flex: isPhone? 1 : 2, 
@@ -427,5 +464,116 @@ export const styles = StyleSheet.create({
     },
     objectSize: {
         marginTop: isPhone? 'auto' : 100,
+    },
+// SLINGLOADQUIZ.JS ********************************************************************
+    slTestR1: {
+        flexDirection: 'row',
+        marginLeft: isPhone? 20 : 80,
+        marginRight: isPhone? 20 : 80,
+    },
+    slTestR1C1: {
+        flex: isPhone? 1 : 0.5,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+    slTestR1B: {
+        borderRadius: 10,
+        width: isPhone? 200 : 450,
+        height: isPhone? 200 : 340,
+        borderWidth: 1,
+        padding: 30,
+
+        shadowColor: 'white',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    slTestR1VerticalBar: {
+        flex: 0.1, 
+        alignItems: 'center', 
+        borderLeftWidth: isPhone? 0 : 5, 
+        height: 350, 
+        marginLeft: isPhone? 0 : 50, 
+        marginTop: isPhone? 0 : 60,
+        opacity: 0.6,
+    
+    },
+    slTestR1C2: {
+        flex: isPhone? 1 : 0.3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: isPhone? 10 : 60,
+        marginLeft: isPhone? 'auto' : 20,
+    },
+
+// untimed test screen 
+    untimedTestC1: {
+        flex: isPhone? 1 : 0.3,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    },
+    untimedTestC2: {
+        flex: isPhone? 1 : 0.7,
+    },
+    timer: {
+        fontSize: isPhone? 20 : 80,
+        color: '#E8E2D9',
+        fontWeight: 400,
+        marginTop: isPhone? 10 : 25,
+        marginBottom: isPhone? 10 : 60,
+    },
+    deficiencyButton: {
+        backgroundColor: 'red',
+        height: 80,
+        width: isPhone? 150 : 250,
+        borderWidth: 1,
+        borderRadius: isPhone? 5 : 10,
+        padding: isPhone? 10 : 20,
+        display: 'flex',
+        marginBottom: isPhone? 20 : 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    nextUntimedTestButton: {
+        backgroundColor: 'green',
+        height: 80,
+        width: isPhone? 150 : 250,
+        borderWidth: 1,
+        borderRadius: isPhone? 5 : 10,
+        padding: isPhone? 10 : 20,
+        display: 'flex',
+        marginBottom: isPhone? 20 : 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: isPhone? 0 : 40,
+    },
+    endTestButton: {
+        height: 'auto',
+        width: isPhone? 50 : 200,
+        borderWidth: 2,
+        borderRadius: isPhone? 5 : 10,
+        padding: isPhone? 10 : 20,
+        display: 'flex',
+        marginBottom: isPhone? 20 : 30,
+        alignItems: 'center',
+        borderColor: 'rgba(232, 226, 217, 0.3)',
+
+        // shadowColor: 'white',
+        // shadowOffset: { width: 2, height: 2 },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
+    },
+    // END SLINGLOADQUIZ.JS **************************************************************
+    hamburgerBox: {
+        width: isPhone? 'auto' : 80,
+        height: isPhone? 'auto' : 80,
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: 'rgba(232, 226, 217, 0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        justifyContent: 'flex-end',
+        marginTop: isPhone? 5 : 20,
+        marginLeft: '85%',
+
     },
 });

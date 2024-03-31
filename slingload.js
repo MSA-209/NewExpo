@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Image, StyleSheet, View, TouchableOpacity, ScrollView, TextInput, FlatList, screen} from 'react-native';
+import { Image, StyleSheet, Dimensions, View, TouchableOpacity, ScrollView, TextInput, FlatList, screen} from 'react-native';
 import 'react-native-svg'
 import { Card, Provider, Text, useTheme, Menu, Appbar,Divider, Button, TouchableWithoutFeedback} from 'react-native-paper';
 import { styles } from './styleSheet';
@@ -11,6 +11,9 @@ import ModelComp from './ModelComp';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 import {SlingloadQuizScreen} from './slingloadQuiz.js';
+const screenDimension = Dimensions.get("screen");
+const isPhone = screenDimension.width < 900;
+
 
 export function SlingloadScreen({ navigation, route }) {
   const screen = route.name
@@ -29,40 +32,60 @@ export function SlingloadScreen({ navigation, route }) {
         </View>       */}
     
       <View style={{marginTop: -10, marginBottom: 8}}>
-      <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
-          <View style={{left: '0%', flex: 0.33}}>
-            <SlingloadDropdown/>
+      <View style={styles.headerTitleContainer}>
+        <View style={{left: '0%'}}>
+          <SlingloadDropdown/>
         </View>
-          <View style={{alignSelf: 'center',flex: 0.33}}>
-          <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>Slingload Simulator</Text>
-          </View>
-        {/* don't remove the empty view container, it keep the title center */}
-        <View style={{ width: 40, flex: 0.33}}></View> 
-      </View>
 
-        <View style={{alignSelf: 'center', marginTop: 50}}>
-          <TouchableOpacity onPress={() => navigation.navigate('Placard')}>
-            <View style={styles.walkThrough}>
-              <View style={styles.innerBox}>
-                <Text style={styles.walkThroughText}>Walkthroughs</Text>
-              </View>
-              <View style={{paddingLeft: 11}}>
-                <FontAwesome name="chevron-right" size={16} color="#ffcc01" />
-              </View>
-            </View>
-          </TouchableOpacity>
-        <View style={{marginBottom: 30}}></View>
-        <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')}>
-            <View style={styles.walkThrough}>
-              <View style={styles.innerBox}>
-                <Text style={styles.walkThroughText}>Practical Tests</Text>
-              </View>
-              <View style={{paddingLeft: 11}}>
-                <FontAwesome name="chevron-right" size={16} color="#ffcc01" />
-              </View>
-            </View>
-          </TouchableOpacity>
+        <View style={styles.titleTextBox}>
+          <Text style={styles.titleText} variant='headlineLarge'>Slingload Simulator</Text>
+        </View>
+        <View style={{width: 40}}>
+        </View>
       </View>
+        <View style={styles.inspectorH1}>
+          {/* <View>
+            <Image source={require("./assets/AssaultBadgeClear.png")} 
+            style={{
+            marginLeft: 30,
+            marginBottom: 5,
+            width: 800,
+            height: 300,
+            opacity: 0.1,
+            resizeMode:"contain"
+            }}/>
+          </View> */}
+          <View>
+            <Text style={[styles.inspectorTitle]}>SLINGLOAD INSPECTOR</Text>
+          </View>
+        </View>
+        <View style={styles.inspectorB1}>
+          <View style={{marginLeft: isPhone? 10 : 80, marginTop: isPhone? 10 : -60, alignSelf: 'center', flex: isPhone? 1 : 0.2, zIndex: 2}}>
+            <TouchableOpacity onPress={() => navigation.navigate('Placard')}>
+              <View style={[styles.basicButton, {backgroundColor: theme.colors.backdrop, borderColor: theme.colors.inverseSurface}]}>
+                  <Text style={styles.slButtonText}>Walkthroughs</Text>
+              </View>
+            </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')}>
+          <View style={[styles.basicButton, {backgroundColor: theme.colors.backdrop, borderColor: theme.colors.inverseSurface}]}>
+                  <Text style={styles.slButtonText}>Practical Tests</Text>
+              </View>
+            </TouchableOpacity>
+        </View>
+        <View style={{flex: isPhone? 1 : 0.8}}>
+        <View>
+          <Image source={require("./assets/BagWithApexWireFrame.gif")} 
+            style={{
+            marginLeft: isPhone? 'auto' : -50,
+            marginTop: isPhone? 'auto' : -15,
+            marginBottom: 5,
+            width: 'auto',
+            height: isPhone? 200 : 500,
+            resizeMode: 'contain',
+            }}/>
+          </View>
+        </View>
+        </View>
     </View>
     </ScrollView>
   );
