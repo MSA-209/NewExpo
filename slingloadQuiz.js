@@ -11,29 +11,37 @@ const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 900;
 
 const deficientImages = [
-                        require('./assets/DeficientApex_CotterPin.png'),
-                        require('./assets/DeficientApex_InvertedNut.png'),
-                        require('./assets/DeficientApex_NutMissing.png'),
-                        require('./assets/DeficientApex_SpacerMissing.png'),
-                        require('./assets/DeficientBag1.png'),
-                        require('./assets/DeficientBag2.png'),
-                        require('./assets/DeficientBag3.png'),
-                        require('./assets/DeficientBag4.png'),
-                        require('./assets/DeficientBag5.png'),
-                        require('./assets/DeficientChainClevis.png'),
-                        require('./assets/DeficientGrabhook_DomeNutMissing.png'),
-                        require('./assets/DeficientGrabhook_ExtraLink.png'),
-                        require('./assets/DeficientGrabhook_Inverted.png'),
-                        require('./assets/DeficientGrabhook_Inverted2.png'),
-                        require('./assets/DeficientGrabhook_LockNutMissing.png'),
-                        require('./assets/DeficientGrabhook_MissingLink.png'),
-                        require('./assets/DeficientPlacard_Tight.png'),
-                        require('./assets/DeficientPlacard_Weight.png')]
+                       {key: 'Apex' , image: require('./assets/DeficientApex_CotterPin.png'),trueValue: true, userAnswer: null },
+                       {key: 'Apex' ,image: require('./assets/DeficientApex_InvertedNut.png'),trueValue: true, userAnswer: null },
+                       {key: 'Apex' ,image: require('./assets/DeficientApex_NutMissing.png'),trueValue: true, userAnswer: null },
+                       {key: 'Apex' ,image: require('./assets/DeficientApex_SpacerMissing.png'),trueValue: true, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag1.png'),trueValue: true, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag2.png'),trueValue: true, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag3.png'),trueValue: true, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag4.png'),trueValue: true, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag5.png'),trueValue: true, userAnswer: null },
+                       {key: 'Chain Clevis' ,image: require('./assets/DeficientChainClevis.png'),trueValue: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_DomeNutMissing.png'),trueValue: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_ExtraLink.png'),trueValue: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_Inverted.png'),trueValue: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_Inverted2.png'),trueValue: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_LockNutMissing.png'),trueValue: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_MissingLink.png'),trueValue: true, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/DeficientPlacard_Tight.png'),trueValue: true, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/DeficientPlacard_Weight.png'),trueValue: true, userAnswer: null }]
 
-const normalImages = [require('./assets/Apex_Bottom.png'),require('./assets/BotLateralC1_Center.png'),require('./assets/ChainClevis_Left_Top.png'),
-                    require('./assets/GrabHook_Left.png'),require('./assets/MediumClevis_Center.png'),require('./assets/MidLateralC1_Center.png'),
-                        require('./assets/placard_Center.png'),require('./assets/StrapSide_Right_Top.png'),require('./assets/Suspension1_Center.png'),
-                        require('./assets/Suspension2_Center_Top.png'),require('./assets/SusStrapOrder_Center_Top.png'), require('./assets/TopLateralC1_Center.png')]
+const normalImages = [{key: 'Apex' ,image: require('./assets/Apex_Bottom.png'),trueValue: false, userAnswer: null },
+                        {key: 'Bottom Lateral C1' ,image: require('./assets/BotLateralC1_Center.png'),trueValue: false, userAnswer: null },
+                        {key: 'Chain Clevis' ,image: require('./assets/ChainClevis_Left_Top.png'),trueValue: false, userAnswer: null },
+                        {key: 'GrabHook' ,image: require('./assets/GrabHook_Left.png'),trueValue: false, userAnswer: null },
+                        {key: 'Medium Clevis' ,image: require('./assets/MediumClevis_Center.png'),trueValue: false, userAnswer: null },
+                        {key: 'Middle Lateral C1' ,image: require('./assets/MidLateralC1_Center.png'),trueValue: false, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/placard_Center.png'),trueValue: false, userAnswer: null },
+                       {key: 'Strap Side' ,image: require('./assets/StrapSide_Right_Top.png'),trueValue: false, userAnswer: null },
+                       {key: 'Suspension 1' ,image: require('./assets/Suspension1_Center.png'),trueValue: false, userAnswer: null },
+                       {key: 'Suspension 2' ,image: require('./assets/Suspension2_Center_Top.png'),trueValue: false, userAnswer: null },
+                       {key: 'Suspension Strap Order' ,image: require('./assets/SusStrapOrder_Center_Top.png'),trueValue: false, userAnswer: null },
+                       {key: 'Top Lateral C1' ,image: require('./assets/TopLateralC1_Center.png'),trueValue: false, userAnswer: null }]
 
 function shuffleArray(array){
     for (let i = array.length - 1; i > 0; i--) {
@@ -116,7 +124,7 @@ export function UntimedQuizScreen({ navigation, route }) {
         }
         return images;
     });
-
+    console.log(QuizImages)
     const theme = useTheme();
 
 
@@ -261,7 +269,7 @@ export function UntimedQuizScreen({ navigation, route }) {
     return (
         
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
-        <Image source={QuizImages[currentArrayIndex]}/>
+        <Image source={QuizImages[currentArrayIndex].image}/>
             <View style={{marginTop: -9, marginBottom: 8}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                     <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
