@@ -7,6 +7,25 @@ import { styles } from './styleSheet';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { LineChart } from 'react-native-chart-kit';
 
+const deficientImages = [require('./assets/DeficientApex_CotterPin.png'),require('./assets/DeficientApex_InvertedNut.png'),require('./assets/DeficientApex_NutMissing.png'),
+                        require('./assets/DeficientApex_SpacerMissing.png'),require('./assets/DeficientBag1.png'),require('./assets/DeficientBag2.png'),
+                        require('./assets/DeficientBag3.png'),require('./assets/DeficientBag4.png'),require('./assets/DeficientBag5.png'),
+                        require('./assets/DeficientChainClevis.png'),require('./assets/DeficientGrabhook_DomeNutMissing.png'),require('./assets/DeficientGrabhook_ExtraLink.png'),
+                        require('./assets/DeficientGrabhook_Inverted.png'),require('./assets/DeficientGrabhook_Inverted2.png'),require('./assets/DeficientGrabhook_LockNutMissing.png'),
+                        require('./assets/DeficientGrabhook_MissingLink.png'),require('./assets/DeficientPlacard_Tight.png'),require('./assets/DeficientPlacard_Weight.png')]
+
+const normalImages = [require('./assets/Apex_Bottom.png'),require('./assets/BotLateralC1_Center.png'),require('./assets/ChainClevis_Left_Top.png'),
+                    require('./assets/GrabHook_Left.png'),require('./assets/MediumClevis_Center.png'),require('./assets/MidLateralC1_Center.png'),
+                        require('./assets/placard_Center.png'),require('./assets/StrapSide_Right_Top.png'),require('./assets/Suspension1_Center.png'),
+                        require('./assets/Suspension2_Center_Top.png'),require('./assets/SusStrapOrder_Center_Top.png'), require('./assets/TopLateralC1_Center.png')]
+
+function shuffleArray(array){
+    for (let i = array.length - 1; i > 0; i--) {
+        const randIndex = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[randIndex]] = [array[randIndex], array[i]]
+    }
+}
 export function SlingloadQuizScreen({ navigation, route }) {
     return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
@@ -42,6 +61,28 @@ export function SlingloadQuizScreen({ navigation, route }) {
 }
 
 export function UntimedQuizScreen({ navigation, route }) {
+
+    const QuizImages = []
+    if (QuizImages.length !== 0){
+        QuizImages = []
+    }
+    QuizImagesLength = Math.floor(Math.random() * (13)) + 4;
+    if (QuizImagesLength === 4){
+        shuffleArray(deficientImages);
+        QuizImages = deficientImages.slice(0,4);
+    }
+    else{
+        shuffleArray(deficientImages);
+        shuffleArray(normalImages);
+        QuizImages.push(... deficientImages.slice(0,4));
+        QuizImages.push(...normalImages.slice(0,(QuizImagesLength - 4)))
+        shuffleArray(QuizImages)
+    }
+    console.log(QuizImagesLength)
+    console.log(QuizImages.length)
+    console.log(deficientImages)
+    console.log(QuizImages)
+
     //truth table for items should match with pictures
     const [items, setItems] = useState({
         placard: null,
@@ -103,7 +144,9 @@ export function UntimedQuizScreen({ navigation, route }) {
         setItems(prevItems => ({ ...prevItems, [currentItem]: false }));
     };
     return (
+        
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
+        {/* <Image source={QuizImages[0]}/>  Testing image it does work*/}
             <View style={{marginTop: -9, marginBottom: 8}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                     <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>

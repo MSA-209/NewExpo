@@ -35,7 +35,7 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
   return (
     <View style={{display:'flex'}}>
       <View style={styles.videoCard}>
-<View>
+      <View>
 
         <TouchableOpacity onPress={() =>  {
           // navigation push will cause previous videos to continue playing and navigate just doesnt work
