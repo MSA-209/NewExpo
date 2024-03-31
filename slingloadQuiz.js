@@ -11,29 +11,37 @@ const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 900;
 
 const deficientImages = [
-                        require('./assets/DeficientApex_CotterPin.png'),
-                        require('./assets/DeficientApex_InvertedNut.png'),
-                        require('./assets/DeficientApex_NutMissing.png'),
-                        require('./assets/DeficientApex_SpacerMissing.png'),
-                        require('./assets/DeficientBag1.png'),
-                        require('./assets/DeficientBag2.png'),
-                        require('./assets/DeficientBag3.png'),
-                        require('./assets/DeficientBag4.png'),
-                        require('./assets/DeficientBag5.png'),
-                        require('./assets/DeficientChainClevis.png'),
-                        require('./assets/DeficientGrabhook_DomeNutMissing.png'),
-                        require('./assets/DeficientGrabhook_ExtraLink.png'),
-                        require('./assets/DeficientGrabhook_Inverted.png'),
-                        require('./assets/DeficientGrabhook_Inverted2.png'),
-                        require('./assets/DeficientGrabhook_LockNutMissing.png'),
-                        require('./assets/DeficientGrabhook_MissingLink.png'),
-                        require('./assets/DeficientPlacard_Tight.png'),
-                        require('./assets/DeficientPlacard_Weight.png')]
+                       {key: 'Apex' , image: require('./assets/DeficientApex_CotterPin.png'),trueValue: True, userAnswer: null },
+                       {key: 'Apex' ,image: require('./assets/DeficientApex_InvertedNut.png'),trueValue: True, userAnswer: null },
+                       {key: 'Apex' ,image: require('./assets/DeficientApex_NutMissing.png'),trueValue: True, userAnswer: null },
+                       {key: 'Apex' ,image: require('./assets/DeficientApex_SpacerMissing.png'),trueValue: True, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag1.png'),trueValue: True, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag2.png'),trueValue: True, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag3.png'),trueValue: True, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag4.png'),trueValue: True, userAnswer: null },
+                       {key: 'Bag' ,image: require('./assets/DeficientBag5.png'),trueValue: True, userAnswer: null },
+                       {key: 'Chain Clevis' ,image: require('./assets/DeficientChainClevis.png'),trueValue: True, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_DomeNutMissing.png'),trueValue: True, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_ExtraLink.png'),trueValue: True, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_Inverted.png'),trueValue: True, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_Inverted2.png'),trueValue: True, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_LockNutMissing.png'),trueValue: True, userAnswer: null },
+                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_MissingLink.png'),trueValue: True, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/DeficientPlacard_Tight.png'),trueValue: True, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/DeficientPlacard_Weight.png'),trueValue: True, userAnswer: null }]
 
-const normalImages = [require('./assets/Apex_Bottom.png'),require('./assets/BotLateralC1_Center.png'),require('./assets/ChainClevis_Left_Top.png'),
-                    require('./assets/GrabHook_Left.png'),require('./assets/MediumClevis_Center.png'),require('./assets/MidLateralC1_Center.png'),
-                        require('./assets/placard_Center.png'),require('./assets/StrapSide_Right_Top.png'),require('./assets/Suspension1_Center.png'),
-                        require('./assets/Suspension2_Center_Top.png'),require('./assets/SusStrapOrder_Center_Top.png'), require('./assets/TopLateralC1_Center.png')]
+const normalImages = [{key: 'Apex' ,image: require('./assets/Apex_Bottom.png'),trueValue: False, userAnswer: null },
+                        {key: 'Bottom Lateral C1' ,image: require('./assets/BotLateralC1_Center.png'),trueValue: False, userAnswer: null },
+                        {key: 'Chain Clevis' ,image: require('./assets/ChainClevis_Left_Top.png'),trueValue: False, userAnswer: null },
+                        {key: 'GrabHook' ,image: require('./assets/GrabHook_Left.png'),trueValue: False, userAnswer: null },
+                        {key: 'Medium Clevis' ,image: require('./assets/MediumClevis_Center.png'),trueValue: False, userAnswer: null },
+                        {key: 'Middle Lateral C1' ,image: require('./assets/MidLateralC1_Center.png'),trueValue: False, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/placard_Center.png'),trueValue: False, userAnswer: null },
+                       {key: 'Strap Side' ,image: require('./assets/StrapSide_Right_Top.png'),trueValue: False, userAnswer: null },
+                       {key: 'Suspension 1' ,image: require('./assets/Suspension1_Center.png'),trueValue: False, userAnswer: null },
+                       {key: 'Suspension 2' ,image: require('./assets/Suspension2_Center_Top.png'),trueValue: False, userAnswer: null },
+                       {key: 'Suspension Strap Order' ,image: require('./assets/SusStrapOrder_Center_Top.png'),trueValue: False, userAnswer: null },
+                       {key: 'Top Lateral C1' ,image: require('./assets/TopLateralC1_Center.png'),trueValue: False, userAnswer: null }]
 
 function shuffleArray(array){
     for (let i = array.length - 1; i > 0; i--) {
