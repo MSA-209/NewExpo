@@ -7,6 +7,8 @@ import { styles } from './styleSheet';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { LineChart } from 'react-native-chart-kit';
 import SlingloadDropdown from './slingload';
+import { QuizScoresContext } from './quizScoresContext.js';
+
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 900;
 
@@ -363,6 +365,7 @@ const formatTime = (timeInSeconds) => {
 
 
 export function EndQuizScreen({ navigation, route}) {
+    const { quizScores, setQuizScores } = React.useContext(QuizScoresContext);
     const { imageArray, elapsedTime } = route.params; // This is your QuizImages array
     const deficienciesTotal = imageArray.length;;
     const deficienciesCorrect = imageArray.filter(question => question.userAnswer === question.trueAnswer).length;
@@ -377,7 +380,9 @@ export function EndQuizScreen({ navigation, route}) {
             setClickedQuestions(updatedClickedQuestions);
         }
     };
-    
+    React.useEffect(() => {
+        setQuizScores([...quizScores, deficienciesCorrect]);
+    }, [deficienciesCorrect]);
     return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8}}>
@@ -418,17 +423,16 @@ export function EndQuizScreen({ navigation, route}) {
 
 
 export function QuizScoresScreen({ navigation, route }) {
+    const { quizScores } = React.useContext(QuizScoresContext);
     // Sample data
     const data = {
-        labels: ['1', '2', '3', '4', '5'],
+        labels: quizScores.map((_, index) => (index + 1).toString()),
         datasets: [
             {
-                data: [20, 45, 28, 80, 99],
-                strokeWidth: 2, // optional
+                data: quizScores,
             },
         ],
     };
-
     // Get the screen width
     const screenWidth = Dimensions.get('window').width;
     return (
