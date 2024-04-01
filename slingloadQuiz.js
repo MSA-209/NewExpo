@@ -168,15 +168,6 @@ export function UntimedQuizScreen({ navigation, route }) {
         }
     };
     
-    
-    useEffect(() => {
-        const itemKeys = Object.keys(items);
-        const currentIndex = itemKeys.indexOf(currentItem);
-        if (currentIndex < itemKeys.length - 1) {
-            setCurrentItem(itemKeys[currentIndex + 1]);
-        }
-    }, [currentArrayIndex]);
-    
     useEffect(() => {
         if (QuizImages[currentArrayIndex].userAnswer === null) {
             setDeficiencyTitle('Deficiency');
@@ -283,7 +274,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                             </TouchableOpacity>
                         </View>
                         <View style={[styles.endTestButton]}>
-                            <TouchableOpacity onPress={handleNextPress}>
+                            <TouchableOpacity onPress={() => navigation.navigate('End Quiz', { imageArray: QuizImages })}>
                                 <Text style={{fontSize: isPhone? 18 : 22, color: '#E8E2D9'}}>End Test</Text>
                             </TouchableOpacity>
                         </View>
@@ -360,7 +351,9 @@ const formatTime = (timeInSeconds) => {
 };
 
 
-export function EndQuizScreen({ navigation, route }) {
+export function EndQuizScreen({ navigation, route}) {
+    const { imageArray } = route.params; // This is your QuizImages array
+    console.log(imageArray)
     return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8}}>
