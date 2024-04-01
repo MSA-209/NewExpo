@@ -284,7 +284,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                             </TouchableOpacity>
                         </View>
                         <View style={[styles.endTestButton]}>
-                            <TouchableOpacity onPress={() => navigation.navigate('End Quiz', { imageArray: QuizImages })}>
+                            <TouchableOpacity onPress={() => navigation.navigate('End Quiz', { imageArray: QuizImages, elapsedTime: elapsedTime })}>
                                 <Text style={{fontSize: isPhone? 18 : 22, color: '#E8E2D9'}}>End Test</Text>
                             </TouchableOpacity>
                         </View>
@@ -362,8 +362,21 @@ const formatTime = (timeInSeconds) => {
 
 
 export function EndQuizScreen({ navigation, route}) {
-    const { imageArray } = route.params; // This is your QuizImages array
-    console.log(imageArray)
+    const { imageArray, elapsedTime } = route.params; // This is your QuizImages array
+    const deficienciesTotal = imageArray.length;;
+    const deficienciesCorrect = imageArray.filter(question => question.userAnswer === question.trueAnswer).length;
+    const deficienciesIdentified = `${deficienciesCorrect} / ${deficienciesTotal}`;
+    const passStatus = (deficienciesCorrect / deficienciesTotal) * 100 >= 70 ? "PASS" : "FAIL";
+    const [clickedQuestions, setClickedQuestions] = useState([]);
+    const handleQuestionClick = (index) => {
+        if (!clickedQuestions.includes(index)) {
+            setClickedQuestions([...clickedQuestions, index]);
+        } else {
+            const updatedClickedQuestions = clickedQuestions.filter((clickedIndex) => clickedIndex !== index);
+            setClickedQuestions(updatedClickedQuestions);
+        }
+    };
+    
     return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8}}>
@@ -371,6 +384,30 @@ export function EndQuizScreen({ navigation, route}) {
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                 <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen stat</Text>
                 </View>
+            </View>
+            <View style={{ padding: 20 }}>
+                    <Text>Total Time: {formatTime(elapsedTime)}</Text>
+                    <Text>{passStatus}</Text>
+                    <Text>Deficiencies Identified: {deficienciesIdentified}</Text>
+                    <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Questions:</Text>
+                    {imageArray.map((question, index) => (
+                        <View key={index} style={{ marginTop: 5 }}>
+                            <TouchableOpacity onPress={() => handleQuestionClick(index)}>
+                                <Text style={{ fontWeight: 'bold' }}>Question {(index + 1)} : {question.key}</Text>
+                            </TouchableOpacity>
+                            <Text>User Answer: {question.userAnswer === null ? 'No answer' : question.userAnswer ? 'True' : 'False'}</Text>
+                            <Text>Correct Answer: {question.trueAnswer ? 'True' : 'False'}</Text>
+                            {/* Conditionally render the image based on whether the question has been clicked */}
+                            {clickedQuestions.includes(index) ? (
+                                <Image source={question.image} />
+                            ) : null}
+                        </View>
+                    ))}
+            </View>
+            <View style={{ alignItems: 'flex-end', marginBottom: 20 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')} style={styles.endTestButton}>
+                    <Text style={{ fontSize: isPhone ? 18 : 22, color: '#E8E2D9' }}>Try Again</Text>
+                </TouchableOpacity>
             </View>
         </View>
     </ScrollView>
