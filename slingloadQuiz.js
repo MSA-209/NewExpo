@@ -155,7 +155,8 @@ export function UntimedQuizScreen({ navigation, route }) {
         }
         if (timed === true ) {
             if (elapsedTime > 120) {
-                navigation.navigate('End Quiz', { imageArray: QuizImages })
+                navigation.navigate('End Quiz', { imageArray: QuizImages, elapsedTime: elapsedTime - 1})
+                clearInterval(interval);
             }
         }
         return () => {
