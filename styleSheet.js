@@ -576,4 +576,17 @@ export const styles = StyleSheet.create({
         marginLeft: '85%',
 
     },
+    endQuizR1: {
+        flexDirection: 'row',
+        marginBottom: 30,
+        marginTop: 50,
+    },
+    resultBox: {
+        alignSelf: 'center',
+        width: 1100,
+        height: 60,
+        borderRadius: 15,
+        padding: 10,
+        margin: 12,
+    },
 });
