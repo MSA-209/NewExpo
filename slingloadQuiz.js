@@ -321,12 +321,12 @@ export function UntimedQuizScreen({ navigation, route }) {
             <FontAwesome name="bars" size={isPhone? 24 : 50} color="black" />
     </TouchableOpacity>
 </View>
+
+{menuVisible && (<View style={{justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.7)', width: 'auto', paddingLeft: isPhone? 'none' : 25}}>
+    {/* Menu items */}
 <View style={{backgroundColor: theme.colors.backdrop, marginTop: isPhone? 10: -70, height: isPhone? 'auto': 100, padding: isPhone? 1 : 15, width: isPhone? 150 : 420, justifyContent: 'center', marginLeft: isPhone? 'auto' : -25, marginBottom: isPhone? 5 : -25}}>
             <Text style={{marginLeft: isPhone? 'auto' : 45, zIndex: 3, color: '#E8E2D9', fontSize: isPhone? 20 : 30, marginBottom: isPhone? 5 : 15}}>SECTION MENU</Text>
         </View>
-{menuVisible && (<View style={{justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.7)', width: 'auto', paddingLeft: isPhone? 'none' : 25}}>
-    {/* Menu items */}
-
 
 
     {elements.map((element, index) => (
