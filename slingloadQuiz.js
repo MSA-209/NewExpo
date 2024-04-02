@@ -192,7 +192,7 @@ export function UntimedQuizScreen({ navigation, route }) {
             setDeficiencyTitle('Deficiency');
             setNextTitle('Unmark');
         }
-    }, [QuizImages, currentArrayIndex]);
+    }, [QuizImages, currentArrayIndex, QuizImages[currentArrayIndex].userAnswer]);
     const handleLeftPress = () => {
         if (currentArrayIndex > 0) {
             setCurrentArrayIndex(prevIndex => prevIndex - 1);
