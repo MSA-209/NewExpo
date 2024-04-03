@@ -513,28 +513,39 @@ export const styles = StyleSheet.create({
         backgroundColor: isPhone? 'transparent' : 'rgba(0, 0, 0, 0.7)',
         width: isPhone? 150 : 'auto',
         height: isPhone? 100 : 'auto',
-        transform: [{ translateX: isPhone? 50 :'auto'}, {translateY: isPhone ? 500 : 'auto'}],
+        transform: [{ translateX: isPhone? 45 :'auto'}, {translateY: isPhone ? 490 : 'auto'}],
 
     },
     untimedTestC2: {
         flex: isPhone? 1 : 0.7,
         height: isPhone? 380 : 'auto',
+        borderColor: isPhone? '#000000' : 'none',
+        // borderWidth: isPhone? 4 : 0,
+        transform: [{ translateX: isPhone? 0 :'auto'}, {translateY: isPhone ? 0 : 'auto'}],
+
 
     },
     imageTestBox: {
         transform: [{ translateX: isPhone? 0 :'auto'}, {translateY: isPhone ? 0 : 'auto'}],
         // width: isPhone? 400 : 'auto',
-        height: isPhone? 480 : 'auto',
+        height: isPhone? 350 : 'auto',
+        width: isPhone? 350 : 'auto',
+        alignSelf: 'center',
         overflow: 'hidden',
         alignItems: 'center',
+        borderWidth: isPhone? 3 : 0,
+        borderColor: isPhone? 'rgba(0, 0, 0, 0.4)' : 'none',
+        backgroundColor: isPhone? 'rgba(232, 226, 217, 0.5)' : 'transparent',
+        borderRadius: isPhone? 10 : 0,
+
     },
     timer: {
         fontSize: isPhone? 30 : 80,
         color: isPhone? 'red' : '#E8E2D9',
-        fontWeight: 400,
+        fontWeight: 600,
         marginTop: isPhone? 10 : 25,
         marginBottom: isPhone? 10 : 60,
-        transform: [{ translateX: isPhone? 140 :'auto'}, {translateY: isPhone ? -450 : 'auto'}],
+        transform: [{ translateX: isPhone? 130 :'auto'}, {translateY: isPhone ? -450 : 'auto'}],
     },
     deficiencyButton: {
         backgroundColor: 'red',
@@ -597,5 +608,57 @@ export const styles = StyleSheet.create({
         marginTop: isPhone? 5 : 20,
         marginLeft: '85%',
 
+    },
+    
+    menuSection: {
+        marginTop: isPhone? 10: -70, 
+        height: isPhone? 'auto': 100, 
+        padding: isPhone? 1 : 15, 
+        width: isPhone? 150 : 420, 
+        justifyContent: 'center', 
+        marginLeft: isPhone? 'auto' : -25, 
+        marginBottom: isPhone? 5 : -25,
+        
+    },
+    menuItemBox: { 
+        width: isPhone? 200 : 320,
+        height: isPhone? 35 : 55, 
+        borderRadius: 10, 
+        borderWidth: isPhone? 1 : 3, 
+        borderColor: 'rgba(232, 226, 217, 0.4)', 
+        justifyContent: 'center', 
+        margin: isPhone? -5 : 2,
+        marginLeft: 3,
+        display: isPhone? 'none' : 'auto',
+    },
+    menuItemText: {
+
+    },
+    sectionMenuTitle: {
+        marginLeft: isPhone? -30 : 45, 
+        zIndex: 3, color: '#E8E2D9', 
+        fontSize: isPhone? 15 : 30, 
+        marginBottom: isPhone? 0 : 15,
+        fontWeight: 700,
+    },
+    imageTitleDisplay: {
+        marginRight: isPhone? 0 :'-30%', 
+        zIndex: 7, 
+        transform: [{ translateX: isPhone? 0 :'90wh'}, 
+            {translateY: isPhone ? -430 : '-35vh' }], 
+        marginTop: '90%', 
+        // justifyContent: 'space-between', 
+        width: isPhone? 350 : 600,
+        height: isPhone? 80 : 'auto',
+        alignItems: 'center', 
+        alignSelf: 'center',
+        flexDirection: 'row', 
+        height: isPhone? 50 : 65, 
+        borderRadius: 10, 
+        borderWidth: 3, 
+        borderColor: 'rgba(232, 226, 217, 0.4)', 
+        justifyContent: 'center', 
+        // margin: 10, 
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
     },
 });
