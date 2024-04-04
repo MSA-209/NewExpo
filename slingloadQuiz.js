@@ -199,7 +199,7 @@ export function UntimedQuizScreen({ navigation, route }) {
             setDeficiencyTitle('Deficiency');
             setNextTitle('Unmark');
         }
-    }, [QuizImages, currentArrayIndex]);
+    }, [QuizImages, currentArrayIndex, QuizImages[currentArrayIndex].userAnswer]);
     const handleLeftPress = () => {
         if (currentArrayIndex > 0) {
             setCurrentArrayIndex(prevIndex => prevIndex - 1);
@@ -452,7 +452,7 @@ export function EndQuizScreen({ navigation, route}) {
                     <TouchableOpacity onPress={() => handleQuestionClick(index)}>
                     <View key={index} style={[styles.resultBox, {alignContent:'center', marginTop: 5, flexDirection: 'row', backgroundColor: question.trueAnswer===question.userAnswer? 'green' : 'red'}]}>
                         {/* <Text style={{fontSize: 30, color:'#E8E2D9', marginLeft: 20}}>Question {(index + 1)} : {question.key}</Text> */}
-                        <Text style={{fontSize: isPhone? 22 : 30, color:'#E8E2D9', marginLeft: 20}}>{(question.trueAnswer===question.userAnswer || question.userAnswer === null)? 'Correct' : 'Incorrect'} :  {question.key}</Text>
+                        <Text style={{fontSize: isPhone? 22 : 30, color:'#E8E2D9', marginLeft: 20}}>{(question.trueAnswer===question.userAnswer)? 'Correct' : 'Incorrect'} :  {question.key}</Text>
 
                         <Text style={{marginLeft: 15, fontSize: isPhone? 20 : 30, color:'#E8E2D9'}}>-</Text>
                         <Text style={{fontWeight: 600, fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 15, marginTop: 8}}>Your Answer:</Text>
