@@ -111,6 +111,13 @@ export function UntimedQuizScreen({ navigation, route }) {
 
     const { timed } = route.params; 
     console.log(timed)
+    let testName = timed ? 'Timed Test' : 'Untimed Test';
+    deficientImages.forEach(item => {
+        item.userAnswer = null;
+    });
+    normalImages.forEach(item => {
+        item.userAnswer = null;
+    });
     const [QuizImages, setQuizImages] = useState(() => {
         let images = [];
         let imagesLength = Math.floor(Math.random() * (13)) + 4;
@@ -270,7 +277,7 @@ export function UntimedQuizScreen({ navigation, route }) {
         <View style={{marginTop: -9, marginBottom: 8}}>
             <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
-                    <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>Untimed Test</Text>
+                    <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>{testName}</Text>
                 </View>
             </View>
 
@@ -411,14 +418,15 @@ export function EndQuizScreen({ navigation, route}) {
         }
     };
     React.useEffect(() => {
-        setQuizScores([...quizScores, deficienciesCorrect]);
-    }, [deficienciesCorrect]);
+        const scorePercentage = Math.round((deficienciesCorrect / deficienciesTotal) * 100);
+        setQuizScores([...quizScores, scorePercentage]);
+    }, [deficienciesCorrect, deficienciesTotal]);
     return (
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8, backgroundColor: 'rgba(0, 0, 0, 0.7)'}}>
             <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
-                <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen stat</Text>
+                <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen Stats</Text>
                 </View>
             </View>
             <View style={[styles.endQuizR1, {alignItems: 'center', width: 1100, alignSelf: 'center'}]}>
@@ -499,7 +507,7 @@ export function QuizScoresScreen({ navigation, route }) {
             <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 10 }}>Deficiencies Caught</Text>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                 <View style={{ justifyContent: 'center', paddingRight: 10 }}>
-                    <Text style={{ fontSize: 20 }}>Scores</Text>
+                    <Text style={{ fontSize: 20 }}>Scores Percentage</Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <LineChart
@@ -510,7 +518,7 @@ export function QuizScoresScreen({ navigation, route }) {
                             backgroundColor: '#808080', // greyish color
                             backgroundGradientFrom: '#808080',
                             backgroundGradientTo: '#808080',
-                            decimalPlaces: 2, // optional, defaults to 2dp
+                            decimalPlaces: 0, // optional, defaults to 2dp
                             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                             style: {
                                 borderRadius: 16,
