@@ -112,12 +112,15 @@ export function UntimedQuizScreen({ navigation, route }) {
     const { timed } = route.params; 
     console.log(timed)
     let testName = timed ? 'Timed Test' : 'Untimed Test';
-    deficientImages.forEach(item => {
-        item.userAnswer = null;
-    });
-    normalImages.forEach(item => {
-        item.userAnswer = null;
-    });
+    useEffect(() => {
+        deficientImages.forEach(item => {
+            item.userAnswer = null;
+        });
+        normalImages.forEach(item => {
+            item.userAnswer = null;
+        });
+    }, []);
+
     const [QuizImages, setQuizImages] = useState(() => {
         let images = [];
         let imagesLength = Math.floor(Math.random() * (13)) + 4;
