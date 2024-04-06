@@ -7,7 +7,11 @@ import { Searchbar } from 'react-native-paper';
 import * as rssParser from 'react-native-rss-parser';
 import Constants from "expo-constants"
 import * as SplashScreen from 'expo-splash-screen';
+import { styles } from './styleSheet.js';
 import { MaterialIcons } from '@expo/vector-icons';
+
+const screenDimension = Dimensions.get("screen");
+const isPhone = screenDimension.width < 900;
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
@@ -36,7 +40,6 @@ import {
   useTheme,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Picker} from '@react-native-picker/picker';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import * as NavigationBar from 'expo-navigation-bar';
 import {VideoScreen} from './AirAssaultHome.js';
@@ -736,6 +739,8 @@ function FeedbackScreen({ navigation, route }) {
   }
   const handleSchoolChange = (value) => {
     setSchool(value);
+    setMenuVisible(false);
+    setSchoolSelected(value);
   }
   const handleTitleChange = (text) => {
     setTitle(text);
@@ -827,25 +832,61 @@ function FeedbackScreen({ navigation, route }) {
       setTitle('');
   };
   const TextStylingBar = ({ onBold, onItalic, onUnderline }) => (
-    <View style={styles.textStylingBar}>
+    <View style={[styles.textStylingBar, {marginBottom: 7}]}>
       <TouchableOpacity onPress={onBold}>
-        <MaterialIcons name="format-bold" size={24} color={bold ? 'blue' : 'black'} />
+        <MaterialIcons name="format-bold" size={bold? 27 : 24} color={bold ? '#ffcc01' : theme.colors.onBackground} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onItalic}>
-        <MaterialIcons name="format-italic" size={24} color={italic ? 'blue' : 'black'} />
+        <MaterialIcons name="format-italic" size={italic? 27 : 24} color={italic ? '#ffcc01' : theme.colors.onBackground} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onUnderline}>
-        <MaterialIcons name="format-underlined" size={24} color={underline ? 'blue' : 'black'} />
+        <MaterialIcons name="format-underlined" size={underline? 27 : 24} color={underline ? '#ffcc01' : theme.colors.onBackground} />
       </TouchableOpacity>
     </View>
   );
 
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const handleSchoolPicker = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const schools = [
+    "Air Assault School",
+    "Pathfinder School",
+    "Ranger School"
+  ];
+
+  const [schoolSelected, setSchoolSelected] = useState("Select school for feedback");
   return (
-    <View style={styles.feedbackForm}>
-      <View style={styles.schoolSelector}>
+    <View style={[styles.feedbackForm, {backgroundColor: theme.colors.surfaceDisabled, flexDirection: 'column', justifyContent: 'space-around', borderColor: theme.colors.primary, borderWidth: isPhone? 0.5 : 1}]}>
+      
+      <View style={{position: 'absolute',borderColor: '#ffcc01', backgroundColor: theme.colors.primaryContainer, borderWidth: 2, borderRadius: 10, overflow: 'hidden', zIndex: 20, top : 30, marginBottom: 30, alignSelf: 'center', alignItems: 'center'}}>
+    <TouchableOpacity onPress={handleSchoolPicker}>
+        <View style={{backgroundColor: '#ffcc01', alignItems: 'center', width: isPhone? 300 : 400, height: isPhone? 36 : 60, borderRadius: 8}}>
+          <Text style={{alignSelf: 'center', color: '#000234', marginTop: 8, size: isPhone? 16 : 25 }}>{schoolSelected}</Text>
+        </View>
+        {menuVisible && (
+      <View style={{marginTop: isPhone? -5 : 0}}>
+                {schools.map((school, index) => (
+        <TouchableOpacity key={index} onPress={() => handleSchoolChange(school)}>
+        <View style={{backgroundColor: '#ffffff', width: isPhone? 300 : 500, height: 36 }}>
+          <Text style={{alignSelf: 'center', marginTop: 11, color: '#000000', fontSize: isPhone? 16 : 25}}>{schools[index]}</Text>
+        </View>
+      </TouchableOpacity>
+    ))}
+            <View style={{height:10, backgroundColor: '#ffffff'}}></View>
+            </View>
+          
+        )}
+
+    </TouchableOpacity>
+    </View>
+      <View style={[styles.schoolSelector]}>
         {/* <Text style={styles.pickerText}>Select a school to give feedback to</Text> */}
-        <Picker style={styles.picker}
+        {/* <Picker style={styles.picker}
           onValueChange={handleSchoolChange}
+        
           value={school}>
           <Picker.Item label="Select school for feedback" value="" />
           <View style={styles.separator} />
@@ -854,38 +895,37 @@ function FeedbackScreen({ navigation, route }) {
           <Picker.Item label="Pathfinder School" value="Pathfinder School" />
           <View style={styles.separator} />
           <Picker.Item label="Ranger School" value="Ranger School" />
-        </Picker>
-
+        </Picker> */}
         <TextInput
-          style={styles.titleBox}
+          style={[styles.titleBox]}
           placeholder="Please enter title!"
           onChangeText={handleTitleChange}
           value={title}
         />
         <Text style={{fontWeight: 500}}></Text>
         <View style={[styles.feedbackContainer, {margin: 10}]}>
-        <TextStylingBar
-          onBold={handleBold}
-          onItalic={handleItalic}
-          onUnderline={handleUnderline}
-        />
-      <TextInput
-        style={[
-          styles.commentBox,
-          bold && styles.bold,
-          italic && styles.italic,
-          underline && styles.underline
-        ]}
+          <TextStylingBar
+            onBold={handleBold}
+            onItalic={handleItalic}
+            onUnderline={handleUnderline}
+          />
+        <TextInput
+          style={[
+            styles.commentBox,
+            bold && styles.bold,
+            italic && styles.italic,
+            underline && styles.underline,
+          ]}
         placeholder="Give your feedback here!"
         onChangeText={handleFeedbackChange}
         value={feedback}
       />
-        </View>
-                    <View style={[styles.submitButton, {marginTop: 30}]}> 
+      </View>
+          <View style={[styles.submitButton]}> 
         <Button title="Submit Feedback" onPress={submitFeedback}><Text style={styles.buttonText}>Submit Feedback</Text></Button>
       </View>
-        <View style={{marginTop: 20, marginBottom: 20}}>
-          <Text style={[styles.buttonText, {marginTop: 10}]}>Rate your experience:</Text>
+        <View style={{marginTop: 20}}>
+          <Text style={[styles.buttonText, {marginTop: 30, marginBottom: 3, alignSelf: 'center', color: theme.colors.secondary}]}>Rate your experience:</Text>
           <View style={styles.starContainer}>
             {[1, 2, 3, 4, 5].map((star) => (
               <TouchableOpacity
@@ -894,9 +934,9 @@ function FeedbackScreen({ navigation, route }) {
                 style={styles.starButton}
               >
                 <MaterialIcons
-                  name={star <= rating ? 'star' : 'star'}
+                  name={star <= rating ? 'star' : 'star-border'}
                   size={30}
-                  color={star <= rating ? '#ffcc01' : 'white'}
+                  color={star <= rating ? '#ffcc01' : theme.colors.secondary}
                 />
               </TouchableOpacity>
             ))}
@@ -1170,33 +1210,3 @@ export default function App() {
       </AppContext.Provider>
     );
   }
-
-      const styles = StyleSheet.create({
-        card: {
-          marginTop: 0,
-          justifyContent: 'center',
-          marginHorizontal: 0,
-        },
-        cardBtn: {
-          borderRadius: 10,
-          marginHorizontal: 10,
-        },
-        container: {
-          flex: 1,
-          paddingLeft: 8,
-          paddingRight: 8,
-          marginHorizontal: 0,
-        },
-        scrollView: {
-          marginHorizontal: 0,
-        },
-        newsImage: {
-          borderWidth: 2,
-          borderRadius: 8
-        },
-        rectangle: {
-          height: 8,
-          backgroundColor: '#ffcc01',
-          position: 'relative', 
-        },
-      });
