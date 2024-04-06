@@ -222,8 +222,8 @@ export function UntimedQuizScreen({ navigation, route }) {
       setMenuVisible(!menuVisible);
     };
 
-    const elements = QuizImages.map(image => image.key);
-    // const index = elements.indexOf(element);
+    const elements = QuizImages.map((image, index) => image.key + '_' + index);
+
     // Initialize result array to store mark colors
     const initialResults = Array(elements.length).fill('unmarked');
     const [result, setResult] = useState(initialResults);
@@ -235,45 +235,47 @@ export function UntimedQuizScreen({ navigation, route }) {
     const [currentState, setCurrentState] = useState(elements[0]);
   
     const handleItemClick = (element) => {
-        const updatedIndex = setCurrentArrayIndex(elements.indexOf(element));
-
-      setCurrentState(elements[updatedIndex]);
+        // const index = parseInt(element.split('_')[1]);
+        setCurrentState(element);
+        const updatedIndex = elements.indexOf(element);
+        console.log("Updated Index:", updatedIndex);
+        setCurrentArrayIndex(updatedIndex);
     };
+    // const handleItemClick = (element, index) => {
+    //     setCurrentState(element); // Set current state to clicked element
+    //     console.log("Index of clicked element:", index);
+    //     // Perform other operations using the index as needed
+    // };
+    const currentIndex = currentArrayIndex;
+    const updatedButtonStates = [...buttonStates];
+
     const handleButtonClick = (buttonType) => {
-        const currentIndex = currentArrayIndex;
-        if ((deficiencyTitle === 'unmark') || (nextTitle === 'unmark')) {
+        const updatedResult = [...result];
+
+        if ((deficiencyTitle === 'Unmark') || (nextTitle === 'Unmark')) {
           // Reset mark color for current element
-          const updatedResult = [...result];
+        //   const updatedResult = [...result];
           updatedResult[currentIndex] = 'unmarked';
           setResult(updatedResult);
-          setCurrentState(elements[currentArrayIndex]);
   
           // Restore buttons to original state
-          const updatedButtonStates = [...buttonStates];
-          updatedButtonStates[currentIndex] = buttonType;
-          setButtonStates(updatedButtonStates);
-        } else if (currentIndex < elements.length) {
+        } else if (currentIndex <= elements.length) {
           // Toggle mark color for current element
-          const updatedResult = [...result];
-          updatedResult[currentIndex] = buttonType === 'deficiency' ? 'red' : 'green';
+        //   const updatedResult = [...result];
+            if (buttonType==='deficiency') {
+                    updatedResult[currentIndex] = 'red';
+            } else if (buttonType==='next') {
+                updatedResult[currentIndex] = 'green';
+            } else {
+                updatedResult[currentIndex] = 'unmarked';
+            }
           setResult(updatedResult);
-    
-          // Toggle button state for current element
-          const updatedButtonStates = [...buttonStates];
-          updatedButtonStates[currentIndex] = buttonType === 'deficiency' ? 'deficiency' : 'unmark';
-              if (buttonType === 'unmark') {
-                          // Reset mark color for current element
-              updatedResult[currentIndex] = 'unmarked';
-              setResult(updatedResult);
-  
-              }
-          // setButtonStates(updatedButtonStates);
-    
           // // Move to next element
-          setCurrentState(elements[currentArrayIndex]);
+        //   setCurrentState(elements[currentIndex]);
   
         }
       };
+  
   
     return (
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
@@ -291,7 +293,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                     <View style={{alignItems: 'center'}}>
                         <Text style={styles.timer}>{formatTime(elapsedTime)}</Text>
                     </View>
-                    <View style={{flexDirection: isPhone? 'row' : 'auto', marginLeft: isPhone? -20 : 'auto'}}>
+                    <View style={{ marginLeft: isPhone? -20 : 'auto',marginTop: isPhone? 40 : 'auto', gap: isPhone? 8 : 'auto'}}>
                     <View style={[styles.deficiencyButton]}>
                     <TouchableOpacity onPress={() => { handleDeficiencyPress(); handleButtonClick('deficiency'); }}>
                     <Text style={{ fontSize: isPhone ? 16 : 35, color: '#E8E2D9' }}>{deficiencyTitle}</Text>
@@ -315,7 +317,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                 <View style={[styles.imageTestBox, {zIndex: 5}]}>
                     <Image source={QuizImages[currentArrayIndex].image} 
                     resizeMode = "contain"
-                    style={{flex: isPhone? 0.7 : 1, alignSelf: 'center', marginTop: isPhone? 50 : 'auto'}}
+                    style={{flex: isPhone? 0.7 : 1, alignSelf: 'center', top: isPhone? 60 : 'auto'}}
                     />
                 </View>
                 <View>
@@ -325,21 +327,24 @@ export function UntimedQuizScreen({ navigation, route }) {
 
                 </View>
 
-<View style={{ flexDirection: 'column', flex: isPhone? 1 : 0.3, width: isPhone? 230 : 420, height: 'auto', marginTop: isPhone? 5 : -15, marginLeft: isPhone? 0 : '60%'}}>
-<View style={{display: isPhone? 'none' : 'auto', zIndex: 5,transform: [{ translateX: isPhone? 20 :'80%'}, {translateY: isPhone ? -480 : '-2vh'}]}}>
+<View style={{ flexDirection: 'column',  position: 'absolute', zIndex: 20, flex: isPhone? 1 : 0.3, width: isPhone? 220 : 420, 
+height: 'auto', marginTop: isPhone? 5 : -15, marginLeft: isPhone? 0 : '60%', borderWidth: isPhone? 0 : 0, borderRadius: 10,
+    borderColor: 'rgba(232, 226, 217, 0.4)', transform: [{ translateX: isPhone? 165 :'80%'}, {translateY: isPhone ? 435 : '-2vh'}]}}>
+<View style={{ display: isPhone? 'none' : 'auto', position: 'absolute', zIndex: 20,transform: [{ translateX: isPhone? 20 :'80%'}, {translateY: isPhone ? -40 : '-2vh'}]}}>
     <TouchableOpacity onPress={handleHamburgerClick}>
             <FontAwesome name="bars" size={isPhone? 24 : 50} color="black" />
     </TouchableOpacity>
 </View>
 
-{menuVisible && (<View style={{justifyContent: 'flex-end', backgroundColor:  'rgba(0, 0, 0, 0.7)', width: 'auto', paddingLeft: isPhone? 'none' : 25, transform: [{ translateX: isPhone? 0 :'auto'}, {translateY: isPhone ? 0 : 'auto'}],}}>
+{(menuVisible || isPhone) && (<View style={{justifyContent: 'flex-end', backgroundColor:'rgba(0, 0, 0, 0.7)', width: 'auto', paddingLeft: isPhone? 'none' : 25, transform: [{ translateX: isPhone? 0 :'auto'}, {translateY: isPhone ? 0 : 'auto'}], borderRadius: isPhone? 10 : 0}}>
     {/* Menu items */}
 
     <View style={[styles.menuSection]}>
             <Text style={styles.sectionMenuTitle}>SECTION MENU</Text>
         </View>
-<View style={{height: 1, width: 230, backgroundColor: theme.colors.primary, marginBottom: 5 }}>
+<View style={{height: 2, width: isPhone? 330 : 'auto', backgroundColor: 'rgba(232, 226, 217, 0.4)', marginBottom: 5 }}>
     </View>
+    <ScrollView style={{margin: isPhone? 0 : 30, height: isPhone? 140 : 'auto'}} showsVerticalScrollIndicator={true}>
     {elements.map((element, index) => (
       <TouchableOpacity key={index} onPress={() => handleItemClick(element)} style={{ padding: 10, flexDirection: 'row'}}>
 
@@ -352,17 +357,23 @@ export function UntimedQuizScreen({ navigation, route }) {
         )}
         <View style={{justifyContent: 'center', marginLeft: isPhone? 5 : 20, marginRight: isPhone? 5 : 25}}>
         {result[index] === 'green' && (
-            <View style={{backgroundColor: 'green', width: 25, height: 25, borderRadius: 25}}></View>
+            <View style={{backgroundColor: 'green', width: isPhone? 20 :25, height: isPhone? 20 : 25, borderRadius: isPhone? 20 :25}}></View>
+        //   <FontAwesome name="check" size={16} color="green" style={{ marginLeft: 10 }} />
+        )}
+        {result[index] === 'unmarked'&& (
+            <View style={{backgroundColor: 'black', width: isPhone? 20 : 25, height: isPhone? 20:  25, borderRadius: isPhone? 20 : 25}}></View>
         //   <FontAwesome name="check" size={16} color="green" style={{ marginLeft: 10 }} />
         )}
         </View>
         <View style={{marginLeft: isPhone? 30 : 60, position: 'absolute', paddingVertical: 2}}>
-            <Text style={{fontSize: isPhone? 15 : 30, color: '#E8E2D9'}}>{element}</Text>
+            <Text style={{fontSize: isPhone? 15 : 30, color: '#E8E2D9'}}>{element.split('_')[0]}</Text>
         </View>
         </View>
 
       </TouchableOpacity>
     ))}
+    </ScrollView>
+
     <View style={{height: isPhone? 15 : 40}}></View>
   </View>
     )}
@@ -428,10 +439,10 @@ export function EndQuizScreen({ navigation, route}) {
     }, [deficienciesCorrect, deficienciesTotal]);
     return (
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
-        <View style={{marginTop: -9, marginBottom: 8, backgroundColor: 'rgba(0, 0, 0, 0.7)'}}>
+                   <View style={{marginTop: -9, marginBottom: 8, backgroundColor: 'rgba(0, 0, 0, 0.7)'}}>
             <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
-                <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen Stats</Text>
+                <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen stat</Text>
                 </View>
             </View>
             <View style={[styles.endQuizR1, {marginTop: isPhone? 20 : 'auto', flexDirection: 'row', marginLeft: isPhone? 40 : 0, alignItems: 'center', width: isPhone? 400 : 1100, alignSelf: 'center'}]}>
@@ -441,28 +452,37 @@ export function EndQuizScreen({ navigation, route}) {
 
                 </View>
                     <View style={{flex: 0.4, justifyContent: 'center', alignSelf: 'center'}}>
-                <Text style={{alignSelf: 'center', color: passStatus==='PASS'? 'green' : 'red', fontSize: isPhone? 30: 65, fontWeight: 700}}>{passStatus}</Text>
+                <Text style={{alignSelf: 'center', color: passStatus==='PASS'? 'green' : 'red', fontSize: isPhone? 32: 65, fontWeight: 700}}>{passStatus}</Text>
 
                 </View>
                 <View style={{flex: 0.3, justifyContent: 'center', marginRight: 50}}>
                 <Text style={{fontSize: isPhone? 16: 45, color:'#E8E2D9', alignSelf: 'center' }} >{deficienciesIdentified}</Text>
-                <Text style={{fontSize: isPhone? 16: 20, color:'#E8E2D9', alignSelf: 'center' }} >Deficiencies Identified</Text>
+                <Text style={{fontSize: isPhone? 16: 20, color:'#E8E2D9', alignSelf: 'center', textAlign: 'center' }} >Deficiencies Identified</Text>
                 </View>
             </View>
-            <View style={{ padding: 20 }}>
+            <View style={styles.endQuizR2}>
 
                 {imageArray.map((question, index) => (
                     <TouchableOpacity onPress={() => handleQuestionClick(index)}>
-                    <View key={index} style={[styles.resultBox, {alignContent:'center', marginTop: 5, flexDirection: 'row', backgroundColor: question.trueAnswer===question.userAnswer? 'green' : 'red'}]}>
+                    <View key={index} style={[styles.resultBox, {marginTop: 5, backgroundColor: question.trueAnswer===question.userAnswer? 'green' : 'red'}]}>
                         {/* <Text style={{fontSize: 30, color:'#E8E2D9', marginLeft: 20}}>Question {(index + 1)} : {question.key}</Text> */}
-                        <Text style={{fontSize: isPhone? 22 : 30, color:'#E8E2D9', marginLeft: 20}}>{(question.trueAnswer===question.userAnswer)? 'Correct' : 'Incorrect'} :  {question.key}</Text>
+                        <Text style={{fontWeight: 600, fontSize: isPhone? 18 : 30, color:'#E8E2D9', marginLeft: isPhone? 10 : 20}}>{(question.trueAnswer===question.userAnswer & question.userAnswer != null)? 'Correct' : 'Incorrect'} :  {question.key}</Text>
 
-                        <Text style={{marginLeft: 15, fontSize: isPhone? 20 : 30, color:'#E8E2D9'}}>-</Text>
-                        <Text style={{fontWeight: 600, fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 15, marginTop: 8}}>Your Answer:</Text>
+                        <Text style={{display: isPhone? 'none' : 'auto', marginLeft: isPhone? 10 : 15, fontSize: isPhone? 0 : 30, color:'#E8E2D9'}}>-</Text>
+                        {question.trueAnswer!=question.userAnswer && (
+                            <Text style={{fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 10, marginTop: isPhone? 5 : 8}}>You marked {question.key} as deficient when there were no problems.</Text>
+
+                        )}
+                        {question.trueAnswer===question.userAnswer && (
+                            <Text style={{fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 10, marginTop: isPhone? 5 : 8}}>Problem's description.</Text>
+
+                        )}
+
+                        {/* <Text style={{fontWeight: 600, fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 15, marginTop: 8}}>Your Answer:</Text>
                         <Text style={{fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 20, marginTop: 8}}>{question.userAnswer === null ? 'No answer' : question.userAnswer ? 'True' : 'False'}</Text>
                         <Text style={{marginLeft: 15, fontSize: isPhone? 20 : 30, color:'#E8E2D9', marginLeft: 5}}>|</Text>
                         <Text style={{fontWeight: 600, fontSize: isPhone? 16 : 20, color:'#E8E2D9', marginLeft: 5, marginTop: 8}}>Correct Answer:</Text>
-                        <Text style={{ fontSize: 20, color:'#E8E2D9', marginLeft: 20, marginTop: 8}}>{question.trueAnswer ? 'True' : 'False'}</Text>
+                        <Text style={{ fontSize: 20, color:'#E8E2D9', marginLeft: 20, marginTop: 8}}>{question.trueAnswer ? 'True' : 'False'}</Text> */}
 
                         {/* Conditionally render the image based on whether the question has been clicked */}
                         {clickedQuestions.includes(index) ? (
@@ -473,8 +493,8 @@ export function EndQuizScreen({ navigation, route}) {
 
                 ))}
             </View>
-            <View style={{ alignItems: 'flex-end', marginBottom: 20, marginRight: 100}}>
-                <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')} style={[styles.endTestButton]}>
+            <View style={{ alignItems: isPhone? 'center' : 'flex-end', marginBottom: 20, marginRight: isPhone? 0 : 100}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')} style={[styles.endTestButton, {alignSelf: isPhone? 'center':'auto', marginTop: isPhone? 20 : 'auto'}]}>
                     <Text style={{ fontSize: isPhone ? 18 : 22, color: '#E8E2D9'}}>Try Again</Text>
                 </TouchableOpacity>
             </View>
@@ -501,41 +521,41 @@ export function QuizScoresScreen({ navigation, route }) {
     const screenWidth = Dimensions.get('window').width;
     return (
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
-            <View style={{marginTop: -9, marginBottom: 8}}>
-                <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
-                    <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
-                        <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>Practical Test Scores</Text>
-                    </View>
+        <View style={{marginTop: -9, marginBottom: 8}}>
+            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
+                <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
+                    <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>Practical Test Scores</Text>
                 </View>
             </View>
-            <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 10 }}>Deficiencies Caught</Text>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                <View style={{ justifyContent: 'center', paddingRight: 10 }}>
-                    <Text style={{ fontSize: 20 }}>Scores Percentage</Text>
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                    <LineChart
-                        data={data}
-                        width={screenWidth * 0.75} // 3/4 of the screen width
-                        height={220}
-                        chartConfig={{
-                            backgroundColor: '#808080', // greyish color
-                            backgroundGradientFrom: '#808080',
-                            backgroundGradientTo: '#808080',
-                            decimalPlaces: 0, // optional, defaults to 2dp
-                            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                            style: {
-                                borderRadius: 16,
-                            },
-                        }}
-                        style={{
-                            marginVertical: 8,
+        </View>
+        <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 15, alignSelf: 'center'}}>Deficiencies Caught</Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginLeft: isPhone? -40 : 'auto' }}>
+            <View style={{ justifyContent: 'center'}}>
+                <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }], }}>Scores</Text>
+            </View>
+            <View style={{ alignItems: 'center', alignSelf: 'center', marginTop: isPhone? 10 : 30, marginLeft: isPhone? -10 : 'auto' }}>
+                <LineChart
+                    data={data}
+                    width={screenWidth * 0.75} // 3/4 of the screen width
+                    height={220}
+                    chartConfig={{
+                        backgroundColor: '#808080', // greyish color
+                        backgroundGradientFrom: '#808080',
+                        backgroundGradientTo: '#808080',
+                        decimalPlaces: 2, // optional, defaults to 2dp
+                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        style: {
                             borderRadius: 16,
-                        }}
-                    />
-                </View>
+                        },
+                    }}
+                    style={{
+                        marginVertical: 8,
+                        borderRadius: 16,
+                    }}
+                />
             </View>
-            <Text style={{ fontSize: 20, textAlign: 'center', marginTop: 10 }}>Test Number</Text>
-        </ScrollView>
+        </View>
+        <Text style={{ fontSize: 20, textAlign: 'center', marginTop: 10 }}>Test Number</Text>
+    </ScrollView>
     );
 }
