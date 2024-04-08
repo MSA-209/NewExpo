@@ -178,14 +178,14 @@ export function UntimedQuizScreen({ navigation, route }) {
         };
     }, [running, elapsedTime, timed]);
     const handleDeficiencyPress = () => {
-        QuizImages[currentArrayIndex].userAnswer = QuizImages[currentArrayIndex].userAnswer === null ? true : null;
+        QuizImages[currentArrayIndex].userAnswer = (QuizImages[currentArrayIndex].userAnswer === null || QuizImages[currentArrayIndex].userAnswer === false) ? true : null;
         if (currentArrayIndex < QuizImages.length - 1) {
             setCurrentArrayIndex(prevIndex => prevIndex + 1);
         }
     };
     
     const handleNextPress = () => {
-        QuizImages[currentArrayIndex].userAnswer = QuizImages[currentArrayIndex].userAnswer === null ? false : null;
+        QuizImages[currentArrayIndex].userAnswer = (QuizImages[currentArrayIndex].userAnswer === null || QuizImages[currentArrayIndex].userAnswer === true) ? false : null;
         if (currentArrayIndex < QuizImages.length - 1) {
             setCurrentArrayIndex(prevIndex => prevIndex + 1);
         }
@@ -531,7 +531,7 @@ export function QuizScoresScreen({ navigation, route }) {
         <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 15, alignSelf: 'center'}}>Deficiencies Caught</Text>
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginLeft: isPhone? -40 : 'auto' }}>
             <View style={{ justifyContent: 'center'}}>
-                <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }], }}>Scores</Text>
+                <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }], }}>Scores Percentage</Text>
             </View>
             <View style={{ alignItems: 'center', alignSelf: 'center', marginTop: isPhone? 10 : 30, marginLeft: isPhone? -10 : 'auto' }}>
                 <LineChart
