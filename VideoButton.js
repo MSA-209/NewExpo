@@ -15,13 +15,13 @@ const isPhone = screenDimension.width < 1000; // Adjust the threshold as needed
 const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, currentVideoID}) => {
   const navigation = useNavigation();
   const [thumbnail, setThumbnail] = useState(null);
+  /*
   React.useEffect(() => {
     if (isPhone) {
     generateThumbnail();
   }
   }, []);
-  
-  const generateThumbnail = async () => {
+    const generateThumbnail = async () => {
     try {
       console.log(video.link)
       const { uri } = await VideoThumbnails.getThumbnailAsync(video.link);
@@ -29,9 +29,10 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
       console.log(uri)
       console.log(thumbnail)
     } catch (e) {
-      /* console.log(e) */
+      console.log(e)
     }
   };
+  */
   return (
     <View style={{display:'flex'}}>
       <View style={styles.videoCard}>
@@ -53,16 +54,10 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
               source={{ uri: `https://img.youtube.com/vi/${video.link.split('v=')[1]}/0.jpg` }}
               style={{ marginTop: 10, width: 345, height: 290, alignSelf: 'center', borderTopLeftRadius: 8, borderBottomRightRadius: 8 }}
             /> */}
-          <View>
-            {!isPhone &&<VideoThumbnail
-              videoUrl={video.link}
-              thumbnailHandler={(thumbnail) => console.log(thumbnail)} 
-            />}
-            {/* {isPhone && <Image
-              source = {{uri: thumbnail}}
-            />} */}
-
-          </View>
+          <Image
+  source={{ uri: video.thumbnail }}
+  style={{ marginTop: 10, width: 345, height: 290, alignSelf: 'center', borderTopLeftRadius: 8, borderBottomRightRadius: 8 }}
+/>
                 <View style={{width: 345, height: 45, position: 'absolute', zIndex: 1, marginTop: 223}} >
           <View style={styles.videoStyle.videoDescriptionContainer}>
             <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'center', padding: 5}}>

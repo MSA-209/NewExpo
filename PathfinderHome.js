@@ -180,6 +180,23 @@ export function PathfinderScreen({ navigation, route }) {
                 confuse you. Wait for the block of instruction from the PFDR cadre!
               </Text>
             </Card.Content>
+            <TouchableRipple
+              onPress={() => {
+                navigation.navigate('Video Hub', { 
+                source: 'pathfinder' // or 'airassault' for airassaulthome.js
+                });
+              }}
+              borderless={true}
+              style={{ borderRadius: 0 }}
+              >
+              <Card.Title
+                title="Video Hub"
+                titleVariant="titleLarge"
+                left={(props) => <Icon name='video' color={theme.colors.primary} size={24} style={{ marginLeft: 8 }} />}
+                right={(props) => <Icon name='chevron-right' color={theme.colors.primary} size={24} style={{ marginRight: 32 }} />}
+              />
+          </TouchableRipple>
+          <Divider bold={true}></Divider>
           </Card>
         </View>
       </View>

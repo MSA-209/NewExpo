@@ -360,6 +360,7 @@ export function Phase1Screen({ navigation, route }) {
 const [testdata, settestData] = React.useState([])
 const [testCards, setTestCards] = React.useState([])
 const [isLoading, setIsLoading] = React.useState(true); // add new state variable
+/*
 React.useEffect(() => {
   const fetchData = async () => {
     try {
@@ -369,10 +370,11 @@ React.useEffect(() => {
       {
         headers: {
           Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9"
-          /*{"77f8b9051e98185e8415940294a97ccfaa98676aaef1b5a728ff3cad09197502ddac6a2494767c24f4447d8ee68d56226ee8319849ab6074c8460c2d33d65972383838a7dc2a2ca2db871d658424547ec55a5df560b82568759f3d78161e12599c42363c91e23bef25aeffce1d81d671da1cc712e615236fe0bc61a4e17699bf"}**/,
+          ,
         }
       }
     )
+
     console.log(res.data)
     console.log(res.data.data)
     settestData(res.data.data)
@@ -390,13 +392,12 @@ React.useEffect(() => {
   fetchData();
   console.log(testdata)
   
-}, []);
-          
+}, []) 
+*/
   const theme = useTheme();
   const screen = route.name
-          /*
+  
   const [flashcards, setFlashcards] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true); // add new state variable
   const flashcardsRef = ref(getDatabase(), "airAssaultPhaseOne");
 
   React.useEffect(() => {
@@ -424,7 +425,7 @@ React.useEffect(() => {
       // you can clear your events listeners or any async calls here
     }
   }, [])
-*/
+
   return (
     <ScrollView style={{marginTop: -10, marginBottom: 0}} showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01"}}>
@@ -434,8 +435,8 @@ React.useEffect(() => {
         {isLoading ? ( // show loading indicator when isLoading is true
           <ActivityIndicator size="large" style={{marginTop:50}} color={theme.colors.primary} />
         ) : (
-          testCards.map((flashcard) => (
-            <Flashcard key={flashcard.id} flashcard={flashcard.attributes} />
+          flashcards.map((flashcard) => (
+            <Flashcard key={flashcard.id} flashcard={flashcard} />
           ))
         )}
       </View>
@@ -447,6 +448,7 @@ React.useEffect(() => {
 export function Phase2Screen({ navigation, route }) {
   const theme = useTheme();
   const screen = route.name
+  /*
   const [testdata, settestData] = React.useState([])
   const [testCards, setTestCards] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(true); // add new state variable
@@ -459,7 +461,7 @@ export function Phase2Screen({ navigation, route }) {
       {
         headers: {
           Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9"
-          /*{"77f8b9051e98185e8415940294a97ccfaa98676aaef1b5a728ff3cad09197502ddac6a2494767c24f4447d8ee68d56226ee8319849ab6074c8460c2d33d65972383838a7dc2a2ca2db871d658424547ec55a5df560b82568759f3d78161e12599c42363c91e23bef25aeffce1d81d671da1cc712e615236fe0bc61a4e17699bf"}**/,
+          ,
         }
       }
     )
@@ -480,7 +482,8 @@ export function Phase2Screen({ navigation, route }) {
   fetchData();
   console.log(testdata)
 }, []);
-/*
+*/
+
   const [flashcards, setFlashcards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true); // add new state variable
   const flashcardsRef = ref(getDatabase(), "airAssaultPhaseTwo");
@@ -506,7 +509,7 @@ export function Phase2Screen({ navigation, route }) {
       // you can clear your events listeners or any async calls here
     }
   }, [])
-*/
+
   return (
     <ScrollView style={{marginTop: -10, marginBottom: 0}} showsVerticalScrollIndicator={false}>
       <View style={{alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01"}}>
@@ -516,8 +519,8 @@ export function Phase2Screen({ navigation, route }) {
         {isLoading ? ( // show loading indicator when isLoading is true
           <ActivityIndicator size="large" style={{marginTop:50}} color={theme.colors.primary} />
         ) : (
-          testCards.map((flashcard) => (
-            <Flashcard key={flashcard.id} flashcard={flashcard.attributes} />
+          flashcards.map((flashcard) => (
+            <Flashcard key={flashcard.id} flashcard={flashcard} />
           ))
         )}
       </View>
@@ -546,8 +549,8 @@ export function VideoScreen({ navigation, route }) {
     const fetchVideos = async () => {
       try {
         const urls = [
-          "https://airdbnew.onrender.com/api/air-assault-videos?populate=video",
-          "https://airdbnew.onrender.com/api/pathfinder-videos?populate=video"
+          "https://airdbnew.onrender.com/api/air-assault-videos?populate=video,thumbnail",
+          "https://airdbnew.onrender.com/api/pathfinder-videos?populate=video,thumbnail"
         ];
         const allRequests = urls.map(url =>
           axios.get(url, {
@@ -559,13 +562,14 @@ export function VideoScreen({ navigation, route }) {
         Promise.all(allRequests).then(responses => {
           const airAssaultResponse = responses[0];
           const pathfinderResponse = responses[1];
-  
+          console.log(airAssaultResponse)
           if (airAssaultResponse.data && airAssaultResponse.data.data) {
             const formattedData = airAssaultResponse.data.data.map((item) => {
               return {
                 link: item.attributes.video.data[0].attributes.url,
                 title: item.attributes.title,
                 description: item.attributes.description,
+                thumbnail: item.attributes.thumbnail.data.attributes.url,
               };
             });
             console.log(formattedData + "air")
@@ -578,6 +582,7 @@ export function VideoScreen({ navigation, route }) {
                 link: item.attributes.video.data[0].attributes.url,
                 title: item.attributes.title,
                 description: item.attributes.description,
+                thumbnail: item.attributes.thumbnail.name,
               };
             });
             console.log(formattedData + "pathfinder")
