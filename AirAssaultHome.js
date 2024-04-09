@@ -582,7 +582,7 @@ export function VideoScreen({ navigation, route }) {
                 link: item.attributes.video.data[0].attributes.url,
                 title: item.attributes.title,
                 description: item.attributes.description,
-                thumbnail: item.attributes.thumbnail.name,
+                thumbnail: item.attributes.thumbnail.data.attributes.url,
               };
             });
             console.log(formattedData + "pathfinder")
