@@ -12,7 +12,7 @@ import { QuizScoresContext } from './quizScoresContext.js';
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 900;
 
-const deficientImages = [
+/* const deficientImages = [
                        {key: 'Apex' , image: require('./assets/DeficientApex_CotterPin.png'),trueAnswer: true, userAnswer: null },
                        {key: 'Apex' ,image: require('./assets/DeficientApex_InvertedNut.png'),trueAnswer: true, userAnswer: null },
                        {key: 'Apex' ,image: require('./assets/DeficientApex_NutMissing.png'),trueAnswer: true, userAnswer: null },
@@ -43,7 +43,7 @@ const normalImages = [{key: 'Apex' ,image: require('./assets/Apex_Bottom.png'),t
                        {key: 'Suspension 1' ,image: require('./assets/Suspension1_Center.png'),trueAnswer: false, userAnswer: null },
                        {key: 'Suspension 2' ,image: require('./assets/Suspension2_Center_Top.png'),trueAnswer: false, userAnswer: null },
                        {key: 'Suspension Strap Order' ,image: require('./assets/SusStrapOrder_Center_Top.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Top Lateral C1' ,image: require('./assets/TopLateralC1_Center.png'),trueAnswer: false, userAnswer: null }]
+                       {key: 'Top Lateral C1' ,image: require('./assets/TopLateralC1_Center.png'),trueAnswer: false, userAnswer: null }] */
 
 function shuffleArray(array){
     for (let i = array.length - 1; i > 0; i--) {
