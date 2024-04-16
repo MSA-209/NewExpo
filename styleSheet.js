@@ -181,7 +181,7 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#525254', 
         textAlignVertical: 'top', 
-        marginTop: isPhone? 15 : 10,
+        marginTop: isPhone? 15 : 40,
         borderWidth: 1,
         padding: isPhone? 0 : 15,
         backgroundColor: '#ffffff90',

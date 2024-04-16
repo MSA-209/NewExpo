@@ -859,11 +859,14 @@ function FeedbackScreen({ navigation, route }) {
 
   const [schoolSelected, setSchoolSelected] = useState("Select school for feedback");
   return (
+    <ScrollView>
+
+
     <View style={[styles.feedbackForm, {backgroundColor: theme.colors.surfaceDisabled, flexDirection: 'column', justifyContent: 'space-around', borderColor: theme.colors.primary, borderWidth: isPhone? 0.5 : 1}]}>
       
       <View style={{position: 'absolute',borderColor: '#ffcc01', backgroundColor: theme.colors.primaryContainer, borderWidth: 2, borderRadius: 10, overflow: 'hidden', zIndex: 20, top : 30, marginBottom: 30, alignSelf: 'center', alignItems: 'center'}}>
     <TouchableOpacity onPress={handleSchoolPicker}>
-        <View style={{backgroundColor: '#ffcc01', alignItems: 'center', width: isPhone? 300 : 400, height: isPhone? 36 : 60, borderRadius: 8}}>
+        <View style={{backgroundColor: '#ffcc01', alignItems: 'center', width: isPhone? 300 : 400, height: isPhone? 36 : 40, borderRadius: 8}}>
           <Text style={{alignSelf: 'center', color: '#000234', marginTop: 8, size: isPhone? 16 : 25 }}>{schoolSelected}</Text>
         </View>
         {menuVisible && (
@@ -947,6 +950,7 @@ function FeedbackScreen({ navigation, route }) {
         </View>
       </View>
     </View>
+    </ScrollView>
   );
 }
 
