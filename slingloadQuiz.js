@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';/Deficient/
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity, ScrollView, TextInput, FlatList, screen, Button, Dimensions} from 'react-native';
 import 'react-native-svg'
@@ -12,38 +12,149 @@ import { QuizScoresContext } from './quizScoresContext.js';
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 900;
 
-/* const deficientImages = [
-                       {key: 'Apex' , image: require('./assets/DeficientApex_CotterPin.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Apex' ,image: require('./assets/DeficientApex_InvertedNut.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Apex' ,image: require('./assets/DeficientApex_NutMissing.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Apex' ,image: require('./assets/DeficientApex_SpacerMissing.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Bag' ,image: require('./assets/DeficientBag1.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Bag' ,image: require('./assets/DeficientBag2.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Bag' ,image: require('./assets/DeficientBag3.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Bag' ,image: require('./assets/DeficientBag4.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Bag' ,image: require('./assets/DeficientBag5.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Chain Clevis' ,image: require('./assets/DeficientChainClevis.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_DomeNutMissing.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_ExtraLink.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_Inverted.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_Inverted2.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_LockNutMissing.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'GrabHook' ,image: require('./assets/DeficientGrabhook_MissingLink.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Placard' ,image: require('./assets/DeficientPlacard_Tight.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Placard' ,image: require('./assets/DeficientPlacard_Weight.png'),trueAnswer: true, userAnswer: null }]
+ const deficientImages = [
+                       {key: 'Apex' , image: [[require('./assets/Apex/Deficient/DeficientApex_CotterPin/Top.png')],
+                [require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Center_Top_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Right_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Back_Top_Angle.png') ],
+[require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Back_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Center.png') ,
+        require('./assets/Apex/Deficient/DeficientApex_CotterPin/Right_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Right.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Right_Back_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Back.png')],
+    [require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Bottom_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Center_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Right_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Back_Bottom_Angle.png')],
+                        [require('./assets/Apex/Deficient/DeficientApex_CotterPin/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Apex' ,image: [[require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Top.png')],
+                       [require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Left_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Center_Top_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Right_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Back_Top_Angle.png') ],
+       [require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Left_Back_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Left.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Left_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Center.png') ,
+               require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Right_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Right.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Right_Back_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Back.png')],
+           [require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Left_Bottom_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Center_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Right_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Back_Bottom_Angle.png')],
+                               [require('./assets/Apex/Deficient/DeficientApex_InvertedNut/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Apex' ,image: [[require('./assets/Apex/Deficient/DeficientApex_NutMissing/Top.png')],
+                       [require('./assets/Apex/Deficient/DeficientApex_NutMissing/Left_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_NutMissing/Center_Top_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Right_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_NutMissing/Back_Top_Angle.png') ],
+       [require('./assets/Apex/Deficient/DeficientApex_NutMissing/Left_Back_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_NutMissing/Left.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Left_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Center.png') ,
+               require('./assets/Apex/Deficient/DeficientApex_NutMissing/Right_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Right.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Right_Back_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Back.png')],
+           [require('./assets/Apex/Deficient/DeficientApex_NutMissing/Left_Bottom_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_NutMissing/Center_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Right_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_NutMissing/Back_Bottom_Angle.png')],
+                               [require('./assets/Apex/Deficient/DeficientApex_NutMissing/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Apex' ,image: [[require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Top.png')],
+                       [require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Left_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Center_Top_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Right_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Back_Top_Angle.png') ],
+       [require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Left_Back_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Left.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Left_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Center.png') ,
+               require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Right_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Right.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Right_Back_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Back.png')],
+           [require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Left_Bottom_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Center_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Right_Bottom_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Back_Bottom_Angle.png')],
+                               [require('./assets/Apex/Deficient/DeficientApex_SpacerMissing/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Bag' ,image: [[require('./assets/Bag/Deficient/Top.png')],
+                       [require('./assets/Bag/Deficient/Left_Top_Angle.png'),require('./assets/Bag/Deficient/Center_Top_Angle.png') ,require('./assets/Bag/Deficient/Right_Top_Angle.png'),require('./assets/Bag/Deficient/Back_Top_Angle.png') ],
+       [require('./assets/Bag/Deficient/Left_Back_Angle.png'),require('./assets/Bag/Deficient/Left.png') ,require('./assets/Bag/Deficient/Left_Angle.png') ,require('./assets/Bag/Deficient/Center.png') ,
+               require('./assets/Bag/Deficient/Right_Angle.png') ,require('./assets/Bag/Deficient/Right.png') ,require('./assets/Bag/Deficient/Right_Back_Angle.png') ,require('./assets/Bag/Deficient/Back.png')],
+           [require('./assets/Bag/Deficient/Left_Bottom_Angle.png'),require('./assets/Bag/Deficient/Center_Bottom_Angle.png') ,require('./assets/Bag/Deficient/Right_Bottom_Angle.png') ,require('./assets/Bag/Deficient/Back_Bottom_Angle.png')],
+                               [require('./assets/Bag/Deficient/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Chain Clevis' ,image: [[require('./assets/ChainClevis/Deficient/Top.png')],
+                       [require('./assets/ChainClevis/Deficient/Left_Top_Angle.png'),require('./assets/ChainClevis/Deficient/Center_Top_Angle.png') ,require('./assets/ChainClevis/Deficient/Right_Top_Angle.png'),require('./assets/ChainClevis/Deficient/Back_Top_Angle.png') ],
+       [require('./assets/ChainClevis/Deficient/Left_Back_Angle.png'),require('./assets/ChainClevis/Deficient/Left.png') ,require('./assets/ChainClevis/Deficient/Left_Angle.png') ,require('./assets/ChainClevis/Deficient/Center.png') ,
+               require('./assets/ChainClevis/Deficient/Right_Angle.png') ,require('./assets/ChainClevis/Deficient/Right.png') ,require('./assets/ChainClevis/Deficient/Right_Back_Angle.png') ,require('./assets/ChainClevis/Deficient/Back.png')],
+           [require('./assets/ChainClevis/Deficient/Left_Bottom_Angle.png'),require('./assets/ChainClevis/Deficient/Center_Bottom_Angle.png') ,require('./assets/ChainClevis/Deficient/Right_Bottom_Angle.png') ,require('./assets/ChainClevis/Deficient/Back_Bottom_Angle.png')],
+                               [require('./assets/ChainClevis/Deficient/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: [[require('./assets/Grabhook/Deficient/DomeNutMissing/Top.png')],
+                       [require('./assets/Grabhook/Deficient/DomeNutMissing/Left_Top_Angle.png'),require('./assets/Grabhook/Deficient/DomeNutMissing/Center_Top_Angle.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Right_Top_Angle.png'),require('./assets/Grabhook/Deficient/DomeNutMissing/Back_Top_Angle.png') ],
+       [require('./assets/Grabhook/Deficient/DomeNutMissing/Left_Back_Angle.png'),require('./assets/Grabhook/Deficient/DomeNutMissing/Left.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Left_Angle.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Center.png') ,
+               require('./assets/Grabhook/Deficient/DomeNutMissing/Right_Angle.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Right.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Back.png')],
+           [require('./assets/Grabhook/Deficient/DomeNutMissing/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/DomeNutMissing/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/DomeNutMissing/Back_Bottom_Angle.png')],
+                               [require('./assets/Grabhook/Deficient/DomeNutMissing/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: [[require('./assets/Grabhook/Deficient/ExtraLink/Top.png')],
+                       [require('./assets/Grabhook/Deficient/ExtraLink/Left_Top_Angle.png'),require('./assets/Grabhook/Deficient/ExtraLink/Center_Top_Angle.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Right_Top_Angle.png'),require('./assets/Grabhook/Deficient/ExtraLink/Back_Top_Angle.png') ],
+       [require('./assets/Grabhook/Deficient/ExtraLink/Left_Back_Angle.png'),require('./assets/Grabhook/Deficient/ExtraLink/Left.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Left_Angle.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Center.png') ,
+               require('./assets/Grabhook/Deficient/ExtraLink/Right_Angle.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Right.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Back.png')],
+           [require('./assets/Grabhook/Deficient/ExtraLink/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/ExtraLink/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/ExtraLink/Back_Bottom_Angle.png')],
+                               [require('./assets/Grabhook/Deficient/ExtraLink/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: [[require('./assets/Grabhook/Deficient/Inverted/Top.png')],
+                       [require('./assets/Grabhook/Deficient/Inverted/Left_Top_Angle.png'),require('./assets/Grabhook/Deficient/Inverted/Center_Top_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted/Right_Top_Angle.png'),require('./assets/Grabhook/Deficient/Inverted/Back_Top_Angle.png') ],
+       [require('./assets/Grabhook/Deficient/Inverted/Left_Back_Angle.png'),require('./assets/Grabhook/Deficient/Inverted/Left.png') ,require('./assets/Grabhook/Deficient/Inverted/Left_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted/Center.png') ,
+               require('./assets/Grabhook/Deficient/Inverted/Right_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted/Right.png') ,require('./assets/Grabhook/Deficient/Inverted/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted/Back.png')],
+           [require('./assets/Grabhook/Deficient/Inverted/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/Inverted/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted/Back_Bottom_Angle.png')],
+                               [require('./assets/Grabhook/Deficient/Inverted/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: [[require('./assets/Grabhook/Deficient/Inverted2/Top.png')],
+                       [require('./assets/Grabhook/Deficient/Inverted2/Left_Top_Angle.png'),require('./assets/Grabhook/Deficient/Inverted2/Center_Top_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted2/Right_Top_Angle.png'),require('./assets/Grabhook/Deficient/Inverted2/Back_Top_Angle.png') ],
+       [require('./assets/Grabhook/Deficient/Inverted2/Left_Back_Angle.png'),require('./assets/Grabhook/Deficient/Inverted2/Left.png') ,require('./assets/Grabhook/Deficient/Inverted2/Left_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted2/Center.png') ,
+               require('./assets/Grabhook/Deficient/Inverted2/Right_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted2/Right.png') ,require('./assets/Grabhook/Deficient/Inverted2/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted2/Back.png')],
+           [require('./assets/Grabhook/Deficient/Inverted2/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/Inverted2/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted2/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/Inverted2/Back_Bottom_Angle.png')],
+                               [require('./assets/Grabhook/Deficient/Inverted2/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: [[require('./assets/Grabhook/Deficient/LockNutMissing/Top.png')],
+                       [require('./assets/Grabhook/Deficient/LockNutMissing/Left_Top_Angle.png'),require('./assets/Grabhook/Deficient/LockNutMissing/Center_Top_Angle.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Right_Top_Angle.png'),require('./assets/Grabhook/Deficient/LockNutMissing/Back_Top_Angle.png') ],
+       [require('./assets/Grabhook/Deficient/LockNutMissing/Left_Back_Angle.png'),require('./assets/Grabhook/Deficient/LockNutMissing/Left.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Left_Angle.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Center.png') ,
+               require('./assets/Grabhook/Deficient/LockNutMissing/Right_Angle.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Right.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Back.png')],
+           [require('./assets/Grabhook/Deficient/LockNutMissing/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/LockNutMissing/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/LockNutMissing/Back_Bottom_Angle.png')],
+                               [require('./assets/Grabhook/Deficient/LockNutMissing/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'GrabHook' ,image: [[require('./assets/Grabhook/Deficient/MissingLink/Top.png')],
+                       [require('./assets/Grabhook/Deficient/MissingLink/Left_Top_Angle.png'),require('./assets/Grabhook/Deficient/MissingLink/Center_Top_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right_Top_Angle.png'),require('./assets/Grabhook/Deficient/MissingLink/Back_Top_Angle.png') ],
+       [require('./assets/Grabhook/Deficient/MissingLink/Left_Back_Angle.png'),require('./assets/Grabhook/Deficient/MissingLink/Left.png') ,require('./assets/Grabhook/Deficient/MissingLink/Left_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Center.png') ,
+               require('./assets/Grabhook/Deficient/MissingLink/Right_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Back.png')],
+           [require('./assets/Grabhook/Deficient/MissingLink/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/MissingLink/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Back_Bottom_Angle.png')],
+                               [require('./assets/Grabhook/Deficient/MissingLink/Bottom.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/Placard/Deficient/DeficientPlacard_Tight.png'),trueAnswer: true, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/Placard/Deficient/DeficientPlacard_Weight.png'),trueAnswer: true, userAnswer: null }]
 
-const normalImages = [{key: 'Apex' ,image: require('./assets/Apex_Bottom.png'),trueAnswer: false, userAnswer: null },
-                        {key: 'Bottom Lateral C1' ,image: require('./assets/BotLateralC1_Center.png'),trueAnswer: false, userAnswer: null },
-                        {key: 'Chain Clevis' ,image: require('./assets/ChainClevis_Left_Top.png'),trueAnswer: false, userAnswer: null },
-                        {key: 'GrabHook' ,image: require('./assets/GrabHook_Left.png'),trueAnswer: false, userAnswer: null },
-                        {key: 'Medium Clevis' ,image: require('./assets/MediumClevis_Center.png'),trueAnswer: false, userAnswer: null },
-                        {key: 'Middle Lateral C1' ,image: require('./assets/MidLateralC1_Center.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Placard' ,image: require('./assets/placard_Center.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Strap Side' ,image: require('./assets/StrapSide_Right_Top.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Suspension 1' ,image: require('./assets/Suspension1_Center.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Suspension 2' ,image: require('./assets/Suspension2_Center_Top.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Suspension Strap Order' ,image: require('./assets/SusStrapOrder_Center_Top.png'),trueAnswer: false, userAnswer: null },
-                       {key: 'Top Lateral C1' ,image: require('./assets/TopLateralC1_Center.png'),trueAnswer: false, userAnswer: null }] */
+const normalImages = [{key: 'Apex' ,image:[[require('./assets/Apex/Apex_Top.png')],
+[require('./assets/Apex/Apex_Left_Top_Angle.png'),require('./assets/Apex/Apex_Center_Top_Angle.png'),require('./assets/Apex/Apex_Right_Top_Angle.png'),require('./assets/Apex/Apex_Back_Top_Angle.png')],
+[require('./assets/Apex/Apex_Left_Back_Angle.png'),require('./assets/Apex/Apex_Left.png'),require('./assets/Apex/Apex_Left_Angle.png'),require('./assets/Apex/Apex_Center.png'),
+require('./assets/Apex/Apex_Right_Angle.png'),require('./assets/Apex/Apex_Right.png'),require('./assets/Apex/Apex_Right_Back_Angle.png'),require('./assets/Apex/Apex_Back.png')],
+[require('./assets/Apex/Apex_Left_Bottom_Angle.png'),require('./assets/Apex/Apex_Center_Bottom_Angle.png'),require('./assets/Apex/Apex_Right_Bottom_Angle.png'),require('./assets/Apex/Apex_Back_Bottom_Angle.png')],
+[require('./assets/Apex/Apex_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                        {key: 'Bottom Lateral C1' ,image: [[require('./assets/BotLateralC1/BotLateralC1_Top.png')],
+                        [require('./assets/BotLateralC1/BotLateralC1_Left_Top_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Center_Top_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Right_Top_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Back_Top_Angle.png')],
+                        [require('./assets/BotLateralC1/BotLateralC1_Left_Back_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Left.png'),require('./assets/BotLateralC1/BotLateralC1_Left_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Center.png'),
+                        require('./assets/BotLateralC1/BotLateralC1_Right_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Right.png'),require('./assets/BotLateralC1/BotLateralC1_Right_Back_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Back.png')],
+                        [require('./assets/BotLateralC1/BotLateralC1_Left_Bottom_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Center_Bottom_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Right_Bottom_Angle.png'),require('./assets/BotLateralC1/BotLateralC1_Back_Bottom_Angle.png')],
+                        [require('./assets/BotLateralC1/BotLateralC1_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                        {key: 'Chain Clevis' ,image: [[require('./assets/ChainClevis/ChainClevis_Top.png')],
+                        [require('./assets/ChainClevis/ChainClevis_Left_Top_Angle.png'),require('./assets/ChainClevis/ChainClevis_Center_Top_Angle.png'),require('./assets/ChainClevis/ChainClevis_Right_Top_Angle.png'),require('./assets/ChainClevis/ChainClevis_Back_Top_Angle.png')],
+                        [require('./assets/ChainClevis/ChainClevis_Left_Back_Angle.png'),require('./assets/ChainClevis/ChainClevis_Left.png'),require('./assets/ChainClevis/ChainClevis_Left_Angle.png'),require('./assets/ChainClevis/ChainClevis_Center.png'),
+                        require('./assets/ChainClevis/ChainClevis_Right_Angle.png'),require('./assets/ChainClevis/ChainClevis_Right.png'),require('./assets/ChainClevis/ChainClevis_Right_Back_Angle.png'),require('./assets/ChainClevis/ChainClevis_Back.png')],
+                        [require('./assets/ChainClevis/ChainClevis_Left_Bottom_Angle.png'),require('./assets/ChainClevis/ChainClevis_Center_Bottom_Angle.png'),require('./assets/ChainClevis/ChainClevis_Right_Bottom_Angle.png'),require('./assets/ChainClevis/ChainClevis_Back_Bottom_Angle.png')],
+                        [require('./assets/ChainClevis/ChainClevis_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                        {key: 'GrabHook' ,image: [[require('./assets/Grabhook/GrabHook_Top.png')],
+                        [require('./assets/Grabhook/GrabHook_Left_Top_Angle.png'),require('./assets/Grabhook/GrabHook_Center_Top_Angle.png'),require('./assets/Grabhook/GrabHook_Right_Top_Angle.png'),require('./assets/Grabhook/GrabHook_Back_Top_Angle.png')],
+                        [require('./assets/Grabhook/GrabHook_Left_Back_Angle.png'),require('./assets/Grabhook/GrabHook_Left.png'),require('./assets/Grabhook/GrabHook_Left_Angle.png'),require('./assets/Grabhook/GrabHook_Center.png'),
+                        require('./assets/Grabhook/GrabHook_Right_Angle.png'),require('./assets/Grabhook/GrabHook_Right.png'),require('./assets/Grabhook/GrabHook_Right_Back_Angle.png'),require('./assets/Grabhook/GrabHook_Back.png')],
+                        [require('./assets/Grabhook/GrabHook_Left_Bottom_Angle.png'),require('./assets/Grabhook/GrabHook_Center_Bottom_Angle.png'),require('./assets/Grabhook/GrabHook_Right_Bottom_Angle.png'),require('./assets/Grabhook/GrabHook_Back_Bottom_Angle.png')],
+                        [require('./assets/Grabhook/GrabHook_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                        {key: 'Medium Clevis' ,image: [[require('./assets/MediumClevis/MediumClevis_Top.png')],
+                        [require('./assets/MediumClevis/MediumClevis_Left_Top_Angle.png'),require('./assets/MediumClevis/MediumClevis_Center_Top_Angle.png'),require('./assets/MediumClevis/MediumClevis_Right_Top_Angle.png'),require('./assets/MediumClevis/MediumClevis_Back_Top_Angle.png')],
+                        [require('./assets/MediumClevis/MediumClevis_Left_Back_Angle.png'),require('./assets/MediumClevis/MediumClevis_Left.png'),require('./assets/MediumClevis/MediumClevis_Left_Angle.png'),require('./assets/MediumClevis/MediumClevis_Center.png'),
+                        require('./assets/MediumClevis/MediumClevis_Right_Angle.png'),require('./assets/MediumClevis/MediumClevis_Right.png'),require('./assets/MediumClevis/MediumClevis_Right_Back_Angle.png'),require('./assets/MediumClevis/MediumClevis_Back.png')],
+                        [require('./assets/MediumClevis/MediumClevis_Left_Bottom_Angle.png'),require('./assets/MediumClevis/MediumClevis_Center_Bottom_Angle.png'),require('./assets/MediumClevis/MediumClevis_Right_Bottom_Angle.png'),require('./assets/MediumClevis/MediumClevis_Back_Bottom_Angle.png')],
+                        [require('./assets/MediumClevis/MediumClevis_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                        {key: 'Middle Lateral C1' ,image: [[require('./assets/MidLateralC1/MidLateralC1_Top.png')],
+                        [require('./assets/MidLateralC1/MidLateralC1_Left_Top_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Center_Top_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Right_Top_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Back_Top_Angle.png')],
+                        [require('./assets/MidLateralC1/MidLateralC1_Left_Back_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Left.png'),require('./assets/MidLateralC1/MidLateralC1_Left_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Center.png'),
+                        require('./assets/MidLateralC1/MidLateralC1_Right_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Right.png'),require('./assets/MidLateralC1/MidLateralC1_Right_Back_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Back.png')],
+                        [require('./assets/MidLateralC1/MidLateralC1_Left_Bottom_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Center_Bottom_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Right_Bottom_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Back_Bottom_Angle.png')],
+                        [require('./assets/MidLateralC1/MidLateralC1_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                       {key: 'Placard' ,image: require('./assets/Placard/placard_Center.png'),trueAnswer: false, userAnswer: null },
+                       {key: 'Strap Side' ,image: [[require('./assets/StrapSide/StrapSide_Top.png')],
+                       [require('./assets/StrapSide/StrapSide_Left_Top_Angle.png'),require('./assets/StrapSide/StrapSide_Center_Top_Angle.png'),require('./assets/StrapSide/StrapSide_Right_Top_Angle.png'),require('./assets/StrapSide/StrapSide_Back_Top_Angle.png')],
+                       [require('./assets/StrapSide/StrapSide_Left_Back_Angle.png'),require('./assets/StrapSide/StrapSide_Left.png'),require('./assets/StrapSide/StrapSide_Left_Angle.png'),require('./assets/StrapSide/StrapSide_Center.png'),
+                       require('./assets/StrapSide/StrapSide_Right_Angle.png'),require('./assets/StrapSide/StrapSide_Right.png'),require('./assets/StrapSide/StrapSide_Right_Back_Angle.png'),require('./assets/StrapSide/StrapSide_Back.png')],
+                       [require('./assets/StrapSide/StrapSide_Left_Bottom_Angle.png'),require('./assets/StrapSide/StrapSide_Center_Bottom_Angle.png'),require('./assets/StrapSide/StrapSide_Right_Bottom_Angle.png'),require('./assets/StrapSide/StrapSide_Back_Bottom_Angle.png')],
+                       [require('./assets/StrapSide/StrapSide_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                       {key: 'Suspension 1' ,image: [[require('./assets/Suspension1/Suspension1_Top.png')],
+                       [require('./assets/Suspension1/Suspension1_Left_Top_Angle.png'),require('./assets/Suspension1/Suspension1_Center_Top_Angle.png'),require('./assets/Suspension1/Suspension1_Right_Top_Angle.png'),require('./assets/Suspension1/Suspension1_Back_Top_Angle.png')],
+                       [require('./assets/Suspension1/Suspension1_Left_Back_Angle.png'),require('./assets/Suspension1/Suspension1_Left.png'),require('./assets/Suspension1/Suspension1_Left_Angle.png'),require('./assets/Suspension1/Suspension1_Center.png'),
+                       require('./assets/Suspension1/Suspension1_Right_Angle.png'),require('./assets/Suspension1/Suspension1_Right.png'),require('./assets/Suspension1/Suspension1_Right_Back_Angle.png'),require('./assets/Suspension1/Suspension1_Back.png')],
+                       [require('./assets/Suspension1/Suspension1_Left_Bottom_Angle.png'),require('./assets/Suspension1/Suspension1_Center_Bottom_Angle.png'),require('./assets/Suspension1/Suspension1_Right_Bottom_Angle.png'),require('./assets/Suspension1/Suspension1_Back_Bottom_Angle.png')],
+                       [require('./assets/Suspension1/Suspension1_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                       {key: 'Suspension 2' ,image: [[require('./assets/Suspension2/Suspension2_Top.png')],
+                       [require('./assets/Suspension2/Suspension2_Left_Top_Angle.png'),require('./assets/Suspension2/Suspension2_Center_Top_Angle.png'),require('./assets/Suspension2/Suspension2_Right_Top_Angle.png'),require('./assets/Suspension2/Suspension2_Back_Top_Angle.png')],
+                       [require('./assets/Suspension2/Suspension2_Left_Back_Angle.png'),require('./assets/Suspension2/Suspension2_Left.png'),require('./assets/Suspension2/Suspension2_Left_Angle.png'),require('./assets/Suspension2/Suspension2_Center.png'),
+                       require('./assets/Suspension2/Suspension2_Right_Angle.png'),require('./assets/Suspension2/Suspension2_Right.png'),require('./assets/Suspension2/Suspension2_Right_Back_Angle.png'),require('./assets/Suspension2/Suspension2_Back.png')],
+                       [require('./assets/Suspension2/Suspension2_Left_Bottom_Angle.png'),require('./assets/Suspension2/Suspension2_Center_Bottom_Angle.png'),require('./assets/Suspension2/Suspension2_Right_Bottom_Angle.png'),require('./assets/Suspension2/Suspension2_Back_Bottom_Angle.png')],
+                       [require('./assets/Suspension2/Suspension2_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                       {key: 'Suspension Strap Order' ,image: [[require('./assets/SusStrapOrder/SusStrapOrder_Top.png')],
+                       [require('./assets/SusStrapOrder/SusStrapOrder_Left_Top_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Center_Top_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Right_Top_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Back_Top_Angle.png')],
+                       [require('./assets/SusStrapOrder/SusStrapOrder_Left_Back_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Left.png'),require('./assets/SusStrapOrder/SusStrapOrder_Left_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Center.png'),
+                       require('./assets/SusStrapOrder/SusStrapOrder_Right_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Right.png'),require('./assets/SusStrapOrder/SusStrapOrder_Right_Back_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Back.png')],
+                       [require('./assets/SusStrapOrder/SusStrapOrder_Left_Bottom_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Center_Bottom_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Right_Bottom_Angle.png'),require('./assets/SusStrapOrder/SusStrapOrder_Back_Bottom_Angle.png')],
+                       [require('./assets/SusStrapOrder/SusStrapOrder_Bottom.png')]],trueAnswer: false, userAnswer: null },
+                       {key: 'Top Lateral C1' ,image: [[require('./assets/TopLateralC1/TopLateralC1_Top.png')],
+                       [require('./assets/TopLateralC1/TopLateralC1_Left_Top_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Center_Top_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Right_Top_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Back_Top_Angle.png')],
+                       [require('./assets/TopLateralC1/TopLateralC1_Left_Back_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Left.png'),require('./assets/TopLateralC1/TopLateralC1_Left_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Center.png'),
+                       require('./assets/TopLateralC1/TopLateralC1_Right_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Right.png'),require('./assets/TopLateralC1/TopLateralC1_Right_Back_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Back.png')],
+                       [require('./assets/TopLateralC1/TopLateralC1_Left_Bottom_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Center_Bottom_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Right_Bottom_Angle.png'),require('./assets/TopLateralC1/TopLateralC1_Back_Bottom_Angle.png')],
+                       [require('./assets/TopLateralC1/TopLateralC1_Bottom.png')]],trueAnswer: false, userAnswer: null }] 
 
 function shuffleArray(array){
     for (let i = array.length - 1; i > 0; i--) {
@@ -125,12 +236,11 @@ export function UntimedQuizScreen({ navigation, route }) {
         let images = [];
         let imagesLength = Math.floor(Math.random() * (13)) + 4;
         if (imagesLength === 4){
-            shuffleArray(deficientImages);
             images = deficientImages.slice(0,4);
+            shuffleArray(images);
+            
         }
         else{
-            shuffleArray(deficientImages);
-            shuffleArray(normalImages);
             images.push(... deficientImages.slice(0,4));
             images.push(...normalImages.slice(0,(imagesLength - 4)))
             shuffleArray(images)
@@ -275,6 +385,105 @@ export function UntimedQuizScreen({ navigation, route }) {
   
         }
       };
+    const images = QuizImages[currentArrayIndex].image
+    const imageArrayName = QuizImages[currentArrayIndex].key
+    const [currentRow, setCurrentRow] = React.useState(Math.floor(images.length / 2));
+    const [currentCol, setCurrentCol] = React.useState((imageArrayName === "Placard") ? Math.floor(images[currentRow].length / 2)  : Math.floor(images[currentRow].length / 2)- 1);
+    console.log(currentRow)
+    console.log(currentCol)
+    function changeImage  (direction) {
+        if (direction === 'Up') {
+            if (imageArrayName !== "Placard"){
+                if ( currentRow === 0) {
+                    setCurrentRow(4);
+                    setCurrentCol(0);
+                }else if (currentRow === 4){
+                    setCurrentRow(3);
+                    setCurrentCol(1);
+                }else if (currentRow === 3){
+                    setCurrentRow(2);
+                    if (currentCol === 0){
+                        setCurrentCol(1);
+                    }
+                    else if (currentCol === 1){
+                        setCurrentCol(3);
+                    }
+                    else if (currentCol === 2){
+                        setCurrentCol(5);
+                    }
+                    else{
+                        setCurrentCol(7);
+                    }
+                } else if (currentRow === 2){
+                    setCurrentRow(1);
+                    if (currentCol === 0  || currentCol ===1|| currentCol === 2){
+                        setCurrentCol(0);
+                    }else if (currentCol == 3){
+                        setCurrentCol(1);
+                    }else if (currentCol === 4  || currentCol ===5|| currentCol === 6){
+                        setCurrentCol(2);
+                    }else{
+                        setCurrentCol(3);
+                    }
+                }else{
+                    setCurrentRow(0);
+                    setCurrentCol(0);
+                }
+                
+            }else{
+            setCurrentRow((currentRow - 1 + images.length) % images.length);
+            }
+        }
+        else if (direction === 'Down') {
+            if (imageArrayName !== "Placard"){
+                if ( currentRow === 0) {
+                    setCurrentRow(1);
+                    setCurrentCol(1);
+                }else if (currentRow === 4){
+                    setCurrentRow(0);
+                    setCurrentCol(0);
+                }else if (currentRow === 3){
+                    setCurrentRow(4);
+                    setCurrentCol(0);
+                } else if (currentRow === 2){
+                    setCurrentRow(3);
+                    if (currentCol === 0  || currentCol ===1|| currentCol === 2){
+                        setCurrentCol(0);
+                    }else if (currentCol == 3){
+                        setCurrentCol(1);
+                    }else if (currentCol === 4  || currentCol ===5|| currentCol === 6){
+                        setCurrentCol(2);
+                    }else{
+                        setCurrentCol(3);
+                    }
+                }else if (currentRow === 1){
+                    setCurrentRow(2);
+                    if (currentCol === 0 ){
+                        setCurrentCol(1);
+                    }else if (currentCol == 1){
+                        setCurrentCol(3);
+                    }else if (currentCol === 2){
+                        setCurrentCol(5);
+                    }else{
+                        setCurrentCol(7);
+                    }
+                }
+                
+            }else{
+            setCurrentRow((currentRow + 1) % images.length);}
+        }
+        else if (direction === 'Left') {
+            setCurrentCol((currentCol - 1 + images[currentRow].length) % images[currentRow].length);
+        }
+        else if (direction === 'Right') {
+            setCurrentCol((currentCol + 1) % images[currentRow].length);
+        }
+        else if (direction === 'Home') {
+            {setCurrentRow(Math.floor(images.length/2));
+            setCurrentCol((imageArrayName === "Placard") ? 1  : 3);
+        }
+        }
+    } 
   
   
     return (
@@ -315,11 +524,48 @@ export function UntimedQuizScreen({ navigation, route }) {
                 </View>
                 <View style={styles.untimedTestC2}>
                 <View style={[styles.imageTestBox, {zIndex: 5}]}>
-                    <Image source={QuizImages[currentArrayIndex].image} 
+                    <Image source={  QuizImages[currentArrayIndex].image} 
                     resizeMode = "contain"
                     style={{flex: isPhone? 0.7 : 1, alignSelf: 'center', top: isPhone? 60 : 'auto'}}
                     />
                 </View>
+                <View><Image source = {QuizImages[currentArrayIndex].image[currentRow][currentCol]}/></View>
+                <View>
+        <View style ={styles.navigationButton}>
+            <View>
+            <TouchableOpacity onPress={() => changeImage('Up')}>
+                <View>
+                    <FontAwesome name="arrow-up" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                </View>
+            </TouchableOpacity>
+
+            </View>
+            <View style={{flexDirection: 'row', gap :10, marginTop: 5, marginBottom: 5}}>
+            <TouchableOpacity onPress={() => changeImage('Left')}>
+                <View>
+                    <FontAwesome name="arrow-left" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => changeImage('Home')}>
+                <View>
+                    <FontAwesome name="circle" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => changeImage('Right')}>
+                <View>
+                    <FontAwesome name="arrow-right" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                </View>
+            </TouchableOpacity>
+            </View>
+            <View>
+            <TouchableOpacity onPress={() => changeImage('Down')}>
+                <View>
+                    <FontAwesome name="arrow-down" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                </View>
+            </TouchableOpacity>
+            </View>
+        </View>
+    </View>
                 <View>
 
                 </View>
