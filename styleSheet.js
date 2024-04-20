@@ -599,12 +599,13 @@ timer: {
 deficiencyButton: {
     backgroundColor: 'red',
     height: 'auto',
-    width: isPhone? 100 : 220,
+    width: isPhone? 105 : 220,
     borderWidth: 1,
     borderRadius: isPhone? 5 : 10,
     padding: isPhone? 10 : 15,
     justifyContent: 'center',
     marginBottom: isPhone? 10 :20,
+    zIndex: 15,
 
     // display: 'flex',
     // marginBottom: isPhone? 10 : 30,
@@ -619,7 +620,7 @@ deficiencyButton: {
 nextUntimedTestButton: {
     backgroundColor: 'green',
     height: isPhone? 50 : 'auto',
-    width: isPhone? 100 : 220,
+    width: isPhone? 105 : 220,
     borderWidth: 1,
     borderRadius: isPhone? 5 : 10,
     padding: isPhone? 10 : 15,
@@ -630,7 +631,7 @@ nextUntimedTestButton: {
 },
 endTestButton: {
     height: isPhone? 50 : 'auto',
-    width: isPhone? 100 : 180,
+    width: isPhone? 105 : 180,
     borderWidth: 2,
     borderRadius: isPhone? 5 : 10,
     marginBottom: isPhone? 10 : 30,
