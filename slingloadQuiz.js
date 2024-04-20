@@ -797,33 +797,35 @@ export function QuizScoresScreen({ navigation, route }) {
             </View>
         </View>
         <Text style={{ fontSize: 24, textAlign: 'center', marginTop: isPhone? 10 : 25, alignSelf: 'center'}}>Deficiencies Caught</Text>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginLeft: isPhone? -40 : 20, marginRight: 100 }}>
-            <View style={{ justifyContent: 'center'}}>
-                <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }]}}>Scores Percentage</Text>
-            </View>
-            <View style={{ alignItems: 'center', alignSelf: 'center', marginTop: isPhone? 10 : 30, marginLeft: isPhone? -10 : 'auto' }}>
-                <LineChart
-                    data={data}
-                    width={screenWidth * 0.75} // 3/4 of the screen width
-                    height={300}
-                    chartConfig={{
-                        backgroundColor: '#808080', // greyish color
-                        backgroundGradientFrom: '#808080',
-                        backgroundGradientTo: '#808080',
-                        decimalPlaces: 2, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        style: {
-                            borderRadius: 16,
-                        },
-                    }}
-                    style={{
-                        marginVertical: 8,
-                        borderRadius: 16,
-                    }}
-                />
-            </View>
-        </View>
-        <Text style={{ fontSize: 20, textAlign: 'center', marginTop: 10 }}>Test Number</Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginRight: 100 }}>
+    <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: isPhone? 20 : 0 }}>
+        <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }] }}>Scores Percentage</Text>
+    </View>
+    <View style={{ alignItems: 'center', alignSelf: 'center', marginTop: isPhone? 10 : 30, marginLeft: isPhone? 10 : 'auto' }}>
+        <LineChart
+            data={data}
+            width={screenWidth * 0.75} // 3/4 of the screen width
+            height={300}
+            chartConfig={{
+                backgroundColor: '#808080', // greyish color
+                backgroundGradientFrom: '#808080',
+                backgroundGradientTo: '#808080',
+                decimalPlaces: 0,
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                    borderRadius: 16,
+                },
+            }}
+            style={{
+                marginVertical: 8,
+                borderRadius: 16,
+            }}
+        />
+    </View>
+</View>
+<Text style={{ fontSize: 20, textAlign: 'center', marginTop: 10 }}>
+    {isPhone ? 'Score Percentage (y-axis), Test number (x-axis)' : 'Test Number'}
+</Text>
     </ScrollView>
     );
 }
