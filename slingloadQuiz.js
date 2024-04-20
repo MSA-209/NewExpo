@@ -85,8 +85,8 @@ const isPhone = screenDimension.width < 900;
                require('./assets/Grabhook/Deficient/MissingLink/Right_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right_Back_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Back.png')],
            [require('./assets/Grabhook/Deficient/MissingLink/Left_Bottom_Angle.png'),require('./assets/Grabhook/Deficient/MissingLink/Center_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Right_Bottom_Angle.png') ,require('./assets/Grabhook/Deficient/MissingLink/Back_Bottom_Angle.png')],
                                [require('./assets/Grabhook/Deficient/MissingLink/Bottom.png')]],trueAnswer: true, userAnswer: null },
-                       {key: 'Placard' ,image: require('./assets/Placard/Deficient/DeficientPlacard_Tight.png'),trueAnswer: true, userAnswer: null },
-                       {key: 'Placard' ,image: require('./assets/Placard/Deficient/DeficientPlacard_Weight.png'),trueAnswer: true, userAnswer: null }]
+                       {key: 'Placard' ,image:[[ require('./assets/Placard/Deficient/DeficientPlacard_Tight.png')]],trueAnswer: true, userAnswer: null },
+                       {key: 'Placard' ,image: [[require('./assets/Placard/Deficient/DeficientPlacard_Weight.png')]],trueAnswer: true, userAnswer: null }]
 
 const normalImages = [{key: 'Apex' ,image:[[require('./assets/Apex/Apex_Top.png')],
 [require('./assets/Apex/Apex_Left_Top_Angle.png'),require('./assets/Apex/Apex_Center_Top_Angle.png'),require('./assets/Apex/Apex_Right_Top_Angle.png'),require('./assets/Apex/Apex_Back_Top_Angle.png')],
@@ -124,7 +124,7 @@ require('./assets/Apex/Apex_Right_Angle.png'),require('./assets/Apex/Apex_Right.
                         require('./assets/MidLateralC1/MidLateralC1_Right_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Right.png'),require('./assets/MidLateralC1/MidLateralC1_Right_Back_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Back.png')],
                         [require('./assets/MidLateralC1/MidLateralC1_Left_Bottom_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Center_Bottom_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Right_Bottom_Angle.png'),require('./assets/MidLateralC1/MidLateralC1_Back_Bottom_Angle.png')],
                         [require('./assets/MidLateralC1/MidLateralC1_Bottom.png')]],trueAnswer: false, userAnswer: null },
-                       {key: 'Placard' ,image: require('./assets/Placard/placard_Center.png'),trueAnswer: false, userAnswer: null },
+                       {key: 'Placard' ,image: [[require('./assets/Placard/placard_Center.png')]],trueAnswer: false, userAnswer: null },
                        {key: 'Strap Side' ,image: [[require('./assets/StrapSide/StrapSide_Top.png')],
                        [require('./assets/StrapSide/StrapSide_Left_Top_Angle.png'),require('./assets/StrapSide/StrapSide_Center_Top_Angle.png'),require('./assets/StrapSide/StrapSide_Right_Top_Angle.png'),require('./assets/StrapSide/StrapSide_Back_Top_Angle.png')],
                        [require('./assets/StrapSide/StrapSide_Left_Back_Angle.png'),require('./assets/StrapSide/StrapSide_Left.png'),require('./assets/StrapSide/StrapSide_Left_Angle.png'),require('./assets/StrapSide/StrapSide_Center.png'),
@@ -316,11 +316,17 @@ export function UntimedQuizScreen({ navigation, route }) {
     const handleLeftPress = () => {
         if (currentArrayIndex > 0) {
             setCurrentArrayIndex(prevIndex => prevIndex - 1);
+        }if (QuizImages[currentArrayIndex].key === "Placard"){
+            setCurrentCol(3)
+            setCurrentRow(2)
         }
     };
     const handleRightPress = () => {
         if (currentArrayIndex < QuizImages.length - 1) {
             setCurrentArrayIndex(prevIndex => prevIndex + 1);
+        }if (QuizImages[currentArrayIndex].key === "Placard"){
+            setCurrentCol(3)
+            setCurrentRow(2)
         }
     };
     const toggleStopwatch = () => {
@@ -387,8 +393,10 @@ export function UntimedQuizScreen({ navigation, route }) {
       };
     const images = QuizImages[currentArrayIndex].image
     const imageArrayName = QuizImages[currentArrayIndex].key
-    const [currentRow, setCurrentRow] = React.useState(Math.floor(images.length / 2));
-    const [currentCol, setCurrentCol] = React.useState((imageArrayName === "Placard") ? Math.floor(images[currentRow].length / 2)  : Math.floor(images[currentRow].length / 2)- 1);
+    const [currentRow, setCurrentRow] = React.useState((imageArrayName === "Placard") ? 0 : Math.floor(images.length / 2));
+    console.log(QuizImages)
+    console.log(images)
+    const [currentCol, setCurrentCol] = React.useState((imageArrayName === "Placard") ? 0 : Math.floor(images[currentRow].length / 2)- 1);
     console.log(currentRow)
     console.log(currentCol)
     function changeImage  (direction) {
@@ -431,7 +439,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                 }
                 
             }else{
-            setCurrentRow((currentRow - 1 + images.length) % images.length);
+            setCurrentRow(0);
             }
         }
         else if (direction === 'Down') {
@@ -470,7 +478,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                 }
                 
             }else{
-            setCurrentRow((currentRow + 1) % images.length);}
+            setCurrentRow(0);}
         }
         else if (direction === 'Left') {
             setCurrentCol((currentCol - 1 + images[currentRow].length) % images[currentRow].length);
@@ -529,7 +537,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                     style={{flex: isPhone? 0.7 : 1, alignSelf: 'center', top: isPhone? 60 : 'auto'}}
                     />
                 </View>
-                <View><Image source = {QuizImages[currentArrayIndex].image[currentRow][currentCol]}/></View>
+                <View><Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}/></View>
                 <View>
         <View style ={styles.navigationButton}>
             <View>
