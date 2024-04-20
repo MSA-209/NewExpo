@@ -671,6 +671,7 @@ export function PlaylistScreen({ navigation, route }) {
                 link: item.attributes.video.data[0].attributes.url,
                 title: item.attributes.title,
                 description: item.attributes.description,
+                thumbnail: item.attributes.thumbnail.data.attributes.url,
               };
             });
             setAirAssaultVideos(formattedData);
@@ -682,6 +683,7 @@ export function PlaylistScreen({ navigation, route }) {
                 link: item.attributes.video.data[0].attributes.url,
                 title: item.attributes.title,
                 description: item.attributes.description,
+                thumbnail: item.attributes.thumbnail.data.attributes.url,
               };
             });
             setPathfinderVideos(formattedData);
