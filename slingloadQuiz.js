@@ -536,7 +536,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                     />
                 </View> */}
                 <View style={{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image source = {QuizImages[currentArrayIndex].image[currentRow][currentCol]}
+                    <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
                 resizeMode='contain'
                 style={{flex: 1, width: isPhone? 300 : 500, height: 'auto', alignSelf: 'center'}}/>
                             <View style={{display: isPhone? 'auto' : 'none', width: 150, justifyContent: 'center', height: 70,
@@ -547,7 +547,8 @@ export function UntimedQuizScreen({ navigation, route }) {
                     </View>
                 </View>
 
-                <View><Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}/></View>
+                <View><Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}/>
+                </View>
 
                 <View>
                 <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? -75 : 350, position: 'absolute'}]}>
