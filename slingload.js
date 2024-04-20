@@ -12,7 +12,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {SlingloadQuizScreen} from './slingloadQuiz.js';
 const screenDimension = Dimensions.get("screen");
-const isPhone = screenDimension.width < 900;
+const isPhone = screenDimension.width < 800;
 
 
 export function SlingloadScreen({ navigation, route }) {
@@ -32,7 +32,7 @@ export function SlingloadScreen({ navigation, route }) {
         </View>       */}
     
       <View style={{marginTop: -10, marginBottom: 8}}>
-      <View style={styles.headerTitleContainer}>
+      <View style={[styles.headerTitleContainer, {height: 55}]}>
         <View style={{left: '0%'}}>
           <SlingloadDropdown/>
         </View>
