@@ -10,7 +10,7 @@ import SlingloadDropdown from './slingload';
 import { QuizScoresContext } from './quizScoresContext.js';
 
 const screenDimension = Dimensions.get("screen");
-const isPhone = screenDimension.width < 900;
+const isPhone = screenDimension.width < 800;
 
  const deficientImages = [
                        {key: 'Apex' , image: [[require('./assets/Apex/Deficient/DeficientApex_CotterPin/Top.png')],
@@ -168,14 +168,14 @@ export function SlingloadQuizScreen({ navigation, route }) {
     return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8}}>
-            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
+            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 55, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                 <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>TESTS</Text>
                 </View>
             </View>
 
             <View>
-            <Text style={[styles.inspectorTitle, {marginTop: isPhone? 15 : 30, marginBottom: isPhone? 15 : 30}]}>PRACTICAL TEST</Text>
+            <Text style={[styles.inspectorTitle, {marginTop: isPhone? 15 : 30, marginBottom: isPhone? 15 : 10}]}>PRACTICAL TEST</Text>
             </View>
         <View style={styles.slTestR1}>
             <View style={styles.slTestR1C1}>
@@ -185,7 +185,7 @@ export function SlingloadQuizScreen({ navigation, route }) {
                     <Image source={require("./assets/Bag 1.png")} 
                         style={{
                         width: 'auto',
-                        height: isPhone? 180 : 250,
+                        height: isPhone? 150 : 250,
                         resizeMode: 'contain',
                         }}/>
                 </View>
@@ -194,7 +194,7 @@ export function SlingloadQuizScreen({ navigation, route }) {
             </View>
             <View style={[styles.slTestR1VerticalBar, {borderColor: theme.colors.onSurfaceVariant}]}>
             </View>
-            <View style={styles.slTestR1C2}>
+            <View style={[styles.slTestR1C2, {alignVertical: 'middle'}]}>
                 <TouchableOpacity onPress={() => navigation.navigate('Untimed Quiz',{ timed: false })}>
                     <View style={[styles.basicButton, {backgroundColor: theme.colors.backdrop, borderColor: theme.colors.onSurfaceVariant}]}>
                         <Text style={styles.slButtonText}>Untimed Tests</Text>
@@ -495,84 +495,124 @@ export function UntimedQuizScreen({ navigation, route }) {
   
   
     return (
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
+        <ScrollView style={{margin: 0}} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8}}>
-            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
+            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 55, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                     <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>{testName}</Text>
                 </View>
             </View>
 
-            <View style={{flexDirection: isPhone? 'column' : 'row', justifyContent: 'space-between', backgroundColor: isPhone? 'transparent' : theme.colors.backdrop, 
-            height: '100vh', width: '100wh',transform: [{ translateX: isPhone? 0 :'auto'}, {translateY: isPhone ? -40 : 'auto'}],
-        }}>
-                <View style={[styles.untimedTestC1, {alignItems: isPhone? 'flex-start' : 'center'}]}>
-                    <View style={{alignItems: 'center'}}>
+            <View style={{flexDirection: isPhone? 'column' : 'row', backgroundColor: isPhone? 'transparent' : theme.colors.backdrop}}>
+                <View style={[styles.untimedTestC1, {alignItems: 'center'}]}>
+                    <View style={{display: isPhone? 'none' : 'auto'}}>
                         <Text style={styles.timer}>{formatTime(elapsedTime)}</Text>
                     </View>
-                    <View style={{ marginLeft: isPhone? -20 : 'auto',marginTop: isPhone? 40 : 'auto', gap: isPhone? 8 : 'auto'}}>
+                    <View style={{flexDirection: isPhone? 'row' : 'auto', gap: isPhone? 15 : 10, position: isPhone? 'absolute' : 'auto', top: isPhone? 500 : 'auto', left: isPhone? 50 : 'auto'}}>
                     <View style={[styles.deficiencyButton]}>
                     <TouchableOpacity onPress={() => { handleDeficiencyPress(); handleButtonClick('deficiency'); }}>
-                    <Text style={{ fontSize: isPhone ? 16 : 35, color: '#E8E2D9' }}>{deficiencyTitle}</Text>
+                    <Text style={{ fontSize: isPhone ? 16 : 25, color: '#E8E2D9', alignSelf: 'center' }}>{deficiencyTitle}</Text>
 
                     </TouchableOpacity>
                     </View>
                     <View style={[styles.nextUntimedTestButton]}>
                         <TouchableOpacity onPress={() => {handleNextPress(); handleButtonClick('next');}}>
-                            <Text style={{fontSize: isPhone? 16 : 35, color: isPhone? '000000' : '#E8E2D9'}}>{nextTitle}</Text>
+                            <Text style={{fontSize: isPhone? 16 : 25, color: '#E8E2D9', alignSelf: 'center'}}>{nextTitle}</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.endTestButton]}>
+                    <View style={[styles.endTestButton, {justifyContent: 'center'}]}>
                         <TouchableOpacity onPress={() => navigation.navigate('End Quiz', { imageArray: QuizImages, elapsedTime: elapsedTime })}>
-                            <Text style={{fontSize: isPhone? 16 : 22, color: '#E8E2D9'}}>End Test</Text>
+                            <Text style={{fontSize: isPhone? 16 : 18, color: '#E8E2D9'}}>End Test</Text>
                         </TouchableOpacity>
                     </View>
                     </View>
                     
                 </View>
                 <View style={styles.untimedTestC2}>
-                <View style={[styles.imageTestBox, {zIndex: 5}]}>
+                {/* <View style={[styles.imageTestBox, {zIndex: 5}]}>
                     <Image source={  QuizImages[currentArrayIndex].image} 
                     resizeMode = "contain"
-                    style={{flex: isPhone? 0.7 : 1, alignSelf: 'center', top: isPhone? 60 : 'auto'}}
+                    style={{flex: isPhone? 0.7 : 1, alignSelf: 'center', top: isPhone? 60 : 'auto', position: 'absolute'}}
                     />
+                </View> */}
+                <View style={{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                    <Image source = {QuizImages[currentArrayIndex].image[currentRow][currentCol]}
+                resizeMode='contain'
+                style={{flex: 1, width: isPhone? 300 : 500, height: 'auto', alignSelf: 'center'}}/>
+                            <View style={{display: isPhone? 'auto' : 'none', width: 150, justifyContent: 'center', height: 70,
+                             borderColor: theme.colors.onBackground, borderWidth: 3, bottom: isPhone? 12: 'auto', 
+                             borderRadius: 70, backgroundColor: '#0000070'}}>
+                        <Text style={{position: 'absolute', color: theme.colors.onErrorContainer, zIndex: 10, 
+                        fontSize: 38, fontWeight: 500, alignSelf: 'center'}}>{formatTime(elapsedTime)}</Text>
+                    </View>
                 </View>
+
                 <View><Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}/></View>
+
                 <View>
-        <View style ={styles.navigationButton}>
-            <View>
+                <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? -75 : 350, position: 'absolute'}]}>
+        <View style={{borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 3 : 6, height: isPhone? 70 : 85, width: isPhone? 70 : 85, borderRadius: isPhone? 70 : 85, justifyContent: 'center', alignSelf: 'center'}}>
+            <View style={{}}>
             <TouchableOpacity onPress={() => changeImage('Up')}>
                 <View>
-                    <FontAwesome name="arrow-up" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                    <FontAwesome name="arrow-up" size={isPhone? 25 : 25} color={theme.colors.onBackground} alignSelf='center'/>
                 </View>
             </TouchableOpacity>
 
             </View>
-            <View style={{flexDirection: 'row', gap :10, marginTop: 5, marginBottom: 5}}>
+            <View style={{flexDirection: 'row', gap :17, marginTop: -5, marginBottom: -5, alignSelf: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Left')}>
                 <View>
-                    <FontAwesome name="arrow-left" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                    <FontAwesome name="arrow-left" size={isPhone? 25 : 25} color={theme.colors.onBackground}/>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => changeImage('Home')}>
-                <View>
-                    <FontAwesome name="circle" size={isPhone? 25 : 40} color='#d2d2d2'/>
-                </View>
-            </TouchableOpacity>
+
             <TouchableOpacity onPress={() => changeImage('Right')}>
                 <View>
-                    <FontAwesome name="arrow-right" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                    <FontAwesome name="arrow-right" size={isPhone? 25 : 25} color={theme.colors.onBackground}/>
                 </View>
             </TouchableOpacity>
             </View>
-            <View>
+            <View style={{alignSelf: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Down')}>
                 <View>
-                    <FontAwesome name="arrow-down" size={isPhone? 25 : 40} color='#d2d2d2'/>
+                    <FontAwesome name="arrow-down" size={isPhone? 25 : 25} color={theme.colors.onBackground}/>
                 </View>
             </TouchableOpacity>
             </View>
         </View>
+
+        <View style={{borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 3 : 6, 
+        height: isPhone? 70 : 85, width: isPhone? 70 : 85, borderRadius: isPhone? 70 : 85, 
+        justifyContent: 'center', alignSelf: 'center', left: isPhone? 270 : 'auto', bottom: isPhone? 80 : 'auto'}}>
+            <TouchableOpacity onPress={() => changeImage('Home')}>
+                <View style={{alignSelf: 'center'}}>
+                <FontAwesome name="rotate-left" size={isPhone? 40 : 45} color={theme.colors.onBackground}/>
+                </View>
+            </TouchableOpacity>
+        </View>
+        </View>
+
+    </View>
+    <View style={[styles.imageTitleDisplay, {zIndex: 10, bottom: isPhone? 'auto' : 100, top: isPhone? -80 : 'auto', position: 'absolute'}]}>
+            <TouchableOpacity onPress={handleLeftPress}>
+                        <View style={{justifyContent: 'flex-end', marginTop: isPhone? 5 : 'auto', alignSelf: 'center'}}>
+                        <FontAwesome name="chevron-left" size={isPhone? 25 : 35} color='#E8E2D9' />
+                        </View>
+                        <View>
+                        </View>
+            </TouchableOpacity>
+            <View style={{flex: 0.8, justifyContent: 'center'}}>
+            <Text style={{fontSize: isPhone? 20 : 25, alignSelf: 'center', color: '#E8E2D9', alignContent: 'center'}}>{QuizImages[currentArrayIndex].key}</Text>
+
+            </View>                      
+                <TouchableOpacity onPress={handleRightPress}>
+                    <View style={{justifyContent: 'flex-end',alignItems: 'center', marginTop: isPhone? 5 : 'auto'}}>
+                        <FontAwesome name="chevron-right" size={isPhone? 25 : 35} color='#E8E2D9' />
+                    </View>
+                    <View>
+                </View>
+            </TouchableOpacity>
     </View>
                 <View>
 
@@ -581,31 +621,32 @@ export function UntimedQuizScreen({ navigation, route }) {
 
                 </View>
 
-<View style={{ flexDirection: 'column',  position: 'absolute', zIndex: 20, flex: isPhone? 1 : 0.3, width: isPhone? 220 : 420, 
-height: 'auto', marginTop: isPhone? 5 : -15, marginLeft: isPhone? 0 : '60%', borderWidth: isPhone? 0 : 0, borderRadius: 10,
-    borderColor: 'rgba(232, 226, 217, 0.4)', transform: [{ translateX: isPhone? 165 :'80%'}, {translateY: isPhone ? 435 : '-2vh'}]}}>
-<View style={{ display: isPhone? 'none' : 'auto', position: 'absolute', zIndex: 20,transform: [{ translateX: isPhone? 20 :'80%'}, {translateY: isPhone ? -40 : '-2vh'}]}}>
+<View style={{ flexDirection: 'column',  position: 'absolute', zIndex: 10, flex: isPhone? 1 : 0.3, width: 'auto', alignSelf: 'flex-end', right: isPhone? 15 : 0, bottom: isPhone? 0 : 'auto',
+height: 'auto', borderWidth: isPhone? 0 : 0, borderRadius: 10,
+    borderColor: 'rgba(232, 226, 217, 0.4)'}}>
+<View style={{bottom: isPhone? 520 : 0, zIndex: 20}}>
     <TouchableOpacity onPress={handleHamburgerClick}>
-            <FontAwesome name="bars" size={isPhone? 24 : 50} color="black" />
+        <View style={{backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingTop: 8, paddingBottom: 8, paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end', right : 25, top : isPhone? 115 : 20}}>
+            <FontAwesome name="bars" size={isPhone? 24 : 40} color='#E8E2D9' />
+        </View>
     </TouchableOpacity>
 </View>
 
-{(menuVisible || isPhone) && (<View style={{justifyContent: 'flex-end', backgroundColor:'rgba(0, 0, 0, 0.7)', width: 'auto', paddingLeft: isPhone? 'none' : 25, transform: [{ translateX: isPhone? 0 :'auto'}, {translateY: isPhone ? 0 : 'auto'}], borderRadius: isPhone? 10 : 0}}>
+{menuVisible && (<View style={{backgroundColor:'rgba(0, 0, 0, 0.7)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0, bottom: isPhone? 140 : 0, right: isPhone? 25 : 'auto', position: 'absolute'}}>
     {/* Menu items */}
 
-    <View style={[styles.menuSection]}>
-            <Text style={styles.sectionMenuTitle}>SECTION MENU</Text>
+    <View style={[styles.menuSection, {top: isPhone? 'auto' : 0, backgroundColor: '#E8E2D940'}]}>
+            <Text style={[styles.sectionMenuTitle, {fontSize: isPhone? 15 : 23, alignSelf: 'center'}]}>SECTION MENU</Text>
         </View>
-<View style={{height: 2, width: isPhone? 330 : 'auto', backgroundColor: 'rgba(232, 226, 217, 0.4)', marginBottom: 5 }}>
-    </View>
-    <ScrollView style={{margin: isPhone? 0 : 30, height: isPhone? 140 : 'auto'}} showsVerticalScrollIndicator={true}>
-    {elements.map((element, index) => (
-      <TouchableOpacity key={index} onPress={() => handleItemClick(element)} style={{ padding: 10, flexDirection: 'row'}}>
 
-        <View style={styles.menuItemBox}>
+    <ScrollView style={{height: isPhone? 190 : 400, top: isPhone? 10 : 15}} showsVerticalScrollIndicator={true}>
+    {elements.map((element, index) => (
+      <TouchableOpacity key={index} onPress={() => handleItemClick(element)} style={{ padding: isPhone? 5 : 10, flexDirection: 'row'}}>
+
+        <View style={[styles.menuItemBox, {marginLeft: isPhone? 10 : 20, marginRight: isPhone? 10 : 20}]}>
         {(result[index] === 'red') && (
             <View style={{justifyContent: 'center', marginRight: isPhone? 5 : 25, marginLeft: isPhone? 5 : 20}}>
-            <Text style={{color: 'red', fontSize: isPhone? 18 : 30, fontWeight: 600}}>X</Text>
+            <Text style={{color: 'red', fontSize: isPhone? 18 : 30}}>X</Text>
             </View>
         //   <FontAwesome name="check" size={16} color="red" style={{ marginLeft: 10 , backgroundColor: 'red'}} />
         )}
@@ -615,20 +656,23 @@ height: 'auto', marginTop: isPhone? 5 : -15, marginLeft: isPhone? 0 : '60%', bor
         //   <FontAwesome name="check" size={16} color="green" style={{ marginLeft: 10 }} />
         )}
         {result[index] === 'unmarked'&& (
-            <View style={{backgroundColor: 'black', width: isPhone? 20 : 25, height: isPhone? 20:  25, borderRadius: isPhone? 20 : 25}}></View>
+            <View style={{backgroundColor: 'rgba(232, 226, 217, 0.4)', width: isPhone? 20 : 25, height: isPhone? 20:  25, borderRadius: isPhone? 20 : 25}}></View>
         //   <FontAwesome name="check" size={16} color="green" style={{ marginLeft: 10 }} />
         )}
         </View>
         <View style={{marginLeft: isPhone? 30 : 60, position: 'absolute', paddingVertical: 2}}>
-            <Text style={{fontSize: isPhone? 15 : 30, color: '#E8E2D9'}}>{element.split('_')[0]}</Text>
+            <Text style={{fontSize: isPhone? 15 : 23, color: '#E8E2D9'}}>{element.split('_')[0]}</Text>
         </View>
         </View>
 
       </TouchableOpacity>
     ))}
+    
     </ScrollView>
 
-    <View style={{height: isPhone? 15 : 40}}></View>
+    <View style={{height: isPhone? 15 : 40, shadowColor: 'white', 
+    backgroundColor: '#E8E2D940', borderBottomLeftRadius: isPhone? 15 : 0,
+    borderBottomRightRadius: isPhone? 15 : 0, marginTop: 20 }}></View>
   </View>
     )}
   {/* Menu box */}
@@ -640,26 +684,7 @@ height: 'auto', marginTop: isPhone? 5 : -15, marginLeft: isPhone? 0 : '60%', bor
 
                 </View>                   
             </View>
-<View style={[styles.imageTitleDisplay]}>
-<TouchableOpacity onPress={handleLeftPress}>
-                        <View style={{justifyContent: 'flex-end', marginTop: isPhone? 5 : 'auto', alignSelf: 'center'}}>
-                        <FontAwesome name="chevron-left" size={isPhone? 25 : 35} color='#E8E2D9' />
-                        </View>
-                        <View>
-                        </View>
-            </TouchableOpacity>
-            <View style={{flex: 0.8, justifyContent: 'center'}}>
-            <Text style={{fontSize: isPhone? 20 : 3, alignSelf: 'center', color: '#E8E2D9', alignContent: 'center'}}>{QuizImages[currentArrayIndex].key}</Text>
 
-            </View>                      
-                <TouchableOpacity onPress={handleRightPress}>
-                    <View style={{justifyContent: 'flex-end',alignItems: 'center', marginTop: isPhone? 5 : 'auto'}}>
-                        <FontAwesome name="chevron-right" size={isPhone? 25 : 35} color='#E8E2D9' />
-                    </View>
-                    <View>
-                </View>
-            </TouchableOpacity>
-</View>
         </View>
     </ScrollView>
     );
@@ -748,7 +773,7 @@ export function EndQuizScreen({ navigation, route}) {
                 ))}
             </View>
             <View style={{ alignItems: isPhone? 'center' : 'flex-end', marginBottom: 20, marginRight: isPhone? 0 : 100}}>
-                <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')} style={[styles.endTestButton, {alignSelf: isPhone? 'center':'auto', marginTop: isPhone? 20 : 'auto'}]}>
+                <TouchableOpacity onPress={() => navigation.navigate('Slingload Quiz')} style={[styles.endTestButton, {alignSelf: isPhone? 'center':'auto', justifyContent: 'center', marginTop: isPhone? 20 : 'auto'}]}>
                     <Text style={{ fontSize: isPhone ? 18 : 22, color: '#E8E2D9'}}>Try Again</Text>
                 </TouchableOpacity>
             </View>
@@ -776,22 +801,22 @@ export function QuizScoresScreen({ navigation, route }) {
     return (
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
         <View style={{marginTop: -9, marginBottom: 8}}>
-            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
+            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 55, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                     <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>Practical Test Scores</Text>
                 </View>
             </View>
         </View>
-        <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 15, alignSelf: 'center'}}>Deficiencies Caught</Text>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginLeft: isPhone? -40 : 'auto' }}>
+        <Text style={{ fontSize: 24, textAlign: 'center', marginTop: isPhone? 10 : 25, alignSelf: 'center'}}>Deficiencies Caught</Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginLeft: isPhone? -40 : 20, marginRight: 100 }}>
             <View style={{ justifyContent: 'center'}}>
-                <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }], }}>Scores Percentage</Text>
+                <Text style={{ fontSize: 20, transform: [{ rotate: '-90deg' }]}}>Scores Percentage</Text>
             </View>
             <View style={{ alignItems: 'center', alignSelf: 'center', marginTop: isPhone? 10 : 30, marginLeft: isPhone? -10 : 'auto' }}>
                 <LineChart
                     data={data}
                     width={screenWidth * 0.75} // 3/4 of the screen width
-                    height={220}
+                    height={300}
                     chartConfig={{
                         backgroundColor: '#808080', // greyish color
                         backgroundGradientFrom: '#808080',
