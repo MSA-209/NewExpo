@@ -236,14 +236,20 @@ export function UntimedQuizScreen({ navigation, route }) {
         let images = [];
         let imagesLength = Math.floor(Math.random() * (13)) + 4;
         if (imagesLength === 4){
+            shuffleArray(deficientImages);
+            shuffleArray(normalImages);
             images = deficientImages.slice(0,4);
-            shuffleArray(images);
+            shuffleArray(normalImages);
+            shuffleArray(deficientImages);
             
         }
         else{
+            shuffleArray(normalImages);
+            shuffleArray(deficientImages);
             images.push(... deficientImages.slice(0,4));
             images.push(...normalImages.slice(0,(imagesLength - 4)))
-            shuffleArray(images)
+            shuffleArray(normalImages);
+            shuffleArray(deficientImages);
         }
         console.log(images)
         return images;
