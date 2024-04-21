@@ -579,7 +579,7 @@ export function UntimedQuizScreen({ navigation, route }) {
   </View>
     )}
 {/* THE MENU ABOVE IS ANOTHER COPY FOR BROKEN MENU IN WEB VIEW */}
-        <View style={{alignSelf: 'center', justifyContent: 'center', height: isPhone? 420 : 450, alignItems: 'center', padding: isPhone? 10 : 20,
+        {/* <View style={{alignSelf: 'center', justifyContent: 'center', height: isPhone? 420 : 450, alignItems: 'center', padding: isPhone? 10 : 20,
         top : isPhone? 60 : 40, 
             borderRadius: isPhone? 15 : 0, borderColor: '#00000070', borderWidth: isPhone? 2 : 0}}>
             <View style={{alignSelf: isPhone? 'center' : 'auto', marginTop: isPhone? 0 : 'auto'}}>
@@ -593,8 +593,12 @@ export function UntimedQuizScreen({ navigation, route }) {
                 <Text style={{position: 'absolute', color: 'red', zIndex: 10,  
                 fontSize: 28, fontWeight: 500, alignSelf: 'center'}}>{formatTime(elapsedTime)}</Text>
             </View>
+        </View> */}
+        <View resizeMode = 'contain' style={{flex: 1, width: isPhone? 320 : 500, height: 480, maxHeight: isPhone? 300 : 'auto',alignSelf: 'center'}} >
+        <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
+        style={{ }}/>
         </View>
-
+        
                 <View>
                 <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
         <View style={{borderColor: theme.colors.onBackground, left: isPhone? 10 : 'auto',
@@ -603,7 +607,7 @@ export function UntimedQuizScreen({ navigation, route }) {
             bottom: isPhone? -150 : 'auto', alignSelf: 'center'}}>
             <View style={{}}>
             <TouchableOpacity onPress={() => changeImage('Up')}>
-                <View>
+                <View >
                     <FontAwesome name="arrow-up" size={isPhone? 25 : 25} color={theme.colors.onBackground} alignSelf='center'/>
                 </View>
             </TouchableOpacity>
