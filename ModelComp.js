@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { StyleSheet, View, Image,TouchableOpacity, Text, Linking, ScrollView , Alert, Button, Dimensions} from 'react-native';
 import { styles } from './styleSheet'; 
+import { useTheme } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons'; 
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 800; // Adjust the threshold as needed
@@ -80,6 +81,7 @@ const imageSources = {
 
 
 const ModelComp = ({imageArray}) => {
+    const theme = useTheme();
     const images = imageSources[imageArray]
     console.log(images)
     const [currentRow, setCurrentRow] = React.useState(Math.floor(images.length / 2));
@@ -180,14 +182,14 @@ const ModelComp = ({imageArray}) => {
         }
     } 
     return(
-        <View style={[styles.imageBox, {flexDirection: 'row'}]}>
-        <View style={{flex: isPhone? 0.1 : 0.1, transform: [{ translateX: isPhone? 0 : 0}, { translateY: isPhone? 10 : 0 }], justifyContent: 'flex-start', marginTop: isPhone? 'auto' : 300}}>
-        <View style ={styles.navigationButton}>
-        <View style={{borderColor: '#ffffff', marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 2 : 6, height: isPhone? 'auto' : 85, width: isPhone? 'auto' : 85, borderRadius: 85, justifyContent: 'center', alignSelf: 'center'}}>
-            <View style={{}}>
+        <View style={{width: screenDimension.width *0.7, alignSelf: 'center', paddingLeft: isPhone? 10 : 15, zIndex: 20}}>
+        <View style={{flex: isPhone? 0.1 : 0.1, justifyContent: 'flex-start', zIndex: 19}}>
+        <View style ={[styles.navigationButton, {marginTop: isPhone? 0 : 30, left: isPhone? -10 : 'auto', top: isPhone? 240 : 'auto'}]}>
+        <View style={{borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 3 : 6, height: isPhone? 65 : 85, width: isPhone? 65 : 85, borderRadius: isPhone? 65 : 85, justifyContent: 'center', alignSelf: 'center'}}>
+            <View style={{alignSelf: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Up')}>
                 <View>
-                    <FontAwesome name="arrow-up" size={isPhone? 25 : 25} color='#ffffff' alignSelf='center'/>
+                    <FontAwesome name="arrow-up" size={isPhone? 22 : 25} color={theme.colors.onBackground} alignSelf='center'/>
                 </View>
             </TouchableOpacity>
 
@@ -195,29 +197,30 @@ const ModelComp = ({imageArray}) => {
             <View style={{flexDirection: 'row', gap :17, marginTop: -5, marginBottom: -5, alignSelf: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Left')}>
                 <View>
-                    <FontAwesome name="arrow-left" size={isPhone? 25 : 25} color='#ffffff'/>
+                    <FontAwesome name="arrow-left" size={isPhone? 22 : 25} color={theme.colors.onBackground} />
                 </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => changeImage('Right')}>
                 <View>
-                    <FontAwesome name="arrow-right" size={isPhone? 25 : 25} color='#ffffff'/>
+                    <FontAwesome name="arrow-right" size={isPhone? 22 : 25} color={theme.colors.onBackground} />
                 </View>
             </TouchableOpacity>
             </View>
             <View style={{alignSelf: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Down')}>
                 <View>
-                    <FontAwesome name="arrow-down" size={isPhone? 25 : 25} color='#ffffff'/>
+                    <FontAwesome name="arrow-down" size={isPhone? 22 : 25} color={theme.colors.onBackground} />
                 </View>
             </TouchableOpacity>
             </View>
         </View>
 
-        <View style={{borderColor: '#ffffff', marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 2 : 6, height: isPhone? 'auto' : 85, width: isPhone? 'auto' : 85, borderRadius: 85, justifyContent: 'center', alignSelf: 'center'}}>
+        <View style={{borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 3 : 6, 
+            height: isPhone? 40 : 85, width: isPhone? 40 : 85, left: isPhone? 245 : 'auto', top: isPhone? -90 : 'auto', borderRadius: isPhone? 40 : 85, justifyContent: 'center', alignSelf: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Home')}>
                 <View style={{alignSelf: 'center'}}>
-                <FontAwesome name="rotate-left" size={isPhone? 25 : 45} color='#ffffff'/>
+                <FontAwesome name="rotate-left" size={isPhone? 25 : 45} color={theme.colors.onBackground} />
                 </View>
             </TouchableOpacity>
         </View>
@@ -226,14 +229,12 @@ const ModelComp = ({imageArray}) => {
 
 
     </View>
-    <View style= {[styles.objectSize, {flex: isPhone? 0.9 : 0.9} ]}>
+    <View style= {{justifyContent: 'center', display: 'flex'}}>
     <Image source={images[currentRow][currentCol]}
             style={{
                 width: 'auto',
-                height: 450,
+                height: isPhone? 280 : 300,
                 resizeMode: 'contain',
-                marginTop: 50,
-                marginBottom: 10
                 }}
             />
     </View>
