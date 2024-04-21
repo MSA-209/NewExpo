@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
     },
 // VIDEO HUB SCREEN
     videoHubHeader: {
-        alignItems: 'center', backgroundColor: 'black', height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" ,
         videoTitle: {
             color: "#FFFFFF",
             fontSize: 20,
@@ -34,10 +33,6 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         width: videoWidth,
         height: videoHeight,
-        backgroundColor: '#ffcc01',
-        backgroundColor: 'black',
-        margin: 50,
-        marginVertical: 40,
         overflow: 'hidden',
         shadowColor: '#848785',
         shadowOffset: {
@@ -49,11 +44,10 @@ export const styles = StyleSheet.create({
         elevation: 5,
         borderColor: '#ffcc01',
         borderWidth: 2.5,
-        flexDirection: 'row',
 
     },
     videoStyle: {
-        position: 'relative',
+        position: 'absolute',
         width: isPhone? 345 : resolution * (screenDimension.width),
         height: isPhone? 300 : resolution * (screenDimension.height),
         alignSelf: 'center',
@@ -61,13 +55,8 @@ export const styles = StyleSheet.create({
         videoDescriptionContainer: {
             position: 'absolute',
             bottom: 0,
-            left: 0,
             width: '100%',
-            justifyContent: 'space-between', 
-            flexDirection: 'row',
-            backgroundColor: '#ffcc01',
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
+ 
             height: 45,
             width: isPhone? 345 : resolution * (screenDimension.width),
             zIndex: 1,
