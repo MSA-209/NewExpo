@@ -636,7 +636,7 @@ export function VideoScreen({ navigation, route }) {
       />
       </View>
       {/* Display video button with an array of video links */}
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{justifyContent: 'center', alignItems: 'center', width: 340, alignSelf: 'center'}}>
     <VideoButton videoLinks={filteredData} currentVideoID={null} />
           </View>
          {/* changing filtered data to test videos, replace the videolinks with videodata from strapi */}
@@ -713,7 +713,7 @@ export function PlaylistScreen({ navigation, route }) {
       <View style={{ alignItems: 'center', backgroundColor: "#221f20", height: 45, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
         <Text style={{ color: "#FFFFFF", fontSize: 20 }} variant='headlineLarge'>{screen}</Text>
       </View>
-      <VideoButton videoLinks={playlistVideoLinks} currentVideoID={null} /> 
+      <VideoButton videoLinks={playlistVideoLinks} currentVideoID={null}/> 
     </ScrollView>
   );
 }

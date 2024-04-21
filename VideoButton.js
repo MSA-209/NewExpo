@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text, Linking, ScrollView , Alert, Button, Dimensions} from 'react-native';
-import {IconButton} from 'react-native-paper';
+import { StyleSheet, View, Image, TouchableOpacity, Text, Linking, ScrollView , Alert, Button, Dimensions, ScrollViewBase} from 'react-native';
+import {IconButton, useTheme} from 'react-native-paper';
 import { AddedVideosContext } from './videoContext';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Video } from 'expo-av';
@@ -10,7 +10,10 @@ import * as VideoThumbnails from 'expo-video-thumbnails';
 
 
 const screenDimension = Dimensions.get("screen")
-const isPhone = screenDimension.width < 1000; // Adjust the threshold as needed
+const isPhone = screenDimension.width < 800; // Adjust the threshold as needed
+const videoWidth = isPhone ? screenDimension.width - 40 : 350; // Adjust the width for phone mode
+const videoHeight = isPhone ? (screenDimension.width - 40) * (9 / 16) : 270; // Adjust the height for phone mode
+
 const resolution = 9/16;
 const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, currentVideoID}) => {
   const navigation = useNavigation();
@@ -21,7 +24,6 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
     handleAddToPlaylist(video);
     setIsAdded(!isAdded);
   }
-
   /*
   React.useEffect(() => {
     if (isPhone) {
@@ -41,9 +43,10 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
   };
   */
   return (
-    <View style={{display:'flex'}}>
-      <View style={styles.videoCard}>
-      <View>
+    <View style={{alignSelf: 'center', alignItems: 'center', width: 300}}>
+      <View style={[{overflow: 'hidden', height: videoHeight, width: isPhone? 'auto' : videoWidth, marginBottom: isPhone? 30 : -40, 
+      alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderWidth:2, borderColor: '#ffcc01', borderRadius: 10, backgroundColor: '#ffcc01'}]}>
+      <View style={{borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
 
         <TouchableOpacity onPress={() =>  {
           // navigation push will cause previous videos to continue playing and navigate just doesnt work
@@ -63,33 +66,43 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
             /> */}
           <Image
   source={{ uri: video.thumbnail }}
-  style={{ marginTop: isPhone? 0: 0, width: 345, height: 290, alignSelf: 'center', borderTopLeftRadius: 8, borderBottomRightRadius: 8 }}
+  style={{ marginTop: isPhone? 0: 0, width: 345, height: 290, alignSelf: 'center' }}
 />
-<View style={{width: 345, position: 'absolute', zIndex: 3, bottom: isPhone ? 80 : 20}} >
+<View style={{width: 345, position: 'absolute', zIndex: 3, bottom: isPhone ? 35 : 10}} >
           <View style={{position: 'absolute',
             bottom: 0,
             left: 0,
             width: '100%',
-            justifyContent: 'flex-start', 
             flexDirection: 'row',
             backgroundColor: '#ffcc01',
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
+
+            justifyContent: 'center',
+            alignItems: 'center',
             height: 45,
-            width: isPhone? 345 : resolution * (screenDimension.width),
+            width: isPhone? 345 : videoWidth,
             zIndex: 1}}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'center', padding: 5}}>
+              <View style={{flex: 0.6}}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'flex-start', paddingLeft: 15}}>
               {video.title}
             </Text>
-            <TouchableOpacity onPress={() => handleAdd(video)}  style={{ flexDirection: 'row', alignItems: 'center', marginLeft: isPhone? '20%': '10%'}}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'center', padding: 5 }}>
+              </View>
+<View style={{flex: isPhone? 0.5 : 0.3}}>
+<TouchableOpacity onPress={() => handleAdd(video)}  style={{ flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{ fontSize: 16, alignSelf: 'center', padding: 5}}>
             { isAdded ? 'Remove from' :'Add to'}</Text>
+
+              </TouchableOpacity>
+</View>
+<View style={{flex: 0.2}}>
+<TouchableOpacity onPress={() => handleAdd(video)}  style={{ marginRight: 10}}>
               <IconButton
                 icon="playlist-play"
-                size={20}
+                size={30}
                 color="#000000"
               />
               </TouchableOpacity>
+</View>
+
             </View>
             </View>
             </TouchableOpacity>
@@ -106,6 +119,7 @@ const [showDescription, setShowDescription] = useState(false);
   const resolution = 9/16;
   const video = {link, id, description, title}; // create video item for playlist button
   const videoRef = useRef(null);
+  const theme = useTheme();
 
   const showDesc = () => {
     setShowDescription(!showDescription);
@@ -128,10 +142,13 @@ const [showDescription, setShowDescription] = useState(false);
 
   return (
     <ScrollView style={{ marginTop: -10, marginBottom: 0 }} showsVerticalScrollIndicator={true}>
-      <View style={styles.videoHubHeader}>
-        <Text style={styles.videoHubHeader.videoTitle} variant='headlineLarge'>{screen}</Text>
-      </View>
-      <View style ={{ justifyContent: 'center', alignItems:'center'}} >
+      <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 55, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
+                <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
+                <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>{screen}</Text>
+                </View>
+       </View>
+      <View style={{height: isPhone? 30 : 25}}></View>
+      <View style ={{ justifyContent: 'center', alignItems:'center', alignItems: 'center'}} >
 {/* <YoutubePlayer
         stlye={{  width:'100%', }}
         height={resolution*(screenDimension.height)}
@@ -140,11 +157,11 @@ const [showDescription, setShowDescription] = useState(false);
         videoId={id}
                 /> */} 
         <View>
-          <View style={{marginTop: 50, justifyContent: 'center', alignItems:'center'}}>
+          <View style={{position: 'absolute', alignSelf: 'center'}}>
             <Video 
               ref={videoRef}
               source={{ uri: link}}
-              style={styles.videoStyle}
+              style={[styles.videoStyle, {width: isPhone? videoWidth : 800, height: isPhone? videoHeight : 450}]}
               useNativeControls
               resizeMode={Video.RESIZE_MODE_CONTAIN}
             />   
@@ -153,8 +170,11 @@ const [showDescription, setShowDescription] = useState(false);
             <TouchableOpacity onPress={handleExitFullScreen}>
             </TouchableOpacity>
           </View>  
-          <View style={styles.videoStyle.videoDescriptionContainer} >
-            <View style={{flexDirection: 'row'}}>
+          {showDescription &&  (<View style = {{backgroundColor: 'rgba(225, 225, 225, 0.1)', borderWidth: 1, borderColor: theme.colors.onBackground, top: 255, left: 30, position: 'absolute', borderRadius:5, width:'auto', zIndex: 20, height: 'auto', padding: 10}}>
+          <Text style={{color: theme.colors.onBackground}}> {description}</Text>
+        </View>)}
+          <View style={{marginTop: isPhone? 210 : 448, backgroundColor: '#ffcc01', height: isPhone? 45 : 50,  flexDirection: 'row', justifyContent: 'space-between', width: isPhone?  videoWidth : 800, alignItems: 'center', borderBottomLeftRadius: 10, borderBottomRightRadius: 10}} >
+          <View style={{flex: isPhone? 0.1 : 0.05}}>
               <TouchableOpacity onPress={() => setShowDescription(!showDescription)} style={{ flexDirection: 'row' }}>
                 <IconButton
                   icon={showDescription ? 'information' : 'information-outline'}
@@ -162,28 +182,36 @@ const [showDescription, setShowDescription] = useState(false);
                   color="#000000"
                 />
               </TouchableOpacity>
-              <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'center', paddingTop: 5, paddingBottom:5}}>
+
+            </View>
+            <View style={{flex: isPhone?  0.5 : 0.8}}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'flex-start', paddingLeft: isPhone? 10 : 20, paddingBottom:5}}>
                 {title}
               </Text>
             </View>
-            <View>
+
+            <View style={{flex: isPhone? 0.3 : 0.25}}>
               <TouchableOpacity onPress={() => handleAdd(video)}  style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', alignSelf: 'center', padding: 5 }}>
+                <Text style={{ fontSize: 16,alignSelf: 'center', padding: 5 }}>
                   { isAdded ? 'Remove from' :'Add to'}
                 </Text>
+              </TouchableOpacity>
+            </View>
+            
+            <View style={{flex: 0.15}}>
+              <TouchableOpacity onPress={() => handleAdd(video)}  style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <IconButton
                   icon="playlist-play"
-                  size={20}
-                  color="#000000"
+                  size={30}
+                  color="black"
+                  style={{marginRight: 5}}
                 />
               </TouchableOpacity>
             </View>
           </View>
         </View>
-        <View style = {{ backgroundColor: '#ffcc01', borderRadius:8, marginBottom: 50, width: resolution*(screenDimension.width), alignSelf: 'center'}}>
-          {showDescription &&  <Text> {description}</Text> }
-        </View>
-        <View>
+  
+        <View style={{justifyContent: 'center', alignSelf: isPhone?  'center': 'auto', flexDirection: isPhone? 'column' : 'row', marginTop: isPhone? 40 : 60, flexWrap: 'wrap', alignItems: isPhone? 'center' : 'stretch'}}>
           <VideoButton videoLinks={videoLinks} currentVideoID={link}/>
         </View>
       </View>
@@ -211,8 +239,11 @@ const VideoButton = ({ videoLinks, currentVideoID }) => {
   };
   return (
 
-     <View style ={styles.container1}>
-        
+
+<View style ={{  gap: isPhone? 'auto' : 100, alignItems: isPhone? 'center' : 'auto', marginTop: isPhone? 'auto' : 20,
+justifyContent: 'center', flexDirection: isPhone? 'column' : 'row',
+ flexWrap: isPhone? 'nowrap' : 'wrap', alignSelf: 'center', width: isPhone? 'auto' : 800,
+ marginTop: isPhone? 'auto' : 30}}>
          {otherVideos.map((video) => (
           <VideoComp key={video.link} video={video}
           handleAddToPlaylist={handleAddToPlaylist} 
@@ -221,8 +252,10 @@ const VideoButton = ({ videoLinks, currentVideoID }) => {
           currentVideoID = {currentVideoID}
           />
          ))}
+
     </View>
       
+
 
     /*
     <ScrollView vertical showsVerticalScrollIndicator={true}>
