@@ -8,7 +8,8 @@ import {
           TouchableOpacity,
           SafeAreaView,
           ScrollView,
-          TextInput
+          TextInput,
+          Dimensions,
         } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import {   
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
 //  Below is the flashcard display function. It's fed a flashcard object
 //  and then it will display that flashcard. It's called using a map function
 //  which iterates through an array of flashcard objects.
+
 
 function Flashcard({ flashcard }) {
   const theme = useTheme();
@@ -634,7 +636,9 @@ export function VideoScreen({ navigation, route }) {
       />
       </View>
       {/* Display video button with an array of video links */}
-        <VideoButton videoLinks={filteredData} currentVideoID={null} />
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+    <VideoButton videoLinks={filteredData} currentVideoID={null} />
+          </View>
          {/* changing filtered data to test videos, replace the videolinks with videodata from strapi */}
       <View style={{ marginBottom: 30 }}></View>
     </ScrollView>
