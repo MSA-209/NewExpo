@@ -860,21 +860,21 @@ function FeedbackScreen({ navigation, route }) {
   const [schoolSelected, setSchoolSelected] = useState("Select school for feedback");
   return (
     <ScrollView>
-
-
+      <View style={{marginTop: -10, marginBottom:30}}>
+      </View>
     <View style={[styles.feedbackForm, {backgroundColor: theme.colors.surfaceDisabled, flexDirection: 'column', justifyContent: 'space-around', borderColor: theme.colors.primary, borderWidth: isPhone? 0.5 : 1}]}>
       
-      <View style={{position: 'absolute',borderColor: '#ffcc01', backgroundColor: theme.colors.primaryContainer, borderWidth: 2, borderRadius: 10, overflow: 'hidden', zIndex: 20, top : 30, marginBottom: 30, alignSelf: 'center', alignItems: 'center'}}>
+      <View style={{position: 'absolute',borderColor: '#ffcc01', backgroundColor: theme.colors.primaryContainer, borderWidth: 2, borderRadius: 10, overflow: 'hidden', zIndex: 20, top : 30, marginBottom: isPhone? 0 : 30, alignSelf: 'center', alignItems: 'center'}}>
     <TouchableOpacity onPress={handleSchoolPicker}>
-        <View style={{backgroundColor: '#ffcc01', alignItems: 'center', width: isPhone? 300 : 400, height: isPhone? 36 : 40, borderRadius: 8}}>
-          <Text style={{alignSelf: 'center', color: '#000234', marginTop: 8, size: isPhone? 16 : 25 }}>{schoolSelected}</Text>
+        <View style={{backgroundColor: '#ffcc01', alignItems: 'center', width: isPhone? 300 : 450, height: isPhone? 36 : 40, borderRadius: 8}}>
+          <Text style={{alignSelf: 'center', color: '#000234', marginTop: 8, size: isPhone? 16 : 20 }}>{schoolSelected}</Text>
         </View>
         {menuVisible && (
-      <View style={{marginTop: isPhone? -5 : 0}}>
+      <View style={{marginTop:0}}>
                 {schools.map((school, index) => (
         <TouchableOpacity key={index} onPress={() => handleSchoolChange(school)}>
-        <View style={{backgroundColor: '#ffffff', width: isPhone? 300 : 500, height: 36 }}>
-          <Text style={{alignSelf: 'center', marginTop: 11, color: '#000000', fontSize: isPhone? 16 : 25}}>{schools[index]}</Text>
+        <View style={{backgroundColor: '#ffffff', width: isPhone? 300 : 450, height: isPhone? 40 : 40 }}>
+          <Text style={{alignSelf: 'center', marginTop: 11, color: '#000000', fontSize: isPhone? 16 : 18}}>{schools[index]}</Text>
         </View>
       </TouchableOpacity>
     ))}
@@ -885,6 +885,7 @@ function FeedbackScreen({ navigation, route }) {
 
     </TouchableOpacity>
     </View>
+    <View style={{height: isPhone? 0 : 20}}></View>
       <View style={[styles.schoolSelector]}>
         {/* <Text style={styles.pickerText}>Select a school to give feedback to</Text> */}
         {/* <Picker style={styles.picker}
@@ -924,11 +925,11 @@ function FeedbackScreen({ navigation, route }) {
         value={feedback}
       />
       </View>
-          <View style={[styles.submitButton]}> 
+          <View style={[styles.submitButton, {marginTop: isPhone? 'auto' : 15}]}> 
         <Button title="Submit Feedback" onPress={submitFeedback}><Text style={styles.buttonText}>Submit Feedback</Text></Button>
       </View>
         <View style={{marginTop: 20}}>
-          <Text style={[styles.buttonText, {marginTop: 30, marginBottom: 3, alignSelf: 'center', color: theme.colors.secondary}]}>Rate your experience:</Text>
+          <Text style={[styles.buttonText, {marginTop: isPhone? 30 : 20, marginBottom: 3, alignSelf: 'center', color: theme.colors.secondary}]}>Rate your experience:</Text>
           <View style={styles.starContainer}>
             {[1, 2, 3, 4, 5].map((star) => (
               <TouchableOpacity
@@ -946,7 +947,7 @@ function FeedbackScreen({ navigation, route }) {
           </View>
         </View>
         <View style={styles.submitButton}>
-          <Button title="Submit Rating" onPress={submitRating}><Text style={styles.buttonText}>Submit Rating</Text></Button>
+          <Button title="Submit Rating" onPress={submitRating}><Text style={[styles.buttonText, {marginTop: isPhone? 'auto' : 10}]}>Submit Rating</Text></Button>
         </View>
       </View>
     </View>

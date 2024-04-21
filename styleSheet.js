@@ -100,18 +100,18 @@ export const styles = StyleSheet.create({
     feedbackForm: {
         backgroundColor: '#b0afae',
         borderRadius: 10,
-        margin: 50,
-        width: isPhone? 350 : 1040,
-        height: isPhone? 630 : 'auto',
+        // margin: 50,
+        width: isPhone? 350 : 900,
+        height: isPhone? 600 : 'auto',
         paddingVertical: isPhone? 15 : 40,
-        paddingHorizontal: isPhone? 10 :60,
+        paddingHorizontal: isPhone? 10 :40,
         alignSelf: 'center',
     },
     picker: {                              
         height: 40,
-        width: 300,
+        width: isPhone? 300 : 450,
         marginTop: isPhone? 20 : 'auto',
-        marginBottom: 20,
+        marginBottom: isPhone? 0 :20,
         backgroundColor: '#ffcc01',
         borderRadius: 8,
         fontWeight: 500,
@@ -173,15 +173,16 @@ export const styles = StyleSheet.create({
         marginBottom: 10,
         flexDirection: 'row',
         textDecorationColor: 'yellow',
+        alignSelf: 'center',
     },
     titleBox: {
-        height: isPhone? 40 : 50,
-        width: isPhone? 300 : 920,
+        height: 40,
+        width: isPhone? 300 : 800,
         backgroundColor: '#ffffff',
         borderRadius: 8,
         borderColor: '#525254', 
         textAlignVertical: 'top', 
-        marginTop: isPhone? 15 : 40,
+        marginTop: isPhone? 0 : 40,
         borderWidth: 1,
         padding: isPhone? 0 : 15,
         backgroundColor: '#ffffff90',
@@ -190,7 +191,7 @@ export const styles = StyleSheet.create({
     },
     commentBox: {
         height: isPhone? 150 : 200,
-        width: isPhone? 300 : 920,
+        width: isPhone? 300 : 800,
         backgroundColor: '#ffffff',
         borderRadius: 8,
         borderColor: '#525254', 
@@ -291,7 +292,7 @@ export const styles = StyleSheet.create({
     },
     innerBox: {
         width: 160,
-        height: 40,
+        height: isPhone? 40 : 60,
         color: '#FFFFFF',
         alignSelf: 'center',
         borderColor: '#000000',
@@ -347,16 +348,16 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         borderTopLeftRadius: 10, 
         borderTopRightRadius: 10,
-        zIndex: 1000,
+        zIndex: 25,
     },
     preNextStepButton: {
-        height: isPhone? 45 : 55,
-        width: isPhone? 100 : 160,
+        height: isPhone? 40 : 55,
+        width: isPhone? 120 : 160,
         borderWidth: 3,
         borderRadius: isPhone? 5 : 10,
-        padding: isPhone? 10 : 10,
+        padding: isPhone? 'auto' : 10,
         display: 'flex',
-        marginBottom: 15,
+        marginBottom: isPhone? 8 : 15,
         alignItems: 'center',
         borderColor:'rgba(232, 226, 217, 0.3)',
         marginLeft: isPhone? 20 : 'auto',
@@ -366,6 +367,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     
     },
+    
     buttonText3: {
         color: 'white',
         fontSize: 16,
@@ -373,23 +375,20 @@ export const styles = StyleSheet.create({
     // The inner box that display info text
     infoBox: {
         backgroundColor: 'rgba(34, 31, 32, 1)',
-        padding: isPhone? 20 : 100,
         marginTop: isPhone? 20 : 0,
-        width: isPhone? 350 : 1000,
+        width: isPhone? 340 : 900,
         // borderBottomLeftRadius: 10,
         // borderBottomRightRadius: 10,
         height: 'auto',
-        zIndex: 1001,
+        zIndex: 30,
         alignSelf: 'center',
         position: 'absolute',
-        padding: 20,
-        // position: 'absolute',
         borderRadius: 10,
     },
     infoText: {
         color: 'white',
-        fontSize: isPhone? 16 : 25,
-        marginTop: 15,
+        fontSize: isPhone? 16 : 18,
+        marginTop: 10,
         // marginBottom: 10,  
         marginLeft: isPhone? 15 : 30,
     },
@@ -402,26 +401,17 @@ export const styles = StyleSheet.create({
         borderRadius: 2,
         borderColor: '#ffcc01',
         marginBottom: isPhone? 5 : 10, 
-        marginLeft: 900,
+        
     },
     xStyle: {
         alignSelf: 'center', 
-        fontSize: isPhone? 20 : 30,
+        fontSize: isPhone? 20 : 25,
         color: '#ffcc01',
         justifyContent: 'flex-end',
 
     },
     // The box that contains the 3D object in slingload
-    imageBox: {
-        padding: 15,
-        borderRadius: isPhone? 10 : 20,
-        // borderTopLeftRadius: isPhone? 10 : 20,
-        // borderBottomLeftRadius: isPhone? 10 : 20,
-        height: isPhone? 'auto': 800,
-        width: isPhone? 350 : 600,
-        // alignContent: 'center',
-        zIndex: 5,
-    },
+
     imageSize: {
         flex: isPhone? 1 : 2, 
         resizeMode: 'contain',
@@ -479,7 +469,8 @@ export const styles = StyleSheet.create({
         flexWrap: 'wrap', 
         width: isPhone? 250 : 480, 
         marginLeft: isPhone? 5 : 20,
-        fontSize: isPhone? 20 : 30,
+        fontSize: isPhone? 16 : 22,
+        height: isPhone? 'auto' : 300,
     },
     descriptionTextBox: {
         // zIndex: 7, 
@@ -502,14 +493,11 @@ export const styles = StyleSheet.create({
     navigationButton: {
         alignItems: 'center', 
         position: 'absolute',
-        marginTop: isPhone? 'auto' : -10, 
         position: 'absolute',
         // transform: [{ translateX: 100 }, { translateY: -10 }],
         // transform: isPhone? [{ translateX: 100 }, { translateY: -10 }] : 'none',
     },
-    objectSize: {
-        marginTop: isPhone? 'auto' : 100,
-    },
+
 // SLINGLOADQUIZ.JS ********************************************************************
 slTestR1: {
     flexDirection: 'row',
@@ -559,13 +547,12 @@ untimedTestC1: {
     flex: isPhone? 1 : 0.3,
     backgroundColor: isPhone? 'transparent' : 'rgba(0, 0, 0, 0.7)',
     width: isPhone? 150 : 'auto',
-    height: isPhone? 100 : 'auto',
+    height: isPhone? 100 : 700,
     // transform: [{ translateX: isPhone? 43 :0}, {translateY: isPhone ? 515 : 0}],
 
 },
 untimedTestC2: {
     flex: isPhone? 1 : 0.7,
-    height: isPhone? 380 : 800,
     borderColor: isPhone? '#000000' : 'none',
     // borderWidth: isPhone? 4 : 0,
     // transform: [{ translateX: isPhone? 0 :0}, {translateY: isPhone ? -30 : 0}],
@@ -598,6 +585,7 @@ timer: {
 },
 deficiencyButton: {
     backgroundColor: 'red',
+    height: isPhone? 40 : 'auto',
     height: 'auto',
     width: isPhone? 105 : 220,
     borderWidth: 1,
@@ -619,7 +607,7 @@ deficiencyButton: {
 },
 nextUntimedTestButton: {
     backgroundColor: 'green',
-    height: isPhone? 50 : 'auto',
+    height: isPhone? 40 : 'auto',
     width: isPhone? 105 : 220,
     borderWidth: 1,
     borderRadius: isPhone? 5 : 10,
@@ -630,7 +618,7 @@ nextUntimedTestButton: {
 
 },
 endTestButton: {
-    height: isPhone? 50 : 'auto',
+    height: isPhone? 40 : 'auto',
     width: isPhone? 105 : 180,
     borderWidth: 2,
     borderRadius: isPhone? 5 : 10,
@@ -673,7 +661,7 @@ menuSection: {
     
 },
 menuItemBox: { 
-    width: isPhone? 200 : 380, 
+    width: isPhone? 200 : 350, 
     height: isPhone? 40 : 55, 
     borderRadius: 10, 
     borderWidth: isPhone? 1 : 3, 
@@ -699,12 +687,11 @@ imageTitleDisplay: {
     // transform: [{ translateX: isPhone? 0 :'90wh'}, 
     //     {translateY: isPhone ? -465 : '-35vh' }], 
     // justifyContent: 'space-between', 
-    width: isPhone? 350 : 600,
-    height: isPhone? 80 : 80,
+    width: isPhone? 345 : 500,
+    height: isPhone? 40 : 60,
     alignItems: 'center', 
     alignSelf: 'center',
     flexDirection: 'row', 
-    height: isPhone? 50 : 65, 
     borderRadius: 10, 
     borderWidth: 3, 
     borderColor: 'rgba(232, 226, 217, 0.4)', 

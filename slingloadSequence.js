@@ -9,6 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import ModelComp from './ModelComp';
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 800;
+
 const imageSources = {
   'Apex': require('./assets/Apex_Extra.png'), 
   'Grabhook' :require('./assets/Grabhook_Extra.png'),
@@ -56,22 +57,40 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
   console.log(extraPhoto)
   return (
 <ScrollView style={[styles.scrollView]} showsVerticalScrollIndicator={false}>
-      <View style={{justifyContent: 'center',  backgroundColor: theme.colors.backdrop}}>
+<View style={{marginTop: -10, marginBottom: 8}}>
 
+      <View style={{marginTop: isPhone? 30 : 'auto', justifyContent: 'center',  backgroundColor: isPhone? 'transparent' : 'rgba(232, 226, 217, 0.3)', height: isPhone? 500 : 'auto'}}>
       {/* <View style={[styles.slingloadSequenceLayout, {borderColor: isPhone? 'none' : theme.colors.primary, borderWidth: 0}]}> */}
 
-    <View style={[{flexDirection: 'row', borderColor: isPhone? 'none' : theme.colors.primary, borderWidth: 0}]}>
-      <View style={[styles.untimedTestC1]}>
+    <View style={[{flexDirection: isPhone? 'column' : 'row', borderColor: isPhone? 'none' : theme.colors.primary, 
+    borderWidth: 0, height: isPhone? 500 : 600}]}>
+  {/* THIS IS FOR PHONE VIEW ONLY */}
+  <View style={[styles.imageTitleDisplay, {display: isPhone? 'flex' : 'none', position: 'absolute', bottom: isPhone? 'auto' : 0, zIndex: 15}]}>
+        <View style={{flex: 0.9}}><Text style={{color: '#ffffff', fontSize: isPhone? 20 : 25, fontWeight: 500, alignSelf: 'center'}}>{itemName}</Text></View>
+        <View style={{marginRight: 10, flex: 0.1}}>
+          <TouchableOpacity onPress={() => navigation.navigate(nextItem)}>
+              <View style={{marginTop: 5}}>
+              <FontAwesome name="chevron-right" size={isPhone? 25 : 35} color='#ffffff'/>
+            </View>
+          </TouchableOpacity>
+        </View>
+    </View>
+
+  {/* END PHONE VIEW OF IMAGE AND TITLE */}
+      <View style={[styles.untimedTestC1, {display: isPhone? 'none' : 'flex', top : isPhone? 0 : 'auto'}]}>
         <View style={{alignSelf: 'center'}}>
           <Text style={{color: isPhone? '#000000' : '#ffffff', alignSelf: 'center',
                 fontSize: isPhone? 20 : 30, marginBottom: isPhone? 10 : 20, 
                 marginTop: isPhone? 15 : 30}}>Inspection Steps</Text>
         {/* <View style={{backgroundColor:theme.colors.primary, width: 150, height: 3, marginBottom: 15}}></View> */}
       </View>
-        <View style={styles.inspectText}>
-            <Text style={{width: screenDimension.width * 0.25,color: isPhone? '#000000' : '#E8E2D9', fontSize: isPhone? 20 : 24, marginLeft: isPhone? 'auto' : 25, marginBottom: 10}}>{stepList}</Text>
-        </View>
-      <View style={{alignSelf: 'center', marginTop: isPhone? 'auto' : 0}}>
+  <View style={styles.inspectText}>
+    <ScrollView style={{height: 300, marginRight: 10}}>
+    <Text style={{width: screenDimension.width * 0.25,color: isPhone? '#000000' : '#E8E2D9', fontSize: isPhone? 18 : 22, marginLeft: isPhone? 'auto' : 25, marginBottom: 10}}>{stepList}</Text>
+    </ScrollView>
+          </View>
+
+      <View style={{alignSelf: 'center', marginTop: isPhone? 'auto' : 0, position: 'absolute', bottom: isPhone? 'auto' : 140}}>
         <View style={{flexDirection: 'row', gap: 15, alignSelf: 'center'}}>
           <View>
             <TouchableOpacity onPress={goPreviousStep}>
@@ -98,20 +117,78 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
       </View>
     </View>
     <View style={[styles.untimedTestC2]}> 
-      <View>
+    <View style={{height: 50, zIndex: 30}}>
+      
+    </View>
+      <View style={{backgroundColor: isPhone? 'rgba(232, 226, 217, 0.3)' : 'transparent', height: isPhone? 350 : 480, width: isPhone? 340 : 'auto', 
+      position: 'absolute', alignSelf: 'center', top: isPhone? 50 : 40, paddingTop: isPhone? 20 : 50,
+      borderRadius: isPhone? 10 : 0, borderWidth: isPhone? 1 : 0, borderColor: theme.colors.onBackground}}>
         <ModelComp imageArray = {itemName}/>
       </View>
       <View>
-    <View style={{flexDirection: 'row', marginTop: 0, marginRight: isPhone? 5 : 0}}>
+      <View style={{display: isPhone? 'flex' : 'none', alignSelf: 'flex-end', right: 65, top: 200}}>
+          <TouchableOpacity onPress={() => navigation.navigate(videoName)}>
+            <View style={{width: 40, height: 40, borderRadius: 40, borderWidth: 3, borderColor: theme.colors.onBackground, justifyContent: 'center', alignItems: 'center'}}>
+            <FontAwesome name="video-camera" size={20} color={theme.colors.onBackground}/>
+
+            </View>
+          </TouchableOpacity>
+        </View>
+    <View style={{flexDirection: 'row', marginTop: isPhone? 5 : 15, marginRight: isPhone? 5 : 0, position: 'absolute'}}>
         {extraTitle || extraInfo || extraPhoto ? (        
         <TouchableOpacity onPress={toggleBoxVisibility}>
-        <View style={{marginLeft: isPhone? 'auto' : 15, bottom: isPhone? 'auto' : 285,  borderColor: '#ffffff', marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 2 : 6, height: isPhone? 'auto' : 85, width: isPhone? 'auto' : 85, borderRadius: 85}}>
-            <Text style={{color: '#ffffff', fontSize: isPhone? 20 : 60, fontWeight: 600, alignSelf: 'center', marginTop: isPhone? 'auto': -10}}>?</Text>
+        <View style={{marginLeft: isPhone? 'auto' : 15, top: isPhone? 290 : 265,  left: isPhone? 323 : 'auto',
+        borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 0, borderWidth: isPhone? 3 : 6, zIndex: 50,
+        height: isPhone? 40 : 85, width: isPhone? 40 : 85, borderRadius: isPhone? 40 : 85, position: 'absolute'}}>
+          <Text style={{color: theme.colors.onBackground, fontSize: isPhone? 30 : 50, fontWeight: isPhone? 700 : 500, alignSelf: 'center', marginTop: isPhone? 0 : -3}}>?</Text>
             </View>     
           </TouchableOpacity>) : (<View></View>)}
         </View>
+        </View>
+{/* PHONE VIEW */}
+<View style={{flexDirection: 'row', display: isPhone? 'flex' : 'none', top: 320, width: 340, alignSelf: 'center', justifyContent: 'space-between'}}>
+  <View style={[{flex: 1, justifyContent: 'center', height: 100, width: 300, zIndex: 20, overflow: 'hidden', borderWidth: 1, 
+  borderColor: theme.colors.onBackground, borderTopLeftRadius: 10, borderTopRightRadius: 10}]}>
+    <View style={{alignSelf: 'center', height: 30, position: 'absolute', top : 0, 
+    backgroundColor: 'rgba(232, 226, 217, 0.3)', justifyContent: 'center', alignItems: 'center', 
+    width: 200, overflow: 'hidden', borderBottomColor: theme.colors.onBackground, borderBottomWidth: 1}}>
+          <Text style={{color: theme.colors.onBackground, alignSelf: 'center',
+                fontSize:16, fontWeight: 600, 
+                marginTop: 0}}>Inspection Steps</Text>
+        {/* <View style={{backgroundColor:theme.colors.primary, width: 150, height: 3, marginBottom: 15}}></View> */}
+      </View>
+<ScrollView style={{top: 25, marginTop: 10}}>
+<View style={[styles.inspectText, {paddingLeft: 10}]}>
+            <Text style={{width: screenDimension.width * 0.4, color: theme.colors.onBackground, fontSize: isPhone? 16 : 24, marginLeft: isPhone? 'auto' : 25, marginBottom: 10}}>{stepList}</Text>
+      </View>
+</ScrollView>
+<View style={{backgroundColor: theme.colors.onBackground, height: 3, width: 200}}></View>
     </View>
-    <View style={[styles.imageTitleDisplay, {position: 'absolute', bottom: isPhone? 'auto' : 100}]}>
+
+    <View>
+    <View style={{display: isPhone? 'flex' : 'none', flex: 0.2, gap: 5, alignSelf: 'flex-end'}}>
+          <View>
+            <TouchableOpacity onPress={goPreviousStep}>
+              <View style={[styles.preNextStepButton, {borderColor: theme.colors.onBackground, borderWidth: 1}]}>
+                <Text style={{color: '#E8E2D9', fontSize: isPhone? 15 : 18, alignSelf: 'center'}}>Previous Step</Text>
+            </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+          <TouchableOpacity onPress={goNextStep}>
+          <View style={[styles.preNextStepButton, {borderColor: theme.colors.onBackground, borderWidth: 1}]}>
+                  <Text style={{color: '#E8E2D9', fontSize: isPhone? 15 : 18, alignSelf: 'center'}}>Next Step</Text>
+              </View>             
+            </TouchableOpacity>
+          </View>
+        </View>
+    </View>
+</View>
+
+
+{/* END PHONE VIEW */}
+
+    <View style={[styles.imageTitleDisplay, {display: isPhone? 'none' : 'flex', position: 'absolute', bottom: isPhone? 'auto' : 70}]}>
         <View style={{flex: 0.9}}><Text style={{color: '#ffffff', fontSize: isPhone? 20 : 25, fontWeight: 500, alignSelf: 'center'}}>{itemName}</Text></View>
         <View style={{marginRight: 10, flex: 0.1}}>
           <TouchableOpacity onPress={() => navigation.navigate(nextItem)}>
@@ -121,16 +198,17 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
           </TouchableOpacity>
         </View>
     </View>
+  {/* THE ABOVE WEB VIEW END*/}
     </View>
   </View>
 <View>
 </View>
 
         {isBoxVisible && (
-        <View style={[styles.infoBox, {position: 'absolute'}]}>
+        <View style={[styles.infoBox, {position: 'absolute', paddingTop: isPhone? 10 : 10}]}>
           {/* Close button */}
           <TouchableOpacity onPress={handleCloseBox}>
-            <View style={[styles.xBox, {position: 'absolute', justifyContent: 'center'}]}>
+            <View style={[styles.xBox, {position: 'absolute', justifyContent: 'center', marginLeft: isPhone? 300 :850}]}>
               <Text style={[styles.xStyle, {position: 'absolute'}]}>X</Text>
             </View>
           </TouchableOpacity>
@@ -138,8 +216,10 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
           {/* Text content */}
           {extraTitle || extraInfo || extraPhoto ? (
           <View>
-            {extraTitle && <Text style={styles.infoText}>1.{extraTitle}</Text>}
-            {extraInfo && <Text style={styles.infoText}>{extraInfo}</Text>}
+            <View style={{height:isPhone? 5 : 15}}></View>
+            {extraTitle && <Text style={[styles.infoText, {fontSize: isPhone? 18 : 20, fontWeight: 600}]}>1. {extraTitle}</Text>}
+            {extraInfo && <Text style={[styles.infoText, {marginLeft: isPhone? 'auto' : 40, marginRight: isPhone? 'auto':40}]}>{extraInfo}</Text>}
+            <View style={{height:isPhone? 5 : 20}}></View>
             {extraPhoto && 
               <Image 
                 source={imageSource}
@@ -151,11 +231,13 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
                 }}
               />
             }
+          <View style={{height:isPhone? 15 : 35}}></View>
           </View>
         ) : (<View></View>)}
         </View>
       )}
             </View>
+      </View>
     </ScrollView>
   );
 }
