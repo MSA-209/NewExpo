@@ -337,7 +337,7 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         borderTopLeftRadius: 10, 
         borderTopRightRadius: 10,
-        zIndex: 25,
+        zIndex: 15,
     },
     preNextStepButton: {
         height: isPhone? 40 : 55,
