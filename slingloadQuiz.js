@@ -559,13 +559,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                 </View>
             </TouchableOpacity>
     </View>
-    <View style={{display: isPhone? 'flex' : 'none', top: isPhone? 'auto' : 20, width: isPhone? 340 : 500, height: 450, top: 70,
-         maxHeight: isPhone? 400 : 'auto',alignSelf: 'center', backgroundColor: 'rgba(232, 226, 217, 0.3)', borderRadius: 10, borderWidth: 1, borderColor: theme.colors.onBackground
-         ,justifyContent: 'center'}} >
-        <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
-        resizeMode = 'contain' 
-        style={{alignSelf: 'center', height: isPhone? 300 : 450, maxWidth: isPhone? 300 : 600, marginTop: isPhone? 10 : 30}}/>
-    </View>
+
 
 <View style={styles.untimedTestC2}>
 {/* THIS MENU IS ANOTHER COPY FOR BROKEN MENU IN WEB VIEW */}
@@ -637,7 +631,7 @@ export function UntimedQuizScreen({ navigation, route }) {
         style={{alignSelf: 'center', maxHeight: 330, maxWidth: 330 , height: 330, width: 320}}/>
         </View>
                 <View>
-                <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
+                <View style ={[styles.navigationButton, {left: isPhone? 0 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
         <View style={{display: isPhone? 'none' : 'flex', top: isPhone? 'auto' : 20, width: isPhone? 320 : 500, height: 450,
          maxHeight: isPhone? 300 : 'auto',alignSelf: 'center'
          ,justifyContent: 'center'}} >
@@ -786,8 +780,8 @@ height: 'auto', borderWidth: isPhone? 0 : 0, borderRadius: 10,
                 </View>                   
             </View>
         </View>
-           
-
+           </View>
+           </View>
         </View>
     </ScrollView>
     );
