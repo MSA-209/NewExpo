@@ -186,7 +186,7 @@ const ModelComp = ({imageArray}) => {
         <View style={{flex: isPhone? 0.1 : 0.1, justifyContent: 'flex-start', zIndex: 19}}>
         <View style ={[styles.navigationButton, {marginTop: isPhone? 0 : 30, left: isPhone? -10 : 'auto', top: isPhone? 240 : 'auto'}]}>
         <View style={{borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 3 : 6, height: isPhone? 65 : 85, width: isPhone? 65 : 85, borderRadius: isPhone? 65 : 85, justifyContent: 'center', alignSelf: 'center'}}>
-            <View style={{alignSelf: 'center'}}>
+            <View style={{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity onPress={() => changeImage('Up')}>
                 <View>
                     <FontAwesome name="arrow-up" size={isPhone? 22 : 25} color={theme.colors.onBackground} alignSelf='center'/>
