@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Image, StyleSheet, View, Dimensions, TouchableOpacity, ScrollView, TextInput, FlatList, screen} from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity, ScrollView, TextInput, FlatList, screen,Dimensions} from 'react-native';
 import 'react-native-svg'
 import { Card, Provider, Text, useTheme } from 'react-native-paper';
 import { styles } from './styleSheet'; 
 import { Video } from 'expo-av';
 import { FontAwesome } from '@expo/vector-icons'; 
 
+
 const screenDimension = Dimensions.get("screen")
 const isPhone = screenDimension.width < 800; // Adjust the threshold as needed
 const videoWidth = isPhone ? screenDimension.width - 40 : 350; // Adjust the width for phone mode
 const videoHeight = isPhone ? (screenDimension.width - 40) * (9 / 16) : 270; // Adjust the height for phone mode
-
 const resolution = 9/16;
 const videoSources = {
   'Placard': require('./assets/placard_video.mp4'), 
@@ -61,6 +61,7 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
               ref={videoRef}
               source={videoSource}
               style={{width: isPhone? 445 : 800, height: isPhone? 400: 420, alignSelf: 'center'}}
+
               useNativeControls
               resizeMode="contain"
               onPlaybackStatusUpdate={handlePlaybackStatusUpdate}

@@ -9,7 +9,7 @@ import Constants from "expo-constants"
 import * as SplashScreen from 'expo-splash-screen';
 import { styles } from './styleSheet.js';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import axios from 'axios'
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 900;
 import {

@@ -537,6 +537,35 @@ export function UntimedQuizScreen({ navigation, route }) {
                     </View>
                     
                 </View>
+                
+
+<View style={[styles.imageTitleDisplay, {display: isPhone? 'flex' : 'none', zIndex: 10, top: isPhone? 10 : 470, position: 'absolute'}]}>
+            <TouchableOpacity onPress={handleLeftPress}>
+                        <View style={{justifyContent: 'flex-end', marginTop: isPhone? 5 : 'auto', alignSelf: 'center'}}>
+                        <FontAwesome name="chevron-left" size={isPhone? 25 : 35} color='#E8E2D9' />
+                        </View>
+                        <View>
+                        </View>
+            </TouchableOpacity>
+            <View style={{flex: 0.8, justifyContent: 'center'}}>
+            <Text style={{fontSize: isPhone? 20 : 25, alignSelf: 'center', color: '#E8E2D9', alignContent: 'center'}}>{QuizImages[currentArrayIndex].key}</Text>
+
+            </View>                      
+                <TouchableOpacity onPress={handleRightPress}>
+                    <View style={{justifyContent: 'flex-end',alignItems: 'center', marginTop: isPhone? 5 : 'auto'}}>
+                        <FontAwesome name="chevron-right" size={isPhone? 25 : 35} color='#E8E2D9' />
+                    </View>
+                    <View>
+                </View>
+            </TouchableOpacity>
+    </View>
+    <View style={{display: isPhone? 'flex' : 'none', top: isPhone? 'auto' : 20, width: isPhone? 340 : 500, height: 450, top: 70,
+         maxHeight: isPhone? 400 : 'auto',alignSelf: 'center', backgroundColor: 'rgba(232, 226, 217, 0.3)', borderRadius: 10, borderWidth: 1, borderColor: theme.colors.onBackground
+         ,justifyContent: 'center'}} >
+        <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
+        resizeMode = 'contain' 
+        style={{alignSelf: 'center', height: isPhone? 300 : 450, maxWidth: isPhone? 300 : 600, marginTop: isPhone? 10 : 30}}/>
+    </View>
 
 <View style={styles.untimedTestC2}>
 {/* THIS MENU IS ANOTHER COPY FOR BROKEN MENU IN WEB VIEW */}
@@ -600,11 +629,6 @@ export function UntimedQuizScreen({ navigation, route }) {
                 fontSize: 28, fontWeight: 500, alignSelf: 'center'}}>{formatTime(elapsedTime)}</Text>
             </View>
         </View> */}
-        <View style={{display: isPhone? 'none' : 'flex', top: 40, width: isPhone? 320 : 500, height: 420, maxHeight: isPhone? 300 : 'auto',alignSelf: 'center', alignItems: 'center', justifyContent: 'center'}} >
-        <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
-        resizeMode = 'contain' 
-        style={{alignSelf: 'center', maxHeight: 450, maxWidth: 500 }}/>
-        </View>
 
         <View style={{display: isPhone? 'flex' : 'none', backgroundColor: 'rgba(232, 226, 217, 0.3)', borderWidth: 1, borderColor: theme.colors.onBackground, borderRadius: 10,
          top: 60, width: isPhone? 340 : 500, height: 400, maxHeight: isPhone? 400 : 'auto',alignSelf: 'center', alignItems: 'center', justifyContent: 'center'}} >
@@ -614,6 +638,16 @@ export function UntimedQuizScreen({ navigation, route }) {
         </View>
                 <View>
                 <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
+        <View style={{display: isPhone? 'none' : 'flex', top: isPhone? 'auto' : 20, width: isPhone? 320 : 500, height: 450,
+         maxHeight: isPhone? 300 : 'auto',alignSelf: 'center'
+         ,justifyContent: 'center'}} >
+        <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
+        resizeMode = 'contain' 
+        style={{alignSelf: 'center', height: isPhone? 300 : 450, maxWidth: isPhone? 300 : 600, marginTop: isPhone? 10 : 30}}/>
+        </View>
+        
+        <View>
+            <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
         <View style={{borderColor: theme.colors.onBackground, left: isPhone? 10 : 'auto',
             marginBottom: isPhone? 10 : 20, borderWidth: isPhone? 3 : 6, height: isPhone? 70 : 85, 
             width: isPhone? 70 : 85, borderRadius: isPhone? 70 : 85, justifyContent: 'center', 
@@ -660,7 +694,7 @@ export function UntimedQuizScreen({ navigation, route }) {
         </View>
 
     </View>
-    <View style={[styles.imageTitleDisplay, {zIndex: 10, top: isPhone? 10 : 470, position: 'absolute'}]}>
+    <View style={[styles.imageTitleDisplay, {display: isPhone? 'none' : 'flex', zIndex: 10, top: isPhone? 10 : 470, position: 'absolute'}]}>
             <TouchableOpacity onPress={handleLeftPress}>
                         <View style={{justifyContent: 'flex-end', marginTop: isPhone? 5 : 'auto', alignSelf: 'center'}}>
                         <FontAwesome name="chevron-left" size={isPhone? 25 : 35} color='#E8E2D9' />
@@ -693,13 +727,13 @@ height: 'auto', borderWidth: isPhone? 0 : 0, borderRadius: 10,
     borderColor: 'rgba(232, 226, 217, 0.4)'}}>
 <View style={{top: isPhone? 0 : 0, zIndex: 20}}>
     <TouchableOpacity onPress={handleHamburgerClick}>
-        <View style={{backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingTop: 8, paddingBottom: 8, paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end', right : 25, top : isPhone? 70 : 10}}>
+        <View style={{backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingTop: 8, paddingBottom: 8, paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end', right : 25, top : isPhone? -370 : 10}}>
             <FontAwesome name="bars" size={isPhone? 24 : 40} color='#E8E2D9' />
         </View>
     </TouchableOpacity>
 </View>
 
-{(menuVisible && isPhone) && (<View style={{backgroundColor:'rgba(0, 0, 0, 0.8)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0, top: isPhone? 70 : 0, right: isPhone? 25 : 'auto', position: 'absolute'}}>
+{(menuVisible && isPhone) && (<View style={{backgroundColor:'rgba(0, 0, 0, 0.8)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0, top: isPhone? -370 : 0, right: isPhone? 25 : 'auto', position: 'absolute'}}>
     {/* Menu items */}
 
     <View style={[styles.menuSection, {top: isPhone? 'auto' : 0, backgroundColor: '#E8E2D940'}]}>

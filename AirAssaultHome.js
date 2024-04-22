@@ -677,8 +677,8 @@ export function PlaylistScreen({ navigation, route }) {
     const fetchVideos = async () => {
       try {
         const urls = [
-          "https://airdbnew.onrender.com/api/air-assault-videos?populate=video",
-          "https://airdbnew.onrender.com/api/pathfinder-videos?populate=video"
+          "https://airdbnew.onrender.com/api/air-assault-videos?populate=video,thumbnail",
+          "https://airdbnew.onrender.com/api/pathfinder-videos?populate=video,thumbnail"
         ];
         const allRequests = urls.map(url =>
           axios.get(url, {
