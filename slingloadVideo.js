@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Image, StyleSheet, View, TouchableOpacity, ScrollView, TextInput, FlatList, screen} from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity, ScrollView, TextInput, FlatList, screen,Dimensions} from 'react-native';
 import 'react-native-svg'
 import { Card, Provider, Text, useTheme } from 'react-native-paper';
 import { styles } from './styleSheet'; 
 import { Video } from 'expo-av';
 import { FontAwesome } from '@expo/vector-icons'; 
-
+const screenDimension = Dimensions.get("screen");
+const isPhone = screenDimension.width < 800; // Adjust the threshold as needed
+const resolution = 9/16;
 const videoSources = {
   'Placard': require('./assets/placard_video.mp4'), 
   'Apex' :require('./assets/Apex.mp4'),
@@ -53,7 +55,27 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
               <Video 
               ref={videoRef}
               source={videoSource}
-              style={styles.videoStyle}
+              style={{
+                position: 'relative',
+                width: isPhone? 345 : resolution * (screenDimension.width),
+                height: isPhone? 300 : resolution * (screenDimension.height),
+                alignSelf: 'center',
+                borderRadius: 8,
+                videoDescriptionContainer: {
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    justifyContent: 'space-between', 
+                    flexDirection: 'row',
+                    backgroundColor: '#ffcc01',
+                    borderBottomLeftRadius: 8,
+                    borderBottomRightRadius: 8,
+                    height: 45,
+                    width: isPhone? 345 : resolution * (screenDimension.width),
+                    zIndex: 1,
+                },
+            }}
               useNativeControls
               resizeMode="contain"
               onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
