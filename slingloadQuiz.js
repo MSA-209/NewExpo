@@ -563,7 +563,7 @@ export function UntimedQuizScreen({ navigation, route }) {
 
 <View style={styles.untimedTestC2}>
 {/* THIS MENU IS ANOTHER COPY FOR BROKEN MENU IN WEB VIEW */}
-{(menuVisible && !isPhone) && (<View style={{zIndex: 25, alignSelf: 'flex-end',backgroundColor:'rgba(0, 0, 0, 0.8)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0,
+{(menuVisible && !isPhone) && (<View style={{zIndex: 13, alignSelf: 'flex-end',backgroundColor:'rgba(0, 0, 0, 0.8)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0,
  top: isPhone? 70 : 0, right: isPhone? 25 : 'auto', position: 'absolute'}}>
     {/* Menu items */}
 
@@ -607,6 +607,16 @@ export function UntimedQuizScreen({ navigation, route }) {
     borderBottomRightRadius: isPhone? 15 : 0, marginTop: 20 }}></View>
   </View>
     )}
+    <View style={{display: isPhone? 'none' : 'flex', top: isPhone? 0 : 0, zIndex: 25}}>
+    <TouchableOpacity onPress={handleHamburgerClick}>
+        <View style={{backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingTop: 8, paddingBottom: 8, 
+        paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end',
+        zIndex: 25,
+        right : 25, top : isPhone? -330 : 10}}>
+            <FontAwesome name="bars" size={isPhone? 24 : 40} color='#E8E2D9' />
+        </View>
+    </TouchableOpacity>
+</View>
 {/* THE MENU ABOVE IS ANOTHER COPY FOR BROKEN MENU IN WEB VIEW */}
         {/* <View style={{alignSelf: 'center', justifyContent: 'center', height: isPhone? 420 : 450, alignItems: 'center', padding: isPhone? 10 : 20,
         top : isPhone? 60 : 40, 
@@ -631,15 +641,13 @@ export function UntimedQuizScreen({ navigation, route }) {
         style={{alignSelf: 'center', maxHeight: 330, maxWidth: 330 , height: 330, width: 320}}/>
         </View>
                 <View>
-                <View style ={[styles.navigationButton, {left: isPhone? 0 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
-        <View style={{display: isPhone? 'none' : 'flex', top: isPhone? 'auto' : 20, width: isPhone? 320 : 500, height: 450,
+                <View style={{display: isPhone? 'none' : 'flex', top: isPhone? 'auto' : 20, width: isPhone? 320 : 500, height: 450,
          maxHeight: isPhone? 300 : 'auto',alignSelf: 'center'
          ,justifyContent: 'center'}} >
         <Image source = {(QuizImages[currentArrayIndex].key === "Placard") ? QuizImages[currentArrayIndex].image[0][0] : QuizImages[currentArrayIndex].image[currentRow][currentCol]}
         resizeMode = 'contain' 
         style={{alignSelf: 'center', height: isPhone? 300 : 450, maxWidth: isPhone? 300 : 600, marginTop: isPhone? 10 : 30}}/>
         </View>
-        
         <View>
             <View style ={[styles.navigationButton, {left: isPhone? 45 : 25, bottom: isPhone? 20 : 100, position: 'absolute'}]}>
         <View style={{borderColor: theme.colors.onBackground, left: isPhone? 10 : 'auto',
@@ -716,22 +724,25 @@ export function UntimedQuizScreen({ navigation, route }) {
 
                 </View>
 
-<View style={{ flexDirection: 'column', position: 'absolute', flex: isPhone? 1 : 0.3, width: 'auto', alignSelf: 'flex-end', right: isPhone? 25 : 0, bottom: isPhone? 0 : 'auto', top: isPhone? 'auto' : 0, zIndex: 30,
+<View style={{ flexDirection: 'column', position: 'absolute', flex: isPhone? 1 : 0.3, width: 'auto', alignSelf: 'flex-end', right: isPhone? 25 : 0, bottom: isPhone? 0 : 'auto', top: isPhone? 'auto' : 0,
 height: 'auto', borderWidth: isPhone? 0 : 0, borderRadius: 10,
     borderColor: 'rgba(232, 226, 217, 0.4)'}}>
-<View style={{top: isPhone? 0 : 0, zIndex: 20}}>
+<View style={{top: isPhone? 0 : 0, zIndex: 25, display: isPhone? 'flex' : 'none'}}>
     <TouchableOpacity onPress={handleHamburgerClick}>
-        <View style={{backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingTop: 8, paddingBottom: 8, paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end', right : 25, top : isPhone? -370 : 10}}>
+        <View style={{backgroundColor: 'rgba(0, 0, 0, 0.7)', paddingTop: 8, paddingBottom: 8, 
+        paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end',
+        zIndex: 25,
+        right : 25, top : isPhone? -330 : 10}}>
             <FontAwesome name="bars" size={isPhone? 24 : 40} color='#E8E2D9' />
         </View>
     </TouchableOpacity>
 </View>
 
-{(menuVisible && isPhone) && (<View style={{backgroundColor:'rgba(0, 0, 0, 0.8)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0, top: isPhone? -370 : 0, right: isPhone? 25 : 'auto', position: 'absolute'}}>
+{(menuVisible && isPhone) && (<View style={{backgroundColor:'rgba(0, 0, 0, 0.8)', paddingLeft: isPhone? 'none' : 0, borderRadius: isPhone? 15 : 0, top: isPhone? -330 : 0, right: isPhone? 25 : 'auto', position: 'absolute'}}>
     {/* Menu items */}
 
     <View style={[styles.menuSection, {top: isPhone? 'auto' : 0, backgroundColor: '#E8E2D940'}]}>
-            <Text style={[styles.sectionMenuTitle, {fontSize: isPhone? 15 : 23, alignSelf: 'center'}]}>SECTION MENU</Text>
+            <Text style={[styles.sectionMenuTitle, {fontSize: isPhone? 15 : 23, alignSelf: 'center', zIndex: 15}]}>SECTION MENU</Text>
         </View>
 
     <ScrollView style={{height: isPhone? 190 : 400, top: isPhone? 10 : 15}} showsVerticalScrollIndicator={true}>
@@ -776,8 +787,6 @@ height: 'auto', borderWidth: isPhone? 0 : 0, borderRadius: 10,
   {/* Buttons to toggle item states */}
 
 </View>
-
-                </View>                   
             </View>
         </View>
            </View>
