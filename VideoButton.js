@@ -43,7 +43,7 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
   };
   */
   return (
-    <View style={{alignSelf: 'center', alignItems: 'center', width: 300}}>
+    <View style={{alignSelf: 'center', alignItems: 'center', width: 300, marginTop: isPhone? 30: 20}}>
       <View style={[{overflow: 'hidden', height: videoHeight, width: isPhone? 'auto' : videoWidth, marginBottom: isPhone? 30 : -40, 
       alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderWidth:2, borderColor: '#ffcc01', borderRadius: 10, backgroundColor: '#ffcc01'}]}>
       <View style={{borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
@@ -88,7 +88,7 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
               </View>
 <View style={{flex: isPhone? 0.5 : 0.3}}>
 <TouchableOpacity onPress={() => handleAdd(video)}  style={{ flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={{ fontSize: 16, alignSelf: 'center', padding: 5}}>
+            <Text style={{ fontSize: 13, alignSelf: 'center', padding: 5}}>
             { isAdded ? 'Remove from' :'Add to'}</Text>
 
               </TouchableOpacity>
@@ -97,7 +97,7 @@ const VideoComp = ({video,  handleAddToPlaylist, addedVideos, videoLinks, curren
 <TouchableOpacity onPress={() => handleAdd(video)}  style={{ marginRight: 10}}>
               <IconButton
                 icon="playlist-play"
-                size={30}
+                size={25}
                 color="#000000"
               />
               </TouchableOpacity>
@@ -141,7 +141,7 @@ const [showDescription, setShowDescription] = useState(false);
   };
 
   return (
-    <ScrollView style={{ marginTop: -10, marginBottom: 0 }} showsVerticalScrollIndicator={true}>
+    <ScrollView style={{ marginTop: -10, marginBottom: 0 }} showsVerticalScrollIndicator={false}>
       <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: "#221f20", height: 55, borderTopWidth: 5, borderBottomWidth: 3, borderColor: "#ffcc01" }}>
                 <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                 <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>{screen}</Text>
@@ -170,7 +170,7 @@ const [showDescription, setShowDescription] = useState(false);
             <TouchableOpacity onPress={handleExitFullScreen}>
             </TouchableOpacity>
           </View>  
-          {showDescription &&  (<View style = {{backgroundColor: 'rgba(225, 225, 225, 0.1)', borderWidth: 1, borderColor: theme.colors.onBackground, top: 255, left: 30, position: 'absolute', borderRadius:5, width:'auto', zIndex: 20, height: 'auto', padding: 10}}>
+          {showDescription &&  (<View style = {{backgroundColor: 'rgba(225, 225, 225, 0.1)', borderWidth: 1, borderColor: theme.colors.onBackground, top: isPhone? 255 : 500, left: 30, position: 'absolute', borderRadius:5, width:'auto', zIndex: 20, height: 'auto', padding: 10}}>
           <Text style={{color: theme.colors.onBackground}}> {description}</Text>
         </View>)}
           <View style={{marginTop: isPhone? 210 : 448, backgroundColor: '#ffcc01', height: isPhone? 45 : 50,  flexDirection: 'row', justifyContent: 'space-between', width: isPhone?  videoWidth : 800, alignItems: 'center', borderBottomLeftRadius: 10, borderBottomRightRadius: 10}} >

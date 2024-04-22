@@ -5,8 +5,12 @@ import { Card, Provider, Text, useTheme } from 'react-native-paper';
 import { styles } from './styleSheet'; 
 import { Video } from 'expo-av';
 import { FontAwesome } from '@expo/vector-icons'; 
-const screenDimension = Dimensions.get("screen");
+
+
+const screenDimension = Dimensions.get("screen")
 const isPhone = screenDimension.width < 800; // Adjust the threshold as needed
+const videoWidth = isPhone ? screenDimension.width - 40 : 350; // Adjust the width for phone mode
+const videoHeight = isPhone ? (screenDimension.width - 40) * (9 / 16) : 270; // Adjust the height for phone mode
 const resolution = 9/16;
 const videoSources = {
   'Placard': require('./assets/placard_video.mp4'), 
@@ -50,42 +54,26 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
     };
     return (
       <View>
-        <View>
-            <View>
+        <View style={{marginTop: isPhone? 30 : 40}}>
+            <View style={{top: isPhone? 6 : 7, width: isPhone? 340 : 580, height: isPhone? 250 : 420, overflow: 'hidden', alignSelf: 'center', borderRadius: 10, borderWidth: 1, borderColor: theme.colors.primary,
+             justifyContent: 'center'}}>
               <Video 
               ref={videoRef}
               source={videoSource}
-              style={{
-                position: 'relative',
-                width: isPhone? 345 : resolution * (screenDimension.width),
-                height: isPhone? 300 : resolution * (screenDimension.height),
-                alignSelf: 'center',
-                borderRadius: 8,
-                videoDescriptionContainer: {
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    width: '100%',
-                    justifyContent: 'space-between', 
-                    flexDirection: 'row',
-                    backgroundColor: '#ffcc01',
-                    borderBottomLeftRadius: 8,
-                    borderBottomRightRadius: 8,
-                    height: 45,
-                    width: isPhone? 345 : resolution * (screenDimension.width),
-                    zIndex: 1,
-                },
-            }}
+              style={{width: isPhone? 445 : 800, height: isPhone? 400: 420, alignSelf: 'center'}}
+
               useNativeControls
               resizeMode="contain"
               onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
             />   
             </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', width: isPhone? 340 : 580, 
+          height: isPhone? 40 : 50, backgroundColor: '#ffcc01', alignSelf: 'center', alignItems: 'center',
+          borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
           <TouchableOpacity onPress={handleReplay}>
             <View style={{marginLeft: 20, flexDirection: 'row'}}>
               <View>
-                <Text style={{color:theme.colors.primary, fontSize: 20}}>Replay</Text>
+                <Text style={{color:'#000000', fontSize: 18}}>Replay</Text>
               </View>
               {/* <View>
               <FontAwesome name="undo" size={20} color={theme.colors.primary} />
@@ -93,8 +81,8 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleSkip}>
-            <View style={{marginRight: 20}}>
-            <Text style={{color:theme.colors.primary, fontSize: 20}}>{skipText}</Text>
+            <View style={{marginRight: 20, justifyContent: 'center'}}>
+            <Text style={{color:'#000000', fontSize: 18}}>{skipText}</Text>
             </View>
           </TouchableOpacity>
         </View>

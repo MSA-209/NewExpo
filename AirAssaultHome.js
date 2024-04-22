@@ -35,6 +35,9 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+
+const screenDimension = Dimensions.get("screen")
+const isPhone = screenDimension.width < 800; // Adjust the threshold as needed
 // this const below is for firebase
 // for future maintainers, please get a new apiKey
 // this github has been public for a while  --Eric
@@ -614,26 +617,45 @@ export function VideoScreen({ navigation, route }) {
         <Text style={{ color: "#FFFFFF", fontSize: 20 }} variant='headlineLarge'>{screen}</Text>
       </View>
       {/* flex container so all on one row */}
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-        {/* Conditionally render the search bar shows when user clicks on search*/}
-        {isSearchVisible && (
+      <View style={{ flexDirection: 'row',marginTop: 20, alignSelf: 'center', width: isPhone? 340 : 800, justifyContent: 'space-between', alignItems: 'center' }}>
+        
+    <View style={{alignSelf: 'center', flex: 0.05}}>
+    <IconButton
+        icon="playlist-play"
+        color={theme.colors.primary}
+        size={isPhone? 20 : 35}
+        onPress={() => navigation.navigate('Your Playlist')}
+      />
+    </View>
+    <View style={{flex: isPhone? 0.4 : 0.2, left: isPhone? 'auto' : -140}}>
+    <TouchableOpacity onPress={() => navigation.navigate('Your Playlist')}><Text style={{alignSelf: 'center', color: theme.colors.primary}}>Your list</Text></TouchableOpacity>
+
+    </View>
+
+        <View style={{alignSelf: 'flex-end', height: isPhone? 35 : 40, right: isPhone? 0 : 0, flexDirection: 'row',width: isPhone? 200 : 350, borderColor: theme.colors.primary,
+        borderWidth: 1, borderRadius: isPhone? 5 : 10, justifyContent: 'center', paddingLeft: isPhone? 15 : 20}}>
+          <View style={{flex: 0.7, justifyContent: 'center'}}>
           <TextInput
-            style={{ height: 40, borderColor:theme.colors.primary , borderWidth: 1, color:theme.colors.primary, flex: 100 }}
+          style={{width:isPhone? 200 : 600, color: theme.colors.onBackground}}
             onChangeText={text => onChangeSearch(text)}
             value={searchQuery}
           />
-        )}
-        <TouchableOpacity onPress={() => setIsSearchVisible(!isSearchVisible)}>
-          <Text style={{color:theme.colors.primary, fontSize: 20}}>Search</Text>
+          </View>
+          <View style={{flex: 0.3, height: isPhone? 35 : 40, alignSelf: 'center',justifyContent: 'center', width: isPhone? 50 : 40, backgroundColor: theme.colors.primary,
+          borderTopRightRadius: isPhone? 5: 10,left: 2, borderBottomRightRadius: isPhone? 5 : 10}}>
+          <TouchableOpacity onPress={() => setIsSearchVisible(!isSearchVisible)}>
+          <View style={{}}>
+          <Text style={{color:theme.colors.background, fontSize: 16, alignSelf: 'center'}}>Search</Text>
+          </View>
+
           {/* navigates to playlistScreen which will only shows videos in playlist*/}
         </TouchableOpacity>
-  
-        <IconButton
-        icon="playlist-play"
-        color="black"
-        size={20}
-        onPress={() => navigation.navigate('Your Playlist')}
-      />
+          </View>
+
+        </View>
+        {/* Conditionally render the search bar shows when user clicks on search*/}
+
+
       </View>
       {/* Display video button with an array of video links */}
       <View style={{justifyContent: 'center', alignItems: 'center', width: 340, alignSelf: 'center'}}>
