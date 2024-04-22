@@ -126,7 +126,7 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
         <ModelComp imageArray = {itemName}/>
       </View>
       <View>
-      <View style={{display: isPhone? 'flex' : 'none', alignSelf: 'flex-end', right: 65, top: 200}}>
+      <View style={{display: isPhone? 'flex' : 'none', alignSelf: 'flex-end', right: 65, position: 'absolute', top: 200}}>
           <TouchableOpacity onPress={() => navigation.navigate(videoName)}>
             <View style={{width: 40, height: 40, borderRadius: 40, borderWidth: 3, borderColor: theme.colors.onBackground, justifyContent: 'center', alignItems: 'center'}}>
             <FontAwesome name="video-camera" size={20} color={theme.colors.onBackground}/>
@@ -146,7 +146,7 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
         </View>
         </View>
 {/* PHONE VIEW */}
-<View style={{flexDirection: 'row', display: isPhone? 'flex' : 'none', top: 320, width: 340, alignSelf: 'center', justifyContent: 'space-between'}}>
+<View style={{flexDirection: 'row', display: isPhone? 'flex' : 'none', top: 360, width: 340, alignSelf: 'center', justifyContent: 'space-between'}}>
   <View style={[{flex: 1, justifyContent: 'center', height: 100, width: 300, zIndex: 20, overflow: 'hidden', borderWidth: 1, 
   borderColor: theme.colors.onBackground, borderTopLeftRadius: 10, borderTopRightRadius: 10}]}>
     <View style={{alignSelf: 'center', height: 30, position: 'absolute', top : 0, 
