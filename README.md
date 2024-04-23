@@ -10,6 +10,7 @@ To launch, simply clone the repository and launch using Expo.
 * Download the zip file and extract it
 ## Build Instructions
 * run 'npm install' on the terminal to install missing packages
+* run 'npm audit fix' just to make sure npm packages don't cause issues
 * then run command 'npm start' to run locally or 'npx expo start --tunnel' to run through qr code for other devices
 ## Troubleshooting
 * make sure you're in the right directory when running npm start
