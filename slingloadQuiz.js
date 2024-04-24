@@ -745,8 +745,6 @@ height: 'auto', borderWidth: isPhone? 0 : 0, borderRadius: 10,
   </View>
     )}
   {/* Menu box */}
-
-
   {/* Buttons to toggle item states */}
 
 </View>
@@ -793,6 +791,8 @@ export function EndQuizScreen({ navigation, route}) {
                     <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                         <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen Stat</Text>
                 </View>
+                <SlingloadDropdown style={{zIndex: 300, position: 'absolute'}}/>
+
                 </View>
             <View style={[styles.endQuizR1, {marginTop: isPhone? 20 : 30, flexDirection: 'row', marginLeft: isPhone? 40 : 0, alignItems: 'center', width: isPhone? 400 : 1100, alignSelf: 'center'}]}>
                 <View style={{flex: 0.3, justifyContent: 'center', marginLeft: isPhone? 0 : 50}}>
@@ -817,18 +817,33 @@ export function EndQuizScreen({ navigation, route}) {
                     <View key={index} style={[styles.resultBox, {marginTop: isPhone? 5 : 10, flexWrap: 'wrap', backgroundColor: question.trueAnswer===question.userAnswer? 'green' : 'red'}]}>
                         
                         {/* <Text style={{fontSize: 30, color:'#E8E2D9', marginLeft: 20}}>Question {(index + 1)} : {question.key}</Text> */}
-                        <Text style={{fontWeight: 600, fontSize: isPhone? 18 : 22, color:'#E8E2D9', marginLeft: isPhone? 10 : 20}}>{(question.trueAnswer===question.userAnswer & question.userAnswer != null)? 'Correct' : 'Incorrect'} :  {question.key}</Text>
-
-                        <Text style={{display: isPhone? 'none' : 'auto', marginLeft: isPhone? 10 : 15, fontSize: isPhone? 0 : 30, color:'#E8E2D9'}}>-</Text>
-                        {(question.trueAnswer!=question.userAnswer && question.userAnswer===false) && (
+                        {(question.trueAnswer===question.userAnswer && question.userAnswer != null) && (
+                            <Text style={{fontWeight: 600, fontSize: isPhone? 18 : 22, color:'#E8E2D9', marginLeft: isPhone? 10 : 20}}>Correct :  {question.key}</Text>                       
+                        )}
+                        {(question.trueAnswer!=question.userAnswer && question.userAnswer != null) && (
+                            <Text style={{fontWeight: 600, fontSize: isPhone? 18 : 22, color:'#E8E2D9', marginLeft: isPhone? 10 : 20}}>Incorrect :  {question.key}</Text>                       
+                        )}
+                        {(question.userAnswer == null && question.trueAnswer != null) && (
+                            <Text style={{fontWeight: 600, fontSize: isPhone? 18 : 22, color:'#E8E2D9', marginLeft: isPhone? 10 : 20}}>No Answer :  {question.key}</Text>                       
+                        )}
+                        {/* Case:  the item is not deficient but the user's answer is deficient */}
+                        {(question.userAnswer===true && question.trueAnswer===false) && (
                             <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>You marked {question.key} as deficient when there were no problems.</Text>
                         )}
-                        {(question.trueAnswer!=question.userAnswer && question.userAnswer===null) && (
-                            <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}> {question.key} is {question.userAnswer===true? 'deficiency' : 'not deficiency'} but you did not answer the question.</Text>
+                        {/* Case:  the item is deficient but the user's answer is not deficient */}
+                        {(question.userAnswer===false && question.trueAnswer===true) && (
+                            <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>You marked {question.key} as no deficient when there were deficient.</Text>
                         )}
-                        {question.trueAnswer===question.userAnswer && (
-                            <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5}}>Problem's description.</Text>
+                        {/* Case:  right anwer*/}
+                            {(question.userAnswer===question.trueAnswer && question.userAnswer!=null) && (
+                            <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>You're right! {question.key} is {question.trueAnswer===true? 'deficient' : 'not deficient'}</Text>
                         )}
+                        {/* Case: getting no answer from user */}
+                        <View><Text>{question.userAnswer}</Text></View>
+                        {(question.userAnswer===null) && (
+                            <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}> {question.key} is {question.trueAnswer===true? 'deficient' : 'not deficient'}.</Text>
+                        )}
+          
                         <View>
                         <View style={{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
                         {(clickedQuestions.includes(index))? (

@@ -296,7 +296,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row', 
         alignItems: 'center', 
         backgroundColor: "#221f20", 
-        height: 45, 
+        height: 55, 
         borderTopWidth: 5, 
         borderBottomWidth: 3, 
         borderColor: "#ffcc01",

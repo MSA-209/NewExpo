@@ -54,9 +54,10 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
     };
     return (
       <View>
-        <View style={{marginTop: isPhone? 30 : 40}}>
-            <View style={{top: isPhone? 6 : 7, width: isPhone? 340 : 580, height: isPhone? 250 : 420, overflow: 'hidden', alignSelf: 'center', borderRadius: 10, borderWidth: 1, borderColor: theme.colors.primary,
-             justifyContent: 'center'}}>
+        <View style={{marginTop: isPhone? 30 : 40, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{top: isPhone? 6 : 7, width: isPhone? 340 : 580, height: isPhone? 250 : 420,
+             overflow: 'hidden', alignSelf: 'center', borderRadius: 10, borderWidth: 1, borderColor: theme.colors.primary,
+             justifyContent: 'center', alignItems: 'center'}}>
               <Video 
               ref={videoRef}
               source={videoSource}
