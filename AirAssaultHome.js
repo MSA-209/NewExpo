@@ -453,7 +453,7 @@ React.useEffect(() => {
 export function Phase2Screen({ navigation, route }) {
   const theme = useTheme();
   const screen = route.name
-  //strapi implementation, uncomment when have actual hosting
+  //strapi implementation, uncomment when have actual hosting and comment out code below 
   /*
   const [testdata, settestData] = React.useState([])
   const [testCards, setTestCards] = React.useState([])

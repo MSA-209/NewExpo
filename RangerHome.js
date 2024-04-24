@@ -23,6 +23,7 @@ import * as firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from "axios"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_5_RK8ebZPrHAErXJS9oPWoXTSvVCVxc",
@@ -120,6 +121,44 @@ function Flashcard({ flashcard }) {
 export function RangerScreen({ navigation, route }) {
   const theme = useTheme();
   const screen = route.name
+    //strapi implementation
+const [data, setData] = React.useState([])
+const [purposeScope, setPurposeScope] = React.useState("")
+const [courseScope, setCourseScope] = React.useState("")
+const [noteScope, setNoteScope] = React.useState("")
+React.useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log(process.env.REACT_APP_API_URL + "ranger-programs")
+      const res = await axios.get(
+        "https://airdbnew.onrender.com/api/ranger-programs" ,
+      {
+        headers: {
+          Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9",
+      }
+    }
+    )
+    setData(res.data.data)
+  } catch (err) {
+    console.log(err);
+  }
+  }
+  fetchData();
+  console.log(data)
+}, []);
+React.useEffect(() => {
+  if (data.length > 0) {
+    if (data[0].attributes) {
+      setPurposeScope(data[0].attributes.purpose)
+      setCourseScope(data[0].attributes.courseScope)
+      setNoteScope(data[0].attributes.note)
+    } else {
+      console.log("No attributes");
+    }
+  } else {
+    console.log("Data is empty");
+  }
+}, [data]);
   return(
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={{marginTop: -10, marginBottom: 8}}>
@@ -157,6 +196,7 @@ export function RangerScreen({ navigation, route }) {
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
                 To train, assess, and select Ranger Candidates in order to send the most capable, 
                 qualified, and prepared Screaming Eagle Soldiers to the U.S. Army’s premier leadership school.
+                {/*purposeScope*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -170,6 +210,7 @@ export function RangerScreen({ navigation, route }) {
                 including Ambushes, Reconnaissance operations, Formations and Movement techniques,  and Troop 
                 Leading Procedures. At the conclusion of the course, Candidates will be better prepared to 
                 represent the Division at the U.S. Army Ranger school.
+                {/*courseScope*/}
               </Text>
               <View style={{alignSelf: 'flex-start'}}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginBottom: 10}}>NOTE:</Text>
@@ -178,6 +219,7 @@ export function RangerScreen({ navigation, route }) {
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
                 Packets for entrance must consist of a digitally filled FC 4137 and a complete phase 1 physical 
                 dated within 120 days of course start date along with a dental memorandum. 
+                {/*noteScope*/}
               </Text>
             </Card.Content>
           </Card>

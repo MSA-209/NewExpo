@@ -23,6 +23,7 @@ import * as firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from "axios"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_5_RK8ebZPrHAErXJS9oPWoXTSvVCVxc",
@@ -205,7 +206,7 @@ export function PathfinderScreen({ navigation, route }) {
                 (Computed Air Release Point, Ground Marker Release System, and Verbally Initiated 
                 Release System), dealing with U.S. military fixed and rotary wing aircraft for 
                 personnel and equipment.
-                {/}
+                {/*{pathfinderPurpose}*/}
               </Text>
               <View style={{alignSelf: 'flex-start'}}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginBottom: 10}}>NOTE:</Text>
@@ -218,6 +219,7 @@ export function PathfinderScreen({ navigation, route }) {
                 It is recommended to only study the Sling Load Deficiency list on page 66-67 and the
                 Nomenclature's.  Do not study anything in the handbook for HLZ's or DZ's as this will
                 confuse you. Wait for the block of instruction from the PFDR cadre!
+                {/*{pathfinderNote}*/}
               </Text>
             </Card.Content>
             <TouchableRipple
