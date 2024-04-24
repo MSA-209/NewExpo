@@ -13,7 +13,25 @@ import ModelComp from './ModelComp.js';
 const screenDimension = Dimensions.get("screen");
 const isPhone = screenDimension.width < 800;
 
- const deficientImages = [
+const showingDeficient = [{id: 'PlacardWrench' , image : require(''), string :'The Placard should read hand tight, not something else like wrench tight.' },
+{id :'Bag' , image : require(''), string :'Twisted strap, loose excess, misrouted strap, lacing over straps, lacing has wrong knot,and excess not secured.' },
+{id :'NutMissing' , image : require(''), string :'Castellated NUt, Missing.' },
+{id :'InvertedNut' , image : require(''), string :'Castellated Nut, Inverted.' },
+{id :'ChainClevisTape' , image : require(''), string :'Tape, Missing.' },
+{id :'PlacardWeight' , image : require(''), string :'The Placard should not have an incorrect weight' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' },
+{id :'' , image : require(''), string :'' }]
+
+const deficientImages = [
                        {key: 'Apex' , image: [[require('./assets/Apex/Deficient/DeficientApex_CotterPin/Top.png')],
                 [require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Center_Top_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Right_Top_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Back_Top_Angle.png') ],
 [require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Back_Angle.png'),require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Left_Angle.png') ,require('./assets/Apex/Deficient/DeficientApex_CotterPin/Center.png') ,
