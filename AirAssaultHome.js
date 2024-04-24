@@ -153,10 +153,14 @@ function Flashcard({ flashcard }) {
 export function AirAssaultScreen({ navigation, route }) {
   //strapi implementation
 const [data, setData] = React.useState([])
+//variables that are changed by Strapi
 const [courseScope, setCourseScope] = React.useState("")
 const [purpose, setPurpose] = React.useState("")
 const [insertTimes, setInsertTimes] = React.useState("")
+
+
 const [videoArray, setVideoArray] = React.useState("")
+//strapi implementation below, change url for updated strapi hosting source, authorization "bearer" + "api token from Strapi"
 React.useEffect(() => {
   const fetchData = async () => {
     try {
@@ -169,21 +173,16 @@ React.useEffect(() => {
         }
       }
     )
-    console.log(res.data)
-    console.log(res.data.data)
     setData(res.data.data)
   } catch (err) {
     console.log(err);
    }
   }
-  console.log(data)
-  
 fetchData();
 }, []);
 React.useEffect(() => {
   if (data.length > 0) {
     if (data[0].attributes) {
-      console.log(data[0].attributes.courseScope)
       setCourseScope(data[0].attributes.courseScope)
       setPurpose(data[0].attributes.purpose)
       setInsertTimes(data[0].attributes.insertTimes)
@@ -273,10 +272,11 @@ React.useEffect(() => {
               </View>
 
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
-                {/*To train Soldiers in Air Assault operations, sling-load operations, and rappelling. Upon graduation of 
+                To train Soldiers in Air Assault operations, sling-load operations, and rappelling. Upon graduation of 
                 the course each Soldier will be able to perform skills required to make maximum 
-              use of helicopter assets in training and in combat to support their unit operations.*/}
-              {purpose}
+              use of helicopter assets in training and in combat to support their unit operations.
+              {/*purpose*/}
+              {/*uncomment these when using strapi*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -284,12 +284,12 @@ React.useEffect(() => {
                 <View style={styles.rectangle}></View>
               </View>
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
-                {/*Soldiers are trained on the missions performed by rotary wing aircraft, aircraft safety, 
+                Soldiers are trained on the missions performed by rotary wing aircraft, aircraft safety, 
                 aero-medical evacuation procedures, pathfinder operations, principles and techniques of 
                 combat assaults, rappelling techniques, and sling-load operations. The core POI 
                 requires minimum support assets and is adaptable to organic aviation elements. Both the 
-              core instruction and the additional instruction are conducted in a classroom/field environment.*/}
-              {courseScope}
+              core instruction and the additional instruction are conducted in a classroom/field environment.
+              {/*courseScope*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -297,12 +297,12 @@ React.useEffect(() => {
                 <View style={styles.rectangle}></View>
               </View>
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
-                {/*Day Zero - 0600{"\n"}{"\n"}
+                Day Zero - 0600{"\n"}{"\n"}
                 Phase One - Day One - 0800{"\n"}{"\n"}
                 Phase Two - Day Three - 0900{"\n"}{"\n"}
                 Phase Three - Day Six - 1400{"\n"}{"\n"}
-                12 mile Foot March - Day Nine - 1300*/}
-                {insertTimes}
+                12 mile Foot March - Day Nine - 1300*
+                {/*insertTimes*/}
               </Text>
             </Card.Content>
             <Divider bold={true}></Divider>
@@ -453,6 +453,7 @@ React.useEffect(() => {
 export function Phase2Screen({ navigation, route }) {
   const theme = useTheme();
   const screen = route.name
+  //strapi implementation, uncomment when have actual hosting
   /*
   const [testdata, settestData] = React.useState([])
   const [testCards, setTestCards] = React.useState([])
@@ -526,6 +527,7 @@ export function Phase2Screen({ navigation, route }) {
         ) : (
           flashcards.map((flashcard) => (
             <Flashcard key={flashcard.id} flashcard={flashcard} />
+                                          //do flashcard.attributes if using strapi 
           ))
         )}
       </View>
@@ -550,6 +552,7 @@ export function VideoScreen({ navigation, route }) {
   const [filteredData, setFilteredData] = React.useState(videoLinksUsed); //created filteredData for search filtering
 
 //Strapi Videos  
+// if not using strapi would have to have array that has the parameters shown in the below return url,title,etc
   React.useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -601,6 +604,7 @@ export function VideoScreen({ navigation, route }) {
   
     fetchVideos();
   }, []);  
+
   React.useEffect(() => {
     setFilteredData(videoLinksUsed);
   }, [videoLinksUsed]);  
