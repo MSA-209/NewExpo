@@ -118,6 +118,45 @@ function Flashcard({ flashcard }) {
 }
 
 export function PathfinderScreen({ navigation, route }) {
+
+   //strapi implementation
+   const [data, setData] = React.useState([])
+   const [pathfinderPurpose, setPathfinderPurpose] = React.useState("")
+   const [pathfinderNote, setpathFinderNote] = React.useState("")
+   React.useEffect(() => {
+     const fetchData = async () => {
+       try {
+         console.log(process.env.REACT_APP_API_URL + "pathfinder-programs")
+         const res = await axios.get(
+           "https://airdbnew.onrender.com/api/pathfinder-programs" ,
+         {
+           headers: {
+             //api key
+             Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9",
+           }
+         }
+       )
+       setData(res.data.data)
+     } catch (err) {
+       console.log(err);
+      }
+     }
+     fetchData();
+     console.log(data)
+   }, []);
+   React.useEffect(() => {
+     if (data.length > 0) {
+       if (data[0].attributes) {
+         setPathfinderPurpose(data[0].attributes.purpose)
+         setpathFinderNote(data[0].attributes.note)
+       } else {
+         console.log("No attributes");
+       }
+     } else {
+       console.log("Data is empty");
+     }
+   }, [data]);
+   
   const theme = useTheme();
   const screen = route.name
   return(
@@ -166,6 +205,7 @@ export function PathfinderScreen({ navigation, route }) {
                 (Computed Air Release Point, Ground Marker Release System, and Verbally Initiated 
                 Release System), dealing with U.S. military fixed and rotary wing aircraft for 
                 personnel and equipment.
+                {/}
               </Text>
               <View style={{alignSelf: 'flex-start'}}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginBottom: 10}}>NOTE:</Text>

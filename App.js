@@ -604,6 +604,52 @@ return (
 function About({ navigation, route }) {
   const theme = useTheme();
   const screen = route.name
+
+  //strapi implementation,
+  const [data, setData] = React.useState([])
+  const [phone, setPhone] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [location, setLocation] = React.useState("")
+  const [hoursOfOperation, sethoursOfOperation] = React.useState("")
+  const [graduationTime, setgraduationTime] = React.useState("")
+  const [note, setNote] = React.useState("")
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log(process.env.REACT_APP_API_URL + "course-informations")
+        const res = await axios.get(
+          "https://airdbnew.onrender.com/api/abouts" ,
+        {
+          //api key
+          headers: {
+            Authorization: "bearer " + "2f30ba70854a898c7ec8c7e9bec66d3a7365c62feeea4d12e540c6cacebc3f169b1db46cc6b2b7b9367e5a60bfdd8488c4866cb97f0dc80ac7356caafe17d927397d26b52669a2bf3be2160346eed23a6f3043b08749e7fffa0ed3f0dd3e6c35bdaa42a756258cd95a864b4136f295c02ed9e4a4aff8b0128118e53cc44085b9",
+          }
+        }
+      )
+      setData(res.data.data)
+    } catch (err) {
+      console.log(err);
+     }
+    }
+    fetchData();
+  }, []);
+  React.useEffect(() => {
+    if (data.length > 0) {
+      if (data[0].attributes) {
+        console.log(data[0])
+        setPhone(data[0].attributes.phone)
+        setEmail(data[0].attributes.email)
+        setLocation(data[0].attributes.location)
+        sethoursOfOperation(data[0].attributes.hoursOfOperation)
+        setgraduationTime(data[0].attributes.graduationTime)
+        setNote(data[0].attributes.note)
+      } else {
+        console.log("No attributes");
+      }
+    } else {
+      console.log("Data is empty");
+    }
+  }, [data]);
   return(
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={{marginTop: 0}}>
@@ -638,6 +684,7 @@ function About({ navigation, route }) {
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
                 TSAAS: (270) 798-4410 {"\n"}
                 Pre Ranger: (270) 412-1111
+                {/*phone*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -646,6 +693,7 @@ function About({ navigation, route }) {
               </View>
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
                 usarmy.campbell.101-abn-div.mbx.air-assault-school@army.mil
+                {/*email*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -655,6 +703,7 @@ function About({ navigation, route }) {
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
                 6883 Air Assault St. {"\n"}
                 Fort Campbell, KY 42223
+                {/*location*/}
               </Text>
               <View style={{alignSelf: 'flex-start'}}>
                 <Text style={{ fontSize: 17, marginTop: 10, marginBottom: 10}}>Hours of Operation:</Text>
@@ -667,6 +716,7 @@ function About({ navigation, route }) {
                 Pathfinder Day One - 8:00 a.m. {"\n"}{"\n"}
                 Pre-Ranger Day Zero - 9:00 a.m. {"\n"}{"\n"}
                 Rappel Master Day One - 8:30 a.m. 
+                {/*hoursOfOperation*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -676,6 +726,7 @@ function About({ navigation, route }) {
               <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 10}}>
               Air Assault - 11 a.m.{"\n"}
               Pathfinder - 11 a.m.
+              {/*graduationTime*/}
               </Text>
               <Divider></Divider>
               <View style={{alignSelf: 'flex-start'}}>
@@ -690,6 +741,7 @@ function About({ navigation, route }) {
                 ATRRS slotting – any course reservations made outside of TSAAS Operations are invalid and 
                 will be cancelled. Service Members attempting to “walk-on” to any course are NOT 
                 guaranteed a slot in the course.
+                {/*note*/}
               </Text>
               <Divider></Divider>
             </Card.Content>
@@ -887,19 +939,6 @@ function FeedbackScreen({ navigation, route }) {
     </View>
     <View style={{height: isPhone? 0 : 20}}></View>
       <View style={[styles.schoolSelector]}>
-        {/* <Text style={styles.pickerText}>Select a school to give feedback to</Text> */}
-        {/* <Picker style={styles.picker}
-          onValueChange={handleSchoolChange}
-        
-          value={school}>
-          <Picker.Item label="Select school for feedback" value="" />
-          <View style={styles.separator} />
-          <Picker.Item label="Air Assault School" value="Air Assault School" />
-          <View style={styles.separator} />
-          <Picker.Item label="Pathfinder School" value="Pathfinder School" />
-          <View style={styles.separator} />
-          <Picker.Item label="Ranger School" value="Ranger School" />
-        </Picker> */}
         <TextInput
           style={[styles.titleBox]}
           placeholder="Please enter title!"
