@@ -890,7 +890,7 @@ export function EndQuizScreen({ navigation, route}) {
             <View>
         {question.trueAnswer===false &&(
         <View>
-        <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>There is no defificent!.</Text>
+        <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>There is no deficient!.</Text>
     </View>
         )}
         </View>
