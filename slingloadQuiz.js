@@ -799,6 +799,8 @@ export function EndQuizScreen({ navigation, route}) {
         const scorePercentage = Math.round((deficienciesCorrect / deficienciesTotal) * 100);
         setQuizScores([...quizScores, scorePercentage]);
     }, [deficienciesCorrect, deficienciesTotal]);
+
+    // const deficientItem = showingDeficient.find(item => item.id === deficientItemId);
     return (
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}> 
             <View style={{marginTop: -9, marginBottom: 8, backgroundColor: 'rgba(0, 0, 0, 0.7)'}}>
@@ -854,32 +856,52 @@ export function EndQuizScreen({ navigation, route}) {
                             <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>You're right! {question.key} is {question.trueAnswer===true? 'deficient' : 'not deficient'}</Text>
                         )}
                         {/* Case: getting no answer from user */}
-                        <View><Text>{question.userAnswer}</Text></View>
+                        {/* <View><Text>{question.userAnswer}</Text></View>
                         {(question.userAnswer===null) && (
                             <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}> {question.key} is {question.trueAnswer===true? 'deficient' : 'not deficient'}.</Text>
-                        )}
+                        )} */}
           
                         <View>
-                        <View style={{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                        {(clickedQuestions.includes(index))? (
-                            <View style={{flexDirection: 'row', marginTop: isPhone? 15 : 30, marginBottom: isPhone? 15 : 30}}>
-                                <View style={{width: isPhone? 30 : 190}}></View>
-                                <View style={{width: isPhone? 250 : 420, height: isPhone? 250 : 420, alignSelf: 'center', 
-                                backgroundColor: '#a8a7a2', borderRadius: 10, justifyContent: 'center'}}>
-                                    <Image source={question.image[0][0]}
-                                    resizeMode="contain"
+        <View style={{alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
+        {(clickedQuestions.includes(index))&& (
+                            <View>
+        {/* <Image source={question.image[0][0]} */}
+        {showingDeficient.find(item => item.id === question.id) && (
+            <View>
+                <View style={{flexDirection: 'row', marginTop: isPhone? 15 : 30, marginBottom: isPhone? 15 : 30}}>
+                    <View style={{width: isPhone? 30 : 190}}></View>
+                        <View style={{width: isPhone? 250 : 420, height: isPhone? 250 : 420, alignSelf: 'center', 
+                            backgroundColor: '#a8a7a2', borderRadius: 10, justifyContent: 'center'}}>
+                                <Image source={showingDeficient.find(item => item.id === question.id).image}
+                                // Example usage:
+                                resizeMode="contain"
                                 style={{maxWidth: isPhone? 280 : 350, maxHeight: isPhone? 280 : 350, alignSelf: 'center'}}/>
-                                    </View>
-                                <View style={{width: isPhone? 30 : 190}}>
-                                </View>
-                                
-                            </View>
-                        ) : null}
-                        <View style={{width: 300}}></View>
                         </View>
+                    <View style={{width: isPhone? 30 : 190}}>
+                </View>
+                </View>
+
+                <View><Text style={{fontSize: isPhone? 16 : 18, color: '#ffffff', marginLeft: isPhone? 10 : 30, marginBottom: isPhone? 10 : 30}}>Problems: {showingDeficient.find(item => item.id === question.id).string}</Text></View>
+                
+            </View>
+        )}
+        </View>
+        )}
+        {(clickedQuestions.includes(index))&& (
+            <View>
+        {question.trueAnswer===false &&(
+        <View>
+        <Text style={{fontSize: isPhone? 16 : 18, color:'#E8E2D9', marginLeft: 15, marginTop: isPhone? 5 : 5, flexWrap: 'wrap', maxWidth: isPhone? 300 : 700}}>There is no defificent!.</Text>
+    </View>
+        )}
+        </View>
+        )}
+
+        <View style={{width: 300}}></View>
+        </View>
                     </View>
                     </View>
-                    </TouchableOpacity>
+        </TouchableOpacity>
                 </View>
                 ))}
             </View>            
@@ -893,7 +915,7 @@ export function EndQuizScreen({ navigation, route}) {
     </ScrollView>
     );
 }
-
+  
 export function QuizScoresScreen({ navigation, route }) {
     const { quizScores } = React.useContext(QuizScoresContext);
     // Sample data
