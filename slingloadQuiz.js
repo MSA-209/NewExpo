@@ -808,7 +808,6 @@ export function EndQuizScreen({ navigation, route}) {
                     <View style={{alignSelf: 'center', display: 'flex', flex: 1}}>
                         <Text style={{alignSelf: 'center', color:"#FFFFFF", fontSize: 20}} variant='headlineLarge'>End Screen Stat</Text>
                 </View>
-                <SlingloadDropdown style={{zIndex: 300, position: 'absolute'}}/>
 
                 </View>
             <View style={[styles.endQuizR1, {marginTop: isPhone? 20 : 30, flexDirection: 'row', marginLeft: isPhone? 40 : 0, alignItems: 'center', width: isPhone? 400 : 1100, alignSelf: 'center'}]}>
