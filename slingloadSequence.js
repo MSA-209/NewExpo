@@ -126,14 +126,17 @@ export function SlingloadSequence({navigation, itemName, inspectionSteps, videoN
         <ModelComp imageArray = {itemName}/>
       </View>
       <View>
-      <View style={{display: isPhone? 'flex' : 'none', alignSelf: 'flex-end', right: 65, position: 'absolute', top: 200}}>
           <TouchableOpacity onPress={() => navigation.navigate(videoName)}>
-            <View style={{width: 40, height: 40, borderRadius: 40, borderWidth: 3, borderColor: theme.colors.onBackground, justifyContent: 'center', alignItems: 'center'}}>
+            {/* <View style={{width: 40, height: 40, borderRadius: 40, borderWidth: 3, borderColor: theme.colors.onBackground, justifyContent: 'center', alignItems: 'center'}}>
             <FontAwesome name="video-camera" size={20} color={theme.colors.onBackground}/>
 
-            </View>
+            </View> */}
+            <View style={{display: isPhone? 'flex' : 'none', marginLeft: isPhone? 'auto' : 15, top: isPhone? 195 : 265,  left: isPhone? 323 : 'auto',
+        borderColor: theme.colors.onBackground, marginBottom: isPhone? 10 : 0, borderWidth: isPhone? 3 : 6, zIndex: 50,
+        height: isPhone? 40 : 85, width: isPhone? 40 : 85, borderRadius: isPhone? 40 : 85, position: 'absolute', justifyContent: 'center'}}>
+            <FontAwesome name="video-camera" size={20} color={theme.colors.onBackground} style={{alignSelf: 'center'}}/>
+            </View>   
           </TouchableOpacity>
-        </View>
     <View style={{flexDirection: 'row', marginTop: isPhone? 5 : 15, marginRight: isPhone? 5 : 0, position: 'absolute'}}>
         {extraTitle || extraInfo || extraPhoto ? (        
         <TouchableOpacity onPress={toggleBoxVisibility}>

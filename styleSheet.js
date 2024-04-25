@@ -296,7 +296,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row', 
         alignItems: 'center', 
         backgroundColor: "#221f20", 
-        height: 55, 
+        height: isPhone? 45 : 55, 
         borderTopWidth: 5, 
         borderBottomWidth: 3, 
         borderColor: "#ffcc01",
@@ -644,8 +644,8 @@ menuSection: {
     justifyContent: 'center', 
     // marginBottom: isPhone? 5 : -25,
     top: 0,
-    borderTopLeftRadius: isPhone? 15 : 0,
-    borderTopRightRadius: isPhone? 15 : 0,
+    // borderTopLeftRadius: isPhone? 15 : 0,
+    // borderTopRightRadius: isPhone? 15 : 0,
 
     
 },

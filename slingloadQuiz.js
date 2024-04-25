@@ -613,7 +613,7 @@ export function UntimedQuizScreen({ navigation, route }) {
                 paddingRight: 12, paddingLeft: 12, borderRadius: 10, position: 'absolute', alignSelf: isPhone? 'auto' : 'flex-end',
                 zIndex: 25,
                 right : 25, top : isPhone? -330 : 10}}>
-                <FontAwesome name="bars" size={isPhone? 24 : 40} color='#E8E2D9' />
+                <FontAwesome name="list-ul" size={isPhone? 24 : 40} color='#E8E2D9' />
             </View>
         </TouchableOpacity>
     </View>
