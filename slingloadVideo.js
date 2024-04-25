@@ -54,27 +54,29 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
     };
     return (
       <View>
-        <View style={{marginTop: isPhone? 30 : 40, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{top: isPhone? 6 : 7, width: isPhone? 340 : 580, height: isPhone? 250 : 420,
-             overflow: 'hidden', alignSelf: 'center', borderRadius: 10, borderWidth: 1, borderColor: theme.colors.primary,
+        <View style={{marginTop: isPhone? 80 : 40, width: isPhone? 340 : 800 , alignSelf: 'center',justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: theme.colors.primary, borderRadius: 10, overflow: 'hidden'}}>
+            <View style={{
+             overflow: 'hidden', alignSelf: 'center', 
              justifyContent: 'center', alignItems: 'center'}}>
               <Video 
               ref={videoRef}
               source={videoSource}
-              style={{width: isPhone? 445 : 800, height: isPhone? 400: 420, alignSelf: 'center'}}
+              style={{width: isPhone? 340 : 800, height: isPhone? 200: 420, alignSelf: 'center'}}
 
               useNativeControls
               resizeMode="contain"
               onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
             />   
             </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', width: isPhone? 340 : 580, 
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', width: isPhone? 340 : 800,
           height: isPhone? 40 : 50, backgroundColor: '#ffcc01', alignSelf: 'center', alignItems: 'center',
           borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
           <TouchableOpacity onPress={handleReplay}>
             <View style={{marginLeft: 20, flexDirection: 'row'}}>
-              <View>
-                <Text style={{color:'#000000', fontSize: 18}}>Replay</Text>
+              <View style={{flexDirection: 'row'}}>
+              <FontAwesome name="repeat" size={isPhone? 20 : 30} color='#000000'/>
+
+                <Text style={{color:'#000000', fontSize: 18, marginLeft: isPhone? 5 : 10}}>Replay</Text>
               </View>
               {/* <View>
               <FontAwesome name="undo" size={20} color={theme.colors.primary} />
@@ -82,8 +84,10 @@ export function SlingloadVideo({ navigation, videoName, sequenceName }) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleSkip}>
-            <View style={{marginRight: 20, justifyContent: 'center'}}>
-            <Text style={{color:'#000000', fontSize: 18}}>{skipText}</Text>
+            <View style={{marginRight: 20, justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{color:'#000000', fontSize: 18, marginRight: isPhone? 5 : 10}}>{skipText}</Text>
+            <FontAwesome name="forward" size={isPhone? 18 : 28} color='#000000'/>
+
             </View>
           </TouchableOpacity>
         </View>
