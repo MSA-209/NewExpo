@@ -14,6 +14,8 @@ To launch, simply clone the repository and launch using Expo.
 * then run command 'npm start' to run locally or 'npx expo start --tunnel' to run through qr code for other devices
 ## Troubleshooting
 * make sure you're in the right directory when running npm start
+## Known bugs and defects
+* If you go into quiz scores without entering a quiz an error shows up on expo app, but you can just remove it from your screen and continue using the app.
 # Release Notes Section
 ## Version 1.5.0
 ### Features
